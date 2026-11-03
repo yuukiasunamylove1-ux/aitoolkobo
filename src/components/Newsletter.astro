@@ -5,7 +5,7 @@ interface Props {
 const { id = "newsletter-email" } = Astro.props;
 ---
 
-<section class="panel card" aria-labelledby="newsletter-heading">
+<section class="newsletter-block" aria-labelledby="newsletter-heading">
   <h2 id="newsletter-heading">新着をメールで受け取る</h2>
   <!-- TODO: aitoolkobo.com を Resend で検証したら double opt-in の確認メールを送る。今は連絡先の保存だけ。 -->
   <form class="newsletter newsletter-form" action="/api/subscribe" method="post">
@@ -23,7 +23,7 @@ const { id = "newsletter-email" } = Astro.props;
         取り扱いは<a href="/privacy/">プライバシーポリシー</a>に記載しています。
       </span>
     </div>
-    <button class="button" type="submit">登録する</button>
+    <button type="submit">登録する</button>
   </form>
 </section>
 

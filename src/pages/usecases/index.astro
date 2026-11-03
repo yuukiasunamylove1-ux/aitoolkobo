@@ -1,6 +1,6 @@
 ---
 import Base from "../../layouts/Base.astro";
-import { THEMES, absoluteUrl } from "../../lib/labels";
+import { absoluteUrl } from "../../lib/labels";
 import { usecases } from "../../lib/queries";
 import { pageGraph } from "../../lib/seo";
 
@@ -16,19 +16,18 @@ const jsonLd = pageGraph({
 ---
 
 <Base title="用途別おすすめ" description={description} jsonLd={jsonLd}>
-  <section class="page-intro">
-    <div class="wrap">
-      <h1>用途別おすすめ</h1>
+  <div class="page">
+    <div class="wrap measure">
+      <h1>用途別</h1>
       <p class="lede">{description}</p>
-      <div class="grid-2">
-        {items.map((item) => (
-          <article class={`card theme-card theme-${item.data.theme}`}>
-            <p class="kicker">{THEMES[item.data.theme].name}</p>
-            <h2><a class="title" href={`/usecases/${item.id}/`}>{item.data.title}</a></h2>
-            <p>{item.data.description}</p>
-          </article>
+      <ol class="guide-list">
+        {items.map((item, index) => (
+          <li>
+            <a href={`/usecases/${item.id}/`}>{index + 1}. {item.data.title}</a>
+            <p class="note">{item.data.description}</p>
+          </li>
         ))}
-      </div>
+      </ol>
     </div>
-  </section>
+  </div>
 </Base>

@@ -1,0 +1,23 @@
+---
+import { existsSync } from "node:fs";
+import { join } from "node:path";
+
+interface Props {
+  slug: string;
+  name: string;
+  size?: 20 | 32 | 48;
+}
+const { slug, name, size = 20 } = Astro.props;
+const png = join(process.cwd(), "public", "logos", `${slug}.png`);
+const ico = join(process.cwd(), "public", "logos", `${slug}.ico`);
+const src = existsSync(png) ? `/logos/${slug}.png` : existsSync(ico) ? `/logos/${slug}.ico` : null;
+const letter = name.trim().charAt(0).toUpperCase();
+---
+
+{
+  src ? (
+    <img class="logo" src={src} width={size} height={size} alt="" style={`--logo:${size}px`} />
+  ) : (
+    <span class="monogram" style={`--logo:${size}px`} aria-hidden="true">{letter}</span>
+  )
+}

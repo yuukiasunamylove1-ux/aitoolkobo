@@ -1,11 +1,10 @@
 ---
 import Base from "../../layouts/Base.astro";
-import { formatScore } from "../../lib/score";
 import { absoluteUrl } from "../../lib/labels";
 import { categoriesByTheme } from "../../lib/queries";
 import { pageGraph } from "../../lib/seo";
 
-const description = "バイブコーディング、AIゲーム制作、AIエージェントのカテゴリ一覧です。各カテゴリは公開したスコア順です。";
+const description = "バイブコーディング、AIゲーム制作、AIエージェントのカテゴリです。各カテゴリは公開したスコア順です。";
 const site = Astro.site!;
 const groups = await categoriesByTheme();
 const jsonLd = pageGraph({
@@ -17,36 +16,23 @@ const jsonLd = pageGraph({
 ---
 
 <Base title="カテゴリ" description={description} jsonLd={jsonLd}>
-  <section class="page-intro">
+  <div class="page">
     <div class="wrap">
-      <h1>カテゴリとランキング</h1>
-      <p class="lede">
-        三つの棚の下にカテゴリがあります。順位は<a href="/scoring/">評価基準</a>の式で計算し、同点は名前の五十音順です。
-      </p>
+      <h1>カテゴリ</h1>
+      {groups.map((group) => (
+        <section id={group.id} aria-labelledby={`theme-${group.id}`}>
+          <h2 id={`theme-${group.id}`}>{group.name}</h2>
+          <ul class="guide-list">
+            {group.categories.map(({ category, count, top }) => (
+              <li>
+                <a href={`/categories/${category.id}/`}>{category.data.name}</a>
+                <span class="note"> {count}件{top ? ` · 1位 ${top.tool.data.name}` : ""}</span>
+                <p class="note">{category.data.description}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
     </div>
-  </section>
-  {groups.map((group) => (
-    <section class="section" id={group.id} aria-labelledby={`theme-${group.id}`}>
-      <div class="wrap">
-        <h2 id={`theme-${group.id}`}>{group.name}</h2>
-        <p>{group.lead}</p>
-        <div class="grid-2">
-          {group.categories.map(({ category, count, top }) => (
-            <article class={`card theme-card theme-${group.id}`}>
-              <h3><a href={`/categories/${category.id}/`}>{category.data.name}</a></h3>
-              <p>{category.data.description}</p>
-              <ul class="meta">
-                <li>{count}件</li>
-                {top && (
-                  <li>
-                    1位 {top.tool.data.name} · {formatScore(top.score.total)}
-                  </li>
-                )}
-              </ul>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  ))}
+  </div>
 </Base>

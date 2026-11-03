@@ -1,28 +1,55 @@
 ---
+import { categoriesByTheme } from "../lib/queries";
+
 const path = Astro.url.pathname;
-const links = [
-  { href: "/categories/", label: "カテゴリ" },
-  { href: "/usecases/", label: "用途別" },
-  { href: "/new/", label: "新着" },
-  { href: "/scoring/", label: "評価基準" },
-];
+const q = Astro.url.searchParams.get("q") ?? "";
+const groups = await categoriesByTheme();
 
 function current(href: string) {
   if (href === "/") return path === "/" ? "page" : undefined;
   return path === href || path.startsWith(href) ? "page" : undefined;
 }
+
+const links = [
+  { href: "/usecases/", label: "用途別" },
+  { href: "/new/", label: "新着" },
+  { href: "/scoring/", label: "評価基準" },
+];
 ---
 
 <header class="site-header">
-  <div class="wrap header-inner">
+  <div class="bar">
     <a class="brand" href="/" aria-current={current("/")}>
-      <span class="stamp" aria-hidden="true">工</span>
-      <span>AIツール工房<small>aitoolkobo</small></span>
+      <img src="/favicon.svg" width="20" height="20" alt="" />
+      AIツール工房
     </a>
     <nav class="nav" aria-label="主要">
+      <details class="cat-menu">
+        <summary>カテゴリ</summary>
+        <div class="cat-panel">
+          {groups.map((group) => (
+            <section>
+              <h2>{group.name}</h2>
+              {group.categories.map(({ category }) => (
+                <a href={`/categories/${category.id}/`}>{category.data.name}</a>
+              ))}
+            </section>
+          ))}
+        </div>
+      </details>
       {links.map((link) => (
         <a href={link.href} aria-current={current(link.href)}>{link.label}</a>
       ))}
     </nav>
+    <form class="search" action="/search/" method="get" role="search">
+      <label class="visually-hidden" for="site-search">ツールを検索</label>
+      <input id="site-search" name="q" type="search" placeholder="ツールを検索" value={q} />
+    </form>
   </div>
+  <nav class="subnav" aria-label="テーマ">
+    {groups.map((group) => {
+      const count = group.categories.reduce((sum, item) => sum + item.count, 0);
+      return <a href={`/categories/#${group.id}`}>{group.name} ({count})</a>;
+    })}
+  </nav>
 </header>

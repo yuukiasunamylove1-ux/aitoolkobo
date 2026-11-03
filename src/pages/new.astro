@@ -1,7 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
-import RankRow from "../components/RankRow.astro";
-import { absoluteUrl } from "../lib/labels";
+import ToolRow from "../components/ToolRow.astro";
+import { absoluteUrl, formatDate } from "../lib/labels";
 import { newestTools } from "../lib/queries";
 import { pageGraph } from "../lib/seo";
 
@@ -32,20 +32,15 @@ const jsonLd = [
 ---
 
 <Base title="新着AIツール" description={description} jsonLd={jsonLd}>
-  <section class="page-intro">
+  <div class="page">
     <div class="wrap">
-      <h1>新着AIツール</h1>
-      <p class="lede">{description}</p>
-      <p><a href="/rss.xml">RSSで購読する</a></p>
-      <div class="rank-list">
+      <h1>新着</h1>
+      <p class="lede">{description} <a href="/rss.xml">RSS</a></p>
+      <ol class="tool-list">
         {tools.map((row) => (
-          <RankRow
-            row={row}
-            marker={row.tool.data.addedAt.slice(5)}
-            markerNote="追加"
-          />
+          <ToolRow row={row} showCategory blurb={formatDate(row.tool.data.addedAt)} />
         ))}
-      </div>
+      </ol>
     </div>
-  </section>
+  </div>
 </Base>

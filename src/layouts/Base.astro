@@ -31,7 +31,7 @@ const serialized = graphs.map((graph) => JSON.stringify(graph).replace(/</g, "\\
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="ja" href={canonical} />
-    <meta name="theme-color" content="#f3efe4" />
+    <meta name="theme-color" content="#ffffff" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="alternate" type="application/rss+xml" title="AIツール工房 新着" href={absoluteUrl("/rss.xml", site)} />
     <meta property="og:type" content="website" />
@@ -45,12 +45,6 @@ const serialized = graphs.map((graph) => JSON.stringify(graph).replace(/</g, "\\
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={image} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
     {serialized.map((json) => <script type="application/ld+json" set:html={json} />)}
   </head>
   <body>
