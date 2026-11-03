@@ -1,0 +1,47 @@
+{
+  "addedAt": "2026-11-03",
+  "name": "Mastra",
+  "url": "https://mastra.ai",
+  "category": "agent-frameworks",
+  "description": "TypeScript でエージェントとワークフローを書くフレームワークです。クラウドの月額は未確認です。",
+  "detail": "エージェント、ワークフロー、メモリを TypeScript のアプリに組み込みます。2026年の解説ではコアが Apache-2.0 で、enterprise 向けディレクトリは別ライセンス、とされています。条文とクラウド料金は当サイトでは未確認です。価格点は、コアを購読必須とせずに書き始められることに基づきます。円建ては未確認です。",
+  "platforms": [
+    "ライブラリ"
+  ],
+  "pricing": {
+    "tier": "free",
+    "currency": null,
+    "monthlyAmount": null,
+    "yenAmount": null,
+    "short": "コアは購読なし",
+    "label": "TypeScript のフレームワークとして書き始められます。クラウドの月額と、enterprise ディレクトリの条件は未確認です。価格点はコアに購読が必須でないことに基づきます。円建ては未確認です。",
+    "sourceUrl": "https://mastra.ai"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 4,
+      "note": "エージェントとワークフローを TypeScript で書けます。ノーコードの公開画面が主機能ではありません。"
+    },
+    "usability": {
+      "score": 3,
+      "note": "TypeScript のプロジェクトに足す形です。Node の開発経験を前提にしています。"
+    },
+    "updates": {
+      "score": 4,
+      "note": "2026年秋の公開資料が、直近1年以内の版番号に言及しています。更新回数は数えていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "Mastra",
+      "url": "https://mastra.ai"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

@@ -1,0 +1,47 @@
+{
+  "addedAt": "2026-10-25",
+  "name": "Leonardo.Ai",
+  "url": "https://leonardo.ai",
+  "category": "game-images",
+  "description": "画像と動画の生成、修正が一つのキャンバスにある、ゲームの絵の下書きにも使う生成サービスです。",
+  "detail": "複数の画像モデルと編集機能があります。Leonardo 自身の比較記事では、無料枠（1日150ファストトークン）のあと、Essential が月$12（年払いなら月あたり$10）、Premium が月$30、Ultimate が月$60 と書かれています。価格点は月払い Essential の $12 を使います。円建ては未確認です。",
+  "platforms": [
+    "ブラウザ"
+  ],
+  "pricing": {
+    "tier": "freemium",
+    "currency": "USD",
+    "monthlyAmount": 12,
+    "yenAmount": null,
+    "short": "Essential 月$12〜",
+    "label": "Leonardo の比較記事では、無料枠のあと Essential が月額請求で $12、年額請求なら月あたり $10。Premium は月$30、Ultimate は月$60。価格点は月$12を使います。円建ては未確認です。",
+    "sourceUrl": "https://leonardo.ai/news/midjourney-vs-leonardo-ai"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 4,
+      "note": "生成に加え、キャンバス上の修正や複数モデルを同じ場所で扱えます。"
+    },
+    "usability": {
+      "score": 4,
+      "note": "ブラウザで生成を始められます。トークンの減り方はモデル選択の説明が要ります。"
+    },
+    "updates": {
+      "score": 3,
+      "note": "公式の料金またはドキュメントが確認日時点で公開されています。リリース日そのものは追っていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "Leonardo の料金比較",
+      "url": "https://leonardo.ai/news/midjourney-vs-leonardo-ai"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

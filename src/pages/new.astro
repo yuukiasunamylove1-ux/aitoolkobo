@@ -1,0 +1,51 @@
+---
+import Base from "../layouts/Base.astro";
+import RankRow from "../components/RankRow.astro";
+import { absoluteUrl } from "../lib/labels";
+import { newestTools } from "../lib/queries";
+import { pageGraph } from "../lib/seo";
+
+const description = "ディレクトリへ新しく追加したAIツールです。日付は製品の発売日ではなく、このサイトへの追加日です。";
+const site = Astro.site!;
+const tools = await newestTools();
+const jsonLd = [
+  pageGraph({
+    site: site.href,
+    url: absoluteUrl("/new/", site),
+    name: "新着AIツール",
+    description,
+  }),
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "新着AIツール",
+    itemListOrder: "https://schema.org/ItemListOrderDescending",
+    numberOfItems: tools.length,
+    itemListElement: tools.map((row, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: row.tool.data.name,
+      url: absoluteUrl(`/tools/${row.tool.id}/`, site),
+    })),
+  },
+];
+---
+
+<Base title="新着AIツール" description={description} jsonLd={jsonLd}>
+  <section class="page-intro">
+    <div class="wrap">
+      <h1>新着AIツール</h1>
+      <p class="lede">{description}</p>
+      <p><a href="/rss.xml">RSSで購読する</a></p>
+      <div class="rank-list">
+        {tools.map((row) => (
+          <RankRow
+            row={row}
+            marker={row.tool.data.addedAt.slice(5)}
+            markerNote="追加"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

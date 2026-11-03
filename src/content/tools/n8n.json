@@ -1,0 +1,48 @@
+{
+  "addedAt": "2026-10-31",
+  "name": "n8n",
+  "url": "https://n8n.io",
+  "category": "automation",
+  "description": "サービス連携のフローを自分で置き、その中に AI ノードを挟める自動化ツールです。",
+  "detail": "Community 版は自社利用にライセンス料がありません。ベンダーはこれをオープンソースとは呼んでいません（Sustainable Use License）。クラウドの Starter は年払いで月€20、という2026年10月19日の再取得記事があります。当サイトは確認日に料金表の数字を直接取り直していないため、クラウド月額は価格点に使っていません。円建ては未確認です。",
+  "platforms": [
+    "セルフホスト",
+    "クラウド"
+  ],
+  "pricing": {
+    "tier": "free",
+    "currency": null,
+    "monthlyAmount": null,
+    "yenAmount": null,
+    "short": "自社利用はライセンス料なし",
+    "label": "Community 版の自社利用にライセンス料はありません。オープンソースとは公式が区別しています。クラウドの月額は未確認扱いです。価格点は自社利用版に基づきます。円建ては未確認です。",
+    "sourceUrl": "https://n8n.io"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 5,
+      "note": "多数のサービス連携と AI ノードを、一つのフローでつなげます。"
+    },
+    "usability": {
+      "score": 4,
+      "note": "ノードを積む画面で流れを作れます。セルフホストはサーバーの準備が要ります。"
+    },
+    "updates": {
+      "score": 4,
+      "note": "2026年秋の公開資料が、直近1年以内の版番号に言及しています。更新回数は数えていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "n8n",
+      "url": "https://n8n.io"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

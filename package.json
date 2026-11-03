@@ -1,0 +1,29 @@
+{
+  "name": "aitoolkobo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "日本語で選ぶ、つくる人のためのAIツールディレクトリ",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "validate": "tsx scripts/validate-content.ts",
+    "check:links": "tsx scripts/check-links.ts",
+    "ci": "npm run validate && npm run build && npm run check:links"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.12",
+    "@astrojs/sitemap": "^3.6.0",
+    "astro": "^5.15.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "yaml": "^2.9.1"
+  }
+}

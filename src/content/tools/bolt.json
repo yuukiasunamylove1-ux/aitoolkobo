@@ -1,0 +1,47 @@
+{
+  "addedAt": "2026-10-23",
+  "name": "Bolt",
+  "url": "https://bolt.new",
+  "category": "ai-app-builders",
+  "description": "ブラウザの中で Web アプリを生成し、その場で動かす StackBlitz のビルダーです。",
+  "detail": "インストールなしでプロジェクトを生成します。公式料金ページでは Free が月100万トークン・1日30万トークン、Pro が月$25からで月1000万トークン、と案内しています。価格点は Pro の月$25を使います。円建ては未確認です。",
+  "platforms": [
+    "ブラウザ"
+  ],
+  "pricing": {
+    "tier": "freemium",
+    "currency": "USD",
+    "monthlyAmount": 25,
+    "yenAmount": null,
+    "short": "Pro 月$25〜",
+    "label": "公式料金ページでは Free が $0（月100万トークン、1日30万まで）、Pro が月$25から（月1000万トークン）。Teams は月$30/メンバー。価格点は Pro の月$25を使います。円建ては未確認です。",
+    "sourceUrl": "https://bolt.new/pricing"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 4,
+      "note": "生成、プレビュー、コードの確認がブラウザ内で完結します。ネイティブゲームの制作ツールではありません。"
+    },
+    "usability": {
+      "score": 5,
+      "note": "ブラウザだけで開始でき、環境構築の説明がほぼ要りません。"
+    },
+    "updates": {
+      "score": 3,
+      "note": "公式の料金またはドキュメントが確認日時点で公開されています。リリース日そのものは追っていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "Bolt pricing",
+      "url": "https://bolt.new/pricing"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

@@ -1,0 +1,47 @@
+{
+  "addedAt": "2026-10-24",
+  "name": "v0",
+  "url": "https://v0.app",
+  "category": "ai-app-builders",
+  "description": "Vercel の AI アプリビルダーで、画面生成と Vercel へのデプロイ、GitHub 連携があります。",
+  "detail": "プロンプトから UI とアプリを作ります。公式料金ページでは Free が $0 で1日7メッセージ、Plus がユーザーあたり月$30です。価格点は Plus の月$30を使います。クレジットの消費はモデルごとに違います。円建ては未確認です。",
+  "platforms": [
+    "ブラウザ"
+  ],
+  "pricing": {
+    "tier": "freemium",
+    "currency": "USD",
+    "monthlyAmount": 30,
+    "yenAmount": null,
+    "short": "Plus 月$30〜",
+    "label": "公式料金ページでは Free が月$0（1日7メッセージ）、Plus がユーザーあたり月$30、Business がユーザーあたり月$100。価格点は Plus の月$30を使います。円建ては未確認です。",
+    "sourceUrl": "https://v0.app/pricing"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 4,
+      "note": "画面生成とデプロイに強いビルダーです。ゲーム用の素材制作や3Dは範囲外です。"
+    },
+    "usability": {
+      "score": 4,
+      "note": "文章から画面を出す操作は短いです。クレジットとモデルの関係は一度料金表を見る必要があります。"
+    },
+    "updates": {
+      "score": 3,
+      "note": "公式の料金またはドキュメントが確認日時点で公開されています。リリース日そのものは追っていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "v0 pricing",
+      "url": "https://v0.app/pricing"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

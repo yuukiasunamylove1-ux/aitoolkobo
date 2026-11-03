@@ -1,0 +1,40 @@
+---
+import { formatScore, type ScoreBreakdown } from "../lib/score";
+
+interface Props {
+  score: ScoreBreakdown;
+}
+const { score } = Astro.props;
+const format = (value: number) => value.toFixed(1);
+---
+
+<div class="panel card">
+  <h2>スコア {formatScore(score.total)}</h2>
+  <p class="fine">
+    100点満点。未確認の項目（合計 {score.excludedWeight}%）は外し、残りの重みを100%に割り戻しています。式は<a href="/scoring/">評価基準</a>と同じです。寄与の表示は小数第1位で、合計は丸める前の値です。
+  </p>
+  <div class="table-scroll">
+  <table>
+    <thead>
+      <tr>
+        <th>項目</th>
+        <th>素点</th>
+        <th>設定の重み</th>
+        <th>有効な重み</th>
+        <th>寄与</th>
+      </tr>
+    </thead>
+    <tbody>
+      {score.rows.map((row) => (
+        <tr>
+          <th scope="row">{row.label}</th>
+          <td class="nums">{row.raw == null ? "未確認" : `${row.raw} / 5`}</td>
+          <td class="nums">{row.weight}%</td>
+          <td class="nums">{row.included ? `${format(row.effectiveWeight)}%` : "—"}</td>
+          <td class="nums">{row.included ? format(row.contribution) : "—"}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  </div>
+</div>

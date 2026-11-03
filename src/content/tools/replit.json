@@ -1,0 +1,47 @@
+{
+  "addedAt": "2026-10-24",
+  "name": "Replit",
+  "url": "https://replit.com",
+  "category": "ai-app-builders",
+  "description": "ブラウザの開発環境に Agent が付いた、アプリを作って公開するまでの一体型のサービスです。",
+  "detail": "Starter は無料です。公式料金では Core が月$20（年払いは月あたり$18）、Pro が月$100（年払いは月あたり$90）です。Agent の高機能モードはクレジットを消費します。価格点は月払い Core の $20 を使います。円建ては未確認です。",
+  "platforms": [
+    "ブラウザ"
+  ],
+  "pricing": {
+    "tier": "freemium",
+    "currency": "USD",
+    "monthlyAmount": 20,
+    "yenAmount": null,
+    "short": "Core 月$20〜",
+    "label": "公式料金ページでは Core が月$20、年払いだと月あたり$18。Pro は月$100、年払いだと月あたり$90。Starter は無料です。価格点は月払い Core の $20 を使います。円建ては未確認です。",
+    "sourceUrl": "https://replit.com/pricing"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 5,
+      "note": "エディタ、エージェント、ホスティングが同じアカウントにあります。"
+    },
+    "usability": {
+      "score": 4,
+      "note": "ブラウザで始められます。Agent の無料モードと有料モードの違いは料金の説明が要ります。"
+    },
+    "updates": {
+      "score": 3,
+      "note": "公式の料金またはドキュメントが確認日時点で公開されています。リリース日そのものは追っていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "Replit pricing",
+      "url": "https://replit.com/pricing"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

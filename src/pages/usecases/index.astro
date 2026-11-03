@@ -1,0 +1,34 @@
+---
+import Base from "../../layouts/Base.astro";
+import { THEMES, absoluteUrl } from "../../lib/labels";
+import { usecases } from "../../lib/queries";
+import { pageGraph } from "../../lib/seo";
+
+const description = "やりたいことからツールを選ぶページです。並びはスコア順ではなく、用途への適合として編集部が並べています。";
+const site = Astro.site!;
+const items = await usecases();
+const jsonLd = pageGraph({
+  site: site.href,
+  url: absoluteUrl("/usecases/", site),
+  name: "用途別おすすめ",
+  description,
+});
+---
+
+<Base title="用途別おすすめ" description={description} jsonLd={jsonLd}>
+  <section class="page-intro">
+    <div class="wrap">
+      <h1>用途別おすすめ</h1>
+      <p class="lede">{description}</p>
+      <div class="grid-2">
+        {items.map((item) => (
+          <article class={`card theme-card theme-${item.data.theme}`}>
+            <p class="kicker">{THEMES[item.data.theme].name}</p>
+            <h2><a class="title" href={`/usecases/${item.id}/`}>{item.data.title}</a></h2>
+            <p>{item.data.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,47 @@
+{
+  "addedAt": "2026-10-22",
+  "name": "Cline",
+  "url": "https://github.com/cline/cline",
+  "category": "ai-coding-agents",
+  "description": "VS Code 上で動く、ソースが公開されたコーディングエージェントです。購読料はなく、モデル料金は別です。",
+  "detail": "エディタの中でファイルを読み、コマンドを提案しながら変更します。ソフト自体の月額はなく、使うモデルの API キーを自分で用意します。チーム向け有料席の金額は未確認です。価格点は、個人がソフトの購読なしで使えることに基づきます。円建ては未確認です。",
+  "platforms": [
+    "VS Code拡張"
+  ],
+  "pricing": {
+    "tier": "free",
+    "currency": null,
+    "monthlyAmount": null,
+    "yenAmount": null,
+    "short": "ソフトは購読なし",
+    "label": "拡張機能に購読料はありません。モデルの API 料金は利用者が別途払います。チームプランの席料は未確認です。価格点はソフトの購読が不要なことに基づき、API従量は含みません。円建ては未確認です。",
+    "sourceUrl": "https://github.com/cline/cline"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 4,
+      "note": "ワークスペースを読んだエージェント編集が中心です。エディタ本体は別の VS Code を使います。"
+    },
+    "usability": {
+      "score": 4,
+      "note": "VS Code を使っていれば導入場所は分かります。APIキーの用意は利用者側です。"
+    },
+    "updates": {
+      "score": null,
+      "note": "確認日時点で、直近の公式リリース日を特定できていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "cline/cline",
+      "url": "https://github.com/cline/cline"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

@@ -1,0 +1,47 @@
+{
+  "addedAt": "2026-10-27",
+  "name": "Tripo",
+  "url": "https://www.tripo3d.ai",
+  "category": "game-3d",
+  "description": "画像から3Dモデルを作る生成サービスで、無料枠は非商用、有料で商用と料金ページにあります。",
+  "detail": "公式料金では Free が月200クレジットで公開・非商用です。Pro は年払いで月あたり$20（年$240）と表示されています。月払いの単価は同じページで確定できなかったため、価格点には使っていません。円建ては未確認です。",
+  "platforms": [
+    "ブラウザ"
+  ],
+  "pricing": {
+    "tier": "freemium",
+    "currency": null,
+    "monthlyAmount": null,
+    "yenAmount": null,
+    "short": "月額単価は未確認",
+    "label": "公式料金ページでは Free が月200クレジット（公開・非商用）。Pro は年払いで月あたり$20（年$240）と表示されています。月払いの定価を確定していないため、価格点は未確認です。円建ても未確認です。",
+    "sourceUrl": "https://www.tripo3d.ai/pricing"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 4,
+      "note": "画像からメッシュを作る本流の機能があります。アニメーション一式を含むとは料金の範囲では断定しません。"
+    },
+    "usability": {
+      "score": 4,
+      "note": "ブラウザでモデルを出し、エンジン向けのブリッジが料金表に挙がっています。"
+    },
+    "updates": {
+      "score": 3,
+      "note": "公式の料金またはドキュメントが確認日時点で公開されています。リリース日そのものは追っていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "Tripo pricing",
+      "url": "https://www.tripo3d.ai/pricing"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

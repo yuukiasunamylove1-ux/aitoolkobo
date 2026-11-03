@@ -1,0 +1,47 @@
+{
+  "addedAt": "2026-10-23",
+  "name": "Lovable",
+  "url": "https://lovable.dev",
+  "category": "ai-app-builders",
+  "description": "会話から Web アプリを組み立て、公開までをブラウザで進めるアプリビルダーです。",
+  "detail": "チャットで画面と機能を足していきます。公式ドキュメントでは Free に1日5ビルドクレジット（月30まで）などがあり、Pro は月100クレジットで月$25から、と料金表にあります。価格点は月払い Pro の入口 $25 を使います。円建ては未確認です。",
+  "platforms": [
+    "ブラウザ"
+  ],
+  "pricing": {
+    "tier": "freemium",
+    "currency": "USD",
+    "monthlyAmount": 25,
+    "yenAmount": null,
+    "short": "Pro 月$25〜",
+    "label": "公式ドキュメントの Pro は、月100クレジットが月$25（年払いは年$250）。Free は1日5ビルドクレジットで月30まで、など。価格点は月$25の入口を使います。円建ては未確認です。",
+    "sourceUrl": "https://docs.lovable.dev/introduction/subscription-plans"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 4,
+      "note": "画面、バックエンド、公開を一つのビルダーで進められます。大規模な既存リポジトリの改修は主目的ではありません。"
+    },
+    "usability": {
+      "score": 5,
+      "note": "アカウントを作って文章で指示するところから始められ、その日のうちに画面が出ます。"
+    },
+    "updates": {
+      "score": 3,
+      "note": "公式の料金またはドキュメントが確認日時点で公開されています。リリース日そのものは追っていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "Subscription plans",
+      "url": "https://docs.lovable.dev/introduction/subscription-plans"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

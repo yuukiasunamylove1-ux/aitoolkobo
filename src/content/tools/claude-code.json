@@ -1,0 +1,52 @@
+{
+  "addedAt": "2026-10-21",
+  "name": "Claude Code",
+  "url": "https://claude.com/product/claude-code",
+  "category": "ai-coding-agents",
+  "description": "ターミナルや対応IDEから、リポジトリの変更を任せる Anthropic のコーディングエージェントです。",
+  "detail": "Claude の有料プランに含まれます。公式料金では Pro が月$20（年払いは年$200で月あたり$17）、Max が月$100、Ultra が月$200です。Free プランには Claude Code がありません。API の従量でも使えます。価格点は月払い Pro の $20 を使っています。円建ては未確認です。",
+  "platforms": [
+    "CLI",
+    "デスクトップ"
+  ],
+  "pricing": {
+    "tier": "subscription",
+    "currency": "USD",
+    "monthlyAmount": 20,
+    "yenAmount": null,
+    "short": "Pro 月$20〜",
+    "label": "Claude Code は Pro（月$20）、Max（月$100）、Ultra（月$200）に含まれ、Free には含まれません。年払いの Pro は年$200です。価格点は月払いの Pro を使います。API利用は別料金です。円建ては未確認です。",
+    "sourceUrl": "https://claude.com/pricing"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 5,
+      "note": "ターミナルから複数ファイルの変更を任せられ、コーディングエージェントとして一通りの仕事ができます。"
+    },
+    "usability": {
+      "score": 3,
+      "note": "ターミナルとリポジトリの概念が要ります。画面だけのビルダーより初回の段差があります。"
+    },
+    "updates": {
+      "score": 3,
+      "note": "公式の料金またはドキュメントが確認日時点で公開されています。リリース日そのものは追っていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "Claude Code",
+      "url": "https://claude.com/product/claude-code"
+    },
+    {
+      "label": "Plans & pricing",
+      "url": "https://claude.com/pricing"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

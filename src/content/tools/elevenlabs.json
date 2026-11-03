@@ -1,0 +1,47 @@
+{
+  "addedAt": "2026-10-29",
+  "name": "ElevenLabs",
+  "url": "https://elevenlabs.io",
+  "category": "game-voice",
+  "description": "文章から声を合成するサービスです。料金と、日本語の入出力の品質は未確認です。",
+  "detail": "ナレーションやキャラクターボイスの候補を作る音声合成として掲載しています。確認日に公式料金表の月額と無料枠を確定していないため、価格点は付けていません。日本語音声の品質も未確認です。円建ては未確認です。",
+  "platforms": [
+    "ブラウザ"
+  ],
+  "pricing": {
+    "tier": "unknown",
+    "currency": null,
+    "monthlyAmount": null,
+    "yenAmount": null,
+    "short": "料金は未確認",
+    "label": "公式の月額、無料枠、円建ては未確認です。価格点は付けていません。",
+    "sourceUrl": "https://elevenlabs.io"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 4,
+      "note": "読み上げ音声の生成サービスとして、ゲームの仮ナレーションに使われる種類の道具です。"
+    },
+    "usability": {
+      "score": 4,
+      "note": "文章を入れて音声を聞く流れは短いです。アカウントと料金の段差は未確認です。"
+    },
+    "updates": {
+      "score": null,
+      "note": "確認日時点で、直近の公式リリース日を特定できていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "ElevenLabs",
+      "url": "https://elevenlabs.io"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

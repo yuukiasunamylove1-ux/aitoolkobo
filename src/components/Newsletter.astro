@@ -1,0 +1,18 @@
+---
+interface Props {
+  id?: string;
+}
+const { id = "newsletter-email" } = Astro.props;
+---
+
+<section class="panel card" aria-labelledby="newsletter-heading">
+  <h2 id="newsletter-heading">新着をメールで受け取る</h2>
+  <p class="todo">
+    TODO: 配信サービスは未接続です。このフォームは画面だけで、入力しても送信されません。有料の配信サービスは使っていません。
+  </p>
+  <form class="newsletter" action="" method="post">
+    <label for={id}>メールアドレス</label>
+    <input id={id} name="email" type="email" autocomplete="email" placeholder="you@example.com" />
+    <button class="button" type="button">登録する（未接続）</button>
+  </form>
+</section>

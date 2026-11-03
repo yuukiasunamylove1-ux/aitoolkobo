@@ -1,0 +1,65 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
+import RankRow from "../../components/RankRow.astro";
+import { THEMES, absoluteUrl } from "../../lib/labels";
+import { toolsInCategory } from "../../lib/queries";
+import { pageGraph } from "../../lib/seo";
+
+export async function getStaticPaths() {
+  const categories = await getCollection("categories");
+  return categories.map((category) => ({ params: { slug: category.id } }));
+}
+
+const { slug } = Astro.params;
+const categories = await getCollection("categories");
+const category = categories.find((item) => item.id === slug);
+if (!category) throw new Error(`unknown category ${slug}`);
+
+const rows = await toolsInCategory(category.id);
+const theme = THEMES[category.data.theme];
+const description = `${category.data.name}のランキング。${category.data.description}`;
+const site = Astro.site!;
+const url = absoluteUrl(`/categories/${category.id}/`, site);
+
+const jsonLd = [
+  pageGraph({ site: site.href, url, name: category.data.name, description, type: "CollectionPage" }),
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `${category.data.name}のランキング`,
+    itemListOrder: "https://schema.org/ItemListOrderDescending",
+    numberOfItems: rows.length,
+    itemListElement: rows.map((row, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: row.tool.data.name,
+      url: absoluteUrl(`/tools/${row.tool.id}/`, site),
+    })),
+  },
+];
+---
+
+<Base title={category.data.name} description={description} jsonLd={jsonLd}>
+  <section class="page-intro">
+    <div class="wrap">
+      <Breadcrumb
+        items={[
+          { name: "ホーム", href: "/" },
+          { name: "カテゴリ", href: "/categories/" },
+          { name: category.data.name, href: `/categories/${category.id}/` },
+        ]}
+      />
+      <p class="kicker">{theme.name}</p>
+      <h1>{category.data.name}</h1>
+      <p class="lede">{category.data.description}</p>
+      <p class="callout">
+        順位は公開した式の得点です。日本語対応や月額を確認できない項目は配点から外し、残りの重みで100点に割り戻します。仕事の違うカテゴリとは比べていません。
+      </p>
+      <div class="rank-list">
+        {rows.map((row, index) => <RankRow row={row} rank={index + 1} />)}
+      </div>
+    </div>
+  </section>
+</Base>

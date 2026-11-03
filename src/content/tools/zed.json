@@ -1,0 +1,47 @@
+{
+  "addedAt": "2026-10-21",
+  "name": "Zed",
+  "url": "https://zed.dev",
+  "category": "ai-code-editors",
+  "description": "動作の軽さを売りにしたコードエディタで、エディタ本体は無料、ソースも公開されています。",
+  "detail": "複数人での編集や AI アシスタント機能を備えたエディタです。本体を使うための購読は確認範囲では見当たりません。組み込み AI の有料プランの金額は未確認なので、価格点は「エディタ本体にライセンス料がない」ことに基づきます。円建ては未確認です。",
+  "platforms": [
+    "デスクトップ"
+  ],
+  "pricing": {
+    "tier": "free",
+    "currency": null,
+    "monthlyAmount": null,
+    "yenAmount": null,
+    "short": "エディタは無料",
+    "label": "エディタ本体は無料で、ソースが公開されています。ホスト型AIの月額は未確認です。価格点は本体のライセンス料がないことに基づき、AIの従量は含みません。円建ては未確認です。",
+    "sourceUrl": "https://zed.dev"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 3,
+      "note": "エディタとしての完成度が中心で、エージェント一式をこれだけで完結する前提にはしていません。"
+    },
+    "usability": {
+      "score": 3,
+      "note": "高速なエディタを好む開発者向けです。初見の概念は少なめですが、AIの設定は別途です。"
+    },
+    "updates": {
+      "score": null,
+      "note": "確認日時点で、直近の公式リリース日を特定できていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "Zed",
+      "url": "https://zed.dev"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

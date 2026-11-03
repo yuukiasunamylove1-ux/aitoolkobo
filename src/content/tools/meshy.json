@@ -1,0 +1,47 @@
+{
+  "addedAt": "2026-10-26",
+  "name": "Meshy",
+  "url": "https://www.meshy.ai",
+  "category": "game-3d",
+  "description": "画像や文章から3Dモデルを作り、ゲームエンジン向けの書き出しを案内している生成サービスです。",
+  "detail": "公式料金ページでは Free が月100クレジット、Pro が月$20で月1,000クレジット、と読めます。アニメーションや DCC ブリッジ（Unity、Unreal、Godot など）の記載もあります。価格点は Pro の月$20を使います。円建ては未確認です。",
+  "platforms": [
+    "ブラウザ"
+  ],
+  "pricing": {
+    "tier": "freemium",
+    "currency": "USD",
+    "monthlyAmount": 20,
+    "yenAmount": null,
+    "short": "Pro 月$20〜",
+    "label": "公式料金ページでは Free が月100クレジット、Pro が月$20で月1,000クレジット。より上の段もあります。価格点は Pro の月$20を使います。円建ては未確認です。",
+    "sourceUrl": "https://www.meshy.ai/pricing"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 5,
+      "note": "モデル生成に加え、料金ページがアニメーションと主要DCCへのブリッジを挙げています。"
+    },
+    "usability": {
+      "score": 4,
+      "note": "ブラウザから生成を始められます。ゲームに入れるリトポとテクスチャの確認は別作業です。"
+    },
+    "updates": {
+      "score": 3,
+      "note": "公式の料金またはドキュメントが確認日時点で公開されています。リリース日そのものは追っていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "Meshy pricing",
+      "url": "https://www.meshy.ai/pricing"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

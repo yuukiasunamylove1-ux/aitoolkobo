@@ -1,0 +1,47 @@
+{
+  "addedAt": "2026-10-29",
+  "name": "CoeFont",
+  "url": "https://coefont.cloud",
+  "category": "game-voice",
+  "description": "日本語の AI 音声を作るサービスです。料金と、画面内の対応範囲の内訳は未確認です。",
+  "detail": "日本語話者向けの音声合成として掲載しています。確認日に公式の月額と無料枠の数値を確定していないため、価格点は付けていません。UI・入力・出力の三点も、画面を突き合わせていないため未確認です。円建ては未確認です。",
+  "platforms": [
+    "ブラウザ"
+  ],
+  "pricing": {
+    "tier": "unknown",
+    "currency": null,
+    "monthlyAmount": null,
+    "yenAmount": null,
+    "short": "料金は未確認",
+    "label": "公式の月額と円建ては未確認です。価格点は付けていません。",
+    "sourceUrl": "https://coefont.cloud"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 3,
+      "note": "日本語音声の生成サービスです。ゲーム用の書き出し形式の網羅は未確認です。"
+    },
+    "usability": {
+      "score": 4,
+      "note": "ブラウザの音声サービスとして、文章から試聴する操作が中心です。"
+    },
+    "updates": {
+      "score": null,
+      "note": "確認日時点で、直近の公式リリース日を特定できていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "CoeFont",
+      "url": "https://coefont.cloud"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

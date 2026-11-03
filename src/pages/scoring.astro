@@ -1,0 +1,213 @@
+---
+import Base from "../layouts/Base.astro";
+import { absoluteUrl } from "../lib/labels";
+import {
+  CRITERIA,
+  PRICE_BANDS,
+  WEIGHTS,
+  formatScore,
+  scoreFromRaws,
+} from "../lib/score";
+import { pageGraph } from "../lib/seo";
+
+const description =
+  "AIツール工房の採点式です。機能、日本語対応、価格、使いやすさ、更新頻度の重みと、未確認の項目を配点から外すルールを公開しています。";
+const site = Astro.site!;
+const example = scoreFromRaws({
+  features: 5,
+  japanese: null,
+  price: 4,
+  usability: 4,
+  updates: 3,
+});
+
+const faqs = [
+  {
+    q: "スコアはユーザーの星評価ですか？",
+    a: "いいえ。利用者が付けた平均点ではありません。機能・使いやすさ・更新頻度は編集部の1〜5、日本語と価格は下の式でデータから計算します。",
+  },
+  {
+    q: "未確認は何点ですか？",
+    a: "0点にも3点にもしません。その項目の重みを外し、残った項目の重みが合計100%になるように割り戻します。",
+  },
+  {
+    q: "円建てが無くても価格点は付きますか？",
+    a: "公式の月額（米ドルまたはユーロ）が確認できれば、その通貨の帯で価格点を付けます。円への換算はしません。月額自体が未確認なら価格点も未確認です。",
+  },
+  {
+    q: "同じカテゴリ以外と比べますか？",
+    a: "ランキングはカテゴリの中だけです。トップページのテーマ別スコアは、その棚の中の最高点を示す参考値です。",
+  },
+];
+
+const jsonLd = [
+  pageGraph({
+    site: site.href,
+    url: absoluteUrl("/scoring/", site),
+    name: "評価基準",
+    description,
+  }),
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: { "@type": "Answer", text: faq.a },
+    })),
+  },
+];
+
+const weightSum = Object.values(WEIGHTS).reduce((sum, value) => sum + value, 0);
+---
+
+<Base title="評価基準" description={description} jsonLd={jsonLd}>
+  <article class="page-intro">
+    <div class="wrap prose">
+      <h1>評価基準</h1>
+      <p class="lede">
+        カテゴリ内の順位は、次の式だけで決まります。編集部の感想を、式と別に加算することはありません。
+      </p>
+
+      <h2>式</h2>
+      <p>
+        各項目は5点満点です。確認できた項目だけを使い、重みを合計100%に割り戻します。
+      </p>
+      <p class="panel card">
+        得点 = Σ（素点 ÷ 5 × 有効な重み%）<br />
+        有効な重み% = その項目の設定重み ÷ 確認できた項目の重み合計 × 100
+      </p>
+      <p>表示は小数第1位です（小数第2位を四捨五入）。設定重みの合計は {weightSum}% です。</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>項目</th>
+            <th>設定の重み</th>
+            <th>見ていること</th>
+          </tr>
+        </thead>
+        <tbody>
+          {CRITERIA.map((item) => (
+            <tr>
+              <th scope="row">{item.label}</th>
+              <td class="nums">{WEIGHTS[item.key]}%</td>
+              <td>{item.question}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <h2>機能・使いやすさ・更新頻度</h2>
+      <p>この三つは編集部の定性評価で、データファイルの editorial に1〜5とメモを残します。</p>
+      <h3>機能</h3>
+      <ol>
+        <li>5: そのカテゴリの仕事をほぼ単独で完結できる</li>
+        <li>4: 主要な仕事はできる。穴は小さい</li>
+        <li>3: 中心機能はある。実用には他の道具や手作業が要る</li>
+        <li>2: 狭い作業向き</li>
+        <li>1: 試用や学習が中心で、制作の主軸にはしにくい</li>
+      </ol>
+      <h3>使いやすさ</h3>
+      <ol>
+        <li>5: 専門用語が少なく、その日のうちに成果物が出る</li>
+        <li>4: 開発者なら説明を少し読めば使える</li>
+        <li>3: CLIや概念の学習が要る</li>
+        <li>2: セットアップや英語の資料が前提で、初回の手間が大きい</li>
+        <li>1: 運用設計が前提で、触って終わりにはしにくい</li>
+      </ol>
+      <h3>更新頻度</h3>
+      <ol>
+        <li>5: 確認日から90日以内の公式リリース、または更新告知を確認した</li>
+        <li>4: 確認日から1年以内の公式更新を確認した</li>
+        <li>3: 公式サイトは公開中で廃止告知はない。直近の更新日までは追っていない</li>
+        <li>2: 更新が滞っている兆候がある</li>
+        <li>1: 開発終了やアーカイブが告知されている</li>
+      </ol>
+      <p>リリース日を確認していないツールは、3に丸めず null（未確認）にします。</p>
+
+      <h2>日本語対応</h2>
+      <p>
+        UI、日本語入力、日本語出力を、それぞれ「対応 / 一部対応 / 非対応 / 未確認」で記録します。三つとも確認できたときだけ、次の対応表で1〜5にします。ひとつでも未確認なら、日本語の重み {WEIGHTS.japanese}% は配点から外します。
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>対応=2、一部対応=1、非対応=0 の合計</th>
+            <th>素点</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>6（3つとも対応）</td><td>5</td></tr>
+          <tr><td>5（対応2つと一部対応1つ）</td><td>4</td></tr>
+          <tr><td>4</td><td>4</td></tr>
+          <tr><td>3</td><td>3</td></tr>
+          <tr><td>2</td><td>2</td></tr>
+          <tr><td>1</td><td>2</td></tr>
+          <tr><td>0（3つとも非対応）</td><td>1</td></tr>
+        </tbody>
+      </table>
+      <p class="fine">
+        入力や出力が、利用者が選ぶモデル次第のビルダーは、品質を推定せず未確認にします。未確認が一つでもあれば、この表は使いません。
+      </p>
+
+      <h2>価格</h2>
+      <p>
+        個人が払う入口の、月払い表示価格で帯を決めます。年額の割引月額は使いません。ユーロはドルと同じ数字の帯で、円へもドルへも換算しません。公式の円建てがあるときだけ JPY の帯を使います。
+      </p>
+      <ul>
+        <li>ライセンス料なし、またはオープンソースで購読が不要: 5。モデルのAPI従量は別で、この5点には含めません。</li>
+        <li>無料枠があり、月額が低帯以下: 5。中帯以下: 4。高帯以下: 3。それ以上: 2。</li>
+        <li>無料枠がなく、月額が低帯以下: 4。中帯以下: 3。高帯以下: 2。それ以上: 1。</li>
+        <li>料金区分が不明、または月額の数値が未確認: 価格点は未確認。</li>
+      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>通貨</th>
+            <th>低帯まで</th>
+            <th>中帯まで</th>
+            <th>高帯まで</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">USD（月）</th>
+            <td>${PRICE_BANDS.USD.low}</td>
+            <td>${PRICE_BANDS.USD.mid}</td>
+            <td>${PRICE_BANDS.USD.high}</td>
+          </tr>
+          <tr>
+            <th scope="row">EUR（月・換算しない）</th>
+            <td>€{PRICE_BANDS.EUR.low}</td>
+            <td>€{PRICE_BANDS.EUR.mid}</td>
+            <td>€{PRICE_BANDS.EUR.high}</td>
+          </tr>
+          <tr>
+            <th scope="row">JPY（公式の円建て）</th>
+            <td>¥{PRICE_BANDS.JPY.low.toLocaleString("ja-JP")}</td>
+            <td>¥{PRICE_BANDS.JPY.mid.toLocaleString("ja-JP")}</td>
+            <td>¥{PRICE_BANDS.JPY.high.toLocaleString("ja-JP")}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>計算例</h2>
+      <p>
+        架空の例です。機能5、日本語は未確認、価格4、使いやすさ4、更新3。日本語の {WEIGHTS.japanese}% を外すと、残りの重みは {100 - WEIGHTS.japanese}% です。
+      </p>
+      <p>
+        得点 = （5×{WEIGHTS.features} + 4×{WEIGHTS.price} + 4×{WEIGHTS.usability} + 3×{WEIGHTS.updates}） ÷ {100 - WEIGHTS.japanese} ÷ 5 × 100 = <strong>{formatScore(example.total)}</strong>
+      </p>
+      <p>実在のツールは、各ページの内訳表がこの式の結果です。</p>
+
+      <h2>よくある質問</h2>
+      {faqs.map((faq) => (
+        <section>
+          <h3>{faq.q}</h3>
+          <p>{faq.a}</p>
+        </section>
+      ))}
+    </div>
+  </article>
+</Base>
