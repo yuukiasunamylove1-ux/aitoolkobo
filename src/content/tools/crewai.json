@@ -46,5 +46,15 @@
   "lastChecked": "2026-11-04",
   "commercialUse": "unknown",
   "commercialNote": "公式ページで商用条件を確認できていません。",
-  "checks": []
+  "checks": [
+    {
+      "field": "ui",
+      "kind": "tested",
+      "sourceUrl": "https://github.com/crewAIInc/crewAI/tree/main/lib/crewai/src/crewai/translations",
+      "command": null,
+      "method": "repo locale file",
+      "value": "unsupported",
+      "checkedAt": "2026-11-04"
+    }
+  ]
 }

@@ -53,27 +53,56 @@
   "checks": [
     {
       "field": "ui",
+      "kind": "official",
       "sourceUrl": "https://voicevox.hiroshiba.jp/",
+      "command": null,
+      "method": null,
+      "value": null,
       "checkedAt": "2026-11-04"
     },
     {
       "field": "input",
+      "kind": "official",
       "sourceUrl": "https://voicevox.hiroshiba.jp/",
+      "command": null,
+      "method": null,
+      "value": null,
       "checkedAt": "2026-11-04"
     },
     {
       "field": "output",
+      "kind": "official",
       "sourceUrl": "https://voicevox.hiroshiba.jp/",
+      "command": null,
+      "method": null,
+      "value": null,
       "checkedAt": "2026-11-04"
     },
     {
       "field": "pricing",
+      "kind": "official",
       "sourceUrl": "https://voicevox.hiroshiba.jp/",
+      "command": null,
+      "method": null,
+      "value": null,
       "checkedAt": "2026-11-04"
     },
     {
       "field": "commercial",
+      "kind": "official",
       "sourceUrl": "https://voicevox.hiroshiba.jp/term/",
+      "command": null,
+      "method": null,
+      "value": null,
+      "checkedAt": "2026-11-04"
+    },
+    {
+      "field": "ui",
+      "kind": "tested",
+      "sourceUrl": "https://github.com/VOICEVOX/voicevox/blob/main/src/components/Talk/menuBarData.ts",
+      "command": null,
+      "method": "repo source strings",
+      "value": "supported",
       "checkedAt": "2026-11-04"
     }
   ]

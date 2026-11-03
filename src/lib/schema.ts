@@ -5,6 +5,7 @@ export const supportLevels = ["supported", "partial", "unsupported", "unknown"] 
 export const priceTiers = ["free", "freemium", "subscription", "open-source", "unknown"] as const;
 export const commercialUses = ["allowed", "restricted", "not-allowed", "unknown"] as const;
 export const checkFields = ["ui", "input", "output", "pricing", "commercial"] as const;
+export const evidenceKinds = ["official", "tested"] as const;
 
 const dateString = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "YYYY-MM-DD");
 
@@ -58,12 +59,16 @@ export const toolSchema = z
         z
           .object({
             field: z.enum(checkFields),
-            sourceUrl: z.string().url(),
+            kind: z.enum(evidenceKinds),
+            sourceUrl: z.string().url().nullable(),
+            command: z.string().min(4).max(300).nullable(),
+            method: z.string().min(4).max(160).nullable(),
+            value: z.enum(supportLevels).nullable(),
             checkedAt: dateString,
           })
           .strict(),
       )
-      .max(8),
+      .max(12),
     sources: z
       .array(
         z
@@ -104,46 +109,80 @@ export const toolSchema = z
         message: "addedAt は lastChecked 以前にしてください。",
       });
     }
-    const needs: Array<(typeof checkFields)[number]> = [];
-    if (data.japanese.ui !== "unknown") needs.push("ui");
-    if (data.japanese.input !== "unknown") needs.push("input");
-    if (data.japanese.output !== "unknown") needs.push("output");
-    if (data.commercialUse !== "unknown") needs.push("commercial");
+    const officialNeeds: Array<(typeof checkFields)[number]> = [];
+    if (data.japanese.ui !== "unknown") officialNeeds.push("ui");
+    if (data.japanese.input !== "unknown") officialNeeds.push("input");
+    if (data.japanese.output !== "unknown") officialNeeds.push("output");
+    if (data.commercialUse !== "unknown") officialNeeds.push("commercial");
     if (
       data.pricing.tier !== "unknown" ||
       data.pricing.monthlyAmount != null ||
       data.pricing.yenAmount != null
     ) {
-      needs.push("pricing");
+      officialNeeds.push("pricing");
     }
-    for (const field of needs) {
-      if (!data.checks.some((check) => check.field === field)) {
+    for (const field of officialNeeds) {
+      if (!data.checks.some((check) => check.kind === "official" && check.field === field)) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           path: ["checks"],
-          message: `${field} を未確認以外にするときは、出典と確認日が必要です。`,
+          message: `${field} の公式値には、公式の出典と確認日が必要です。`,
         });
       }
     }
     for (const check of data.checks) {
-      const unknown =
-        (check.field === "ui" && data.japanese.ui === "unknown") ||
-        (check.field === "input" && data.japanese.input === "unknown") ||
-        (check.field === "output" && data.japanese.output === "unknown") ||
-        (check.field === "commercial" && data.commercialUse === "unknown");
-      if (unknown) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          path: ["checks"],
-          message: `${check.field} が未確認なのに出典が付いています。`,
-        });
-      }
       if (check.checkedAt > data.lastChecked) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           path: ["checks"],
           message: "checks.checkedAt は lastChecked 以前にしてください。",
         });
+      }
+      if (check.kind === "official") {
+        if (!check.sourceUrl) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            path: ["checks"],
+            message: "公式の出典には sourceUrl が必要です。",
+          });
+        }
+        const contradicts =
+          (check.field === "ui" && data.japanese.ui === "unknown") ||
+          (check.field === "input" && data.japanese.input === "unknown") ||
+          (check.field === "output" && data.japanese.output === "unknown") ||
+          (check.field === "commercial" && data.commercialUse === "unknown");
+        if (contradicts) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            path: ["checks"],
+            message: `${check.field} の公式値は未確認なのに公式の出典が付いています。`,
+          });
+        }
+      }
+      if (check.kind === "tested") {
+        if (!check.method) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            path: ["checks"],
+            message: "実測には method が必要です。",
+          });
+        }
+        if (!check.sourceUrl && !check.command) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            path: ["checks"],
+            message: "実測には sourceUrl か command が必要です。",
+          });
+        }
+        if (check.field === "ui" || check.field === "input" || check.field === "output") {
+          if (!check.value || check.value === "unknown") {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              path: ["checks"],
+              message: "日本語の実測値は unknown にできません。",
+            });
+          }
+        }
       }
     }
   });

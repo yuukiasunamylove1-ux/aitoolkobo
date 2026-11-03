@@ -49,12 +49,20 @@
   "checks": [
     {
       "field": "pricing",
+      "kind": "official",
       "sourceUrl": "https://www.tripo3d.ai/pricing",
+      "command": null,
+      "method": null,
+      "value": null,
       "checkedAt": "2026-11-04"
     },
     {
       "field": "commercial",
+      "kind": "official",
       "sourceUrl": "https://www.tripo3d.ai/pricing",
+      "command": null,
+      "method": null,
+      "value": null,
       "checkedAt": "2026-11-04"
     }
   ]

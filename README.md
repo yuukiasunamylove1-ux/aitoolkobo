@@ -136,7 +136,7 @@ public/                   favicon、OGP、`_routes.json`
 | `lastChecked` | 料金と日本語対応を確認した日 |
 | `commercialUse` | `allowed` / `restricted` / `not-allowed` / `unknown`。公式に商用条件が無いときは `unknown` |
 | `commercialNote` | その判断の一文 |
-| `checks` | 未確認以外にした項目（`ui` / `input` / `output` / `pricing` / `commercial`）ごとの `sourceUrl` と `checkedAt`。未確認の項目には付けない |
+| `checks` | 出典。`kind` は `official`（公式）か `tested`（実測）。実測は `method` と、`sourceUrl` か `command`、日本語項目なら `value` を持つ。公式の未確認には付けない |
 | `sources` | 参照リンクの配列 |
 
 `free` と `open-source` と `unknown` では `monthlyAmount` を `null` にしてください。価格点は tier から付きます。`open-source` は、リポジトリが寛容なライセンスだと確認できたときだけ使います。

@@ -47,5 +47,15 @@
   "lastChecked": "2026-11-04",
   "commercialUse": "unknown",
   "commercialNote": "公式ページで商用条件を確認できていません。",
-  "checks": []
+  "checks": [
+    {
+      "field": "ui",
+      "kind": "tested",
+      "sourceUrl": "https://github.com/langflow-ai/langflow/blob/main/src/frontend/src/constants/languages.ts",
+      "command": null,
+      "method": "repo locale file",
+      "value": "supported",
+      "checkedAt": "2026-11-04"
+    }
+  ]
 }
