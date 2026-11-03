@@ -64,6 +64,33 @@
       "method": null,
       "value": null,
       "checkedAt": "2026-11-04"
+    },
+    {
+      "field": "ui",
+      "kind": "tested",
+      "sourceUrl": "https://lovable.dev",
+      "command": null,
+      "method": "free account, Japanese prompt。Account settings > Preferences > Language（11言語）。切替後のアプリUIと /ja/ は日本語",
+      "value": "supported",
+      "checkedAt": "2026-11-04"
+    },
+    {
+      "field": "input",
+      "kind": "tested",
+      "sourceUrl": "https://lovable.dev",
+      "command": "シンプルなToDoアプリを作ってください。画面の文字はすべて日本語にしてください。",
+      "method": "free account, Japanese prompt",
+      "value": "supported",
+      "checkedAt": "2026-11-04"
+    },
+    {
+      "field": "output",
+      "kind": "tested",
+      "sourceUrl": "https://lovable.dev",
+      "command": "シンプルなToDoアプリを作ってください。画面の文字はすべて日本語にしてください。",
+      "method": "free account, Japanese prompt。返答と生成UIは日本語（やることリスト、追加、すべて/未完了/完了済み）。文字化けなし",
+      "value": "supported",
+      "checkedAt": "2026-11-04"
     }
   ]
 }

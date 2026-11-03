@@ -55,6 +55,33 @@
       "method": null,
       "value": null,
       "checkedAt": "2026-11-04"
+    },
+    {
+      "field": "ui",
+      "kind": "tested",
+      "sourceUrl": "https://bolt.new",
+      "command": null,
+      "method": "free account, Japanese prompt。言語設定はなくUIは英語のみ",
+      "value": "unsupported",
+      "checkedAt": "2026-11-04"
+    },
+    {
+      "field": "input",
+      "kind": "tested",
+      "sourceUrl": "https://bolt.new",
+      "command": "シンプルなToDoアプリを作ってください。画面の文字はすべて日本語にしてください。",
+      "method": "free account, Japanese prompt",
+      "value": "supported",
+      "checkedAt": "2026-11-04"
+    },
+    {
+      "field": "output",
+      "kind": "tested",
+      "sourceUrl": "https://bolt.new",
+      "command": "シンプルなToDoアプリを作ってください。画面の文字はすべて日本語にしてください。",
+      "method": "free account, Japanese prompt。返答と計画と生成UIは日本語（ToDoアプリ、追加、タスクがありません）。文字化けなし",
+      "value": "supported",
+      "checkedAt": "2026-11-04"
     }
   ]
 }

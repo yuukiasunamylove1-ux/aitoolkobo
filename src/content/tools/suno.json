@@ -55,6 +55,51 @@
       "method": null,
       "value": null,
       "checkedAt": "2026-11-04"
+    },
+    {
+      "field": "ui",
+      "kind": "tested",
+      "sourceUrl": "https://suno.com",
+      "command": null,
+      "method": "free account, Japanese prompt。27言語に日本語。切替でUIが日本語（ホーム、作成、ライブラリ）",
+      "value": "supported",
+      "checkedAt": "2026-11-04"
+    },
+    {
+      "field": "input",
+      "kind": "tested",
+      "sourceUrl": "https://suno.com",
+      "command": "春の朝、新しいことを始める勇気を歌う明るいJ-POP。歌詞は日本語で。",
+      "method": "free account, Japanese prompt",
+      "value": "supported",
+      "checkedAt": "2026-11-04"
+    },
+    {
+      "field": "output",
+      "kind": "tested",
+      "sourceUrl": "https://suno.com",
+      "command": "春の朝、新しいことを始める勇気を歌う明るいJ-POP。歌詞は日本語で。",
+      "method": "free account, Japanese prompt。v6-miniの題名（新しい私にこんにちは、春の朝、扉を開けて）と歌詞は日本語。歌声は未確認",
+      "value": "partial",
+      "checkedAt": "2026-11-04"
+    },
+    {
+      "field": "pricing",
+      "kind": "tested",
+      "sourceUrl": "https://suno.com/pricing",
+      "command": null,
+      "method": "free account。無料は50クレジット/日、無料モデルのみ、商用権なし、ダウンロードなし。年払い Pro ¥1,200/月（2,500クレジット）、Premier ¥3,600/月（10,000クレジット）。FAQの¥1,500と¥4,500は月額か未確認",
+      "value": null,
+      "checkedAt": "2026-11-04"
+    },
+    {
+      "field": "commercial",
+      "kind": "tested",
+      "sourceUrl": "https://suno.com/pricing",
+      "command": null,
+      "method": "free account。商用権は有料プランのみ。無料プランにはない",
+      "value": null,
+      "checkedAt": "2026-11-04"
     }
   ]
 }
