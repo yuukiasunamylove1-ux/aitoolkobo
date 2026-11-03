@@ -12,8 +12,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "validate": "tsx scripts/validate-content.ts",
+    "test:subscribe": "tsx --test scripts/subscribe.test.ts",
     "check:links": "tsx scripts/check-links.ts",
-    "ci": "npm run validate && npm run build && npm run check:links"
+    "ci": "npm run validate && npm run test:subscribe && npm run build && npm run check:links"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.12",

@@ -7,12 +7,54 @@ const { id = "newsletter-email" } = Astro.props;
 
 <section class="panel card" aria-labelledby="newsletter-heading">
   <h2 id="newsletter-heading">新着をメールで受け取る</h2>
-  <p class="todo">
-    TODO: 配信サービスは未接続です。このフォームは画面だけで、入力しても送信されません。有料の配信サービスは使っていません。
-  </p>
-  <form class="newsletter" action="" method="post">
+  <!-- TODO: aitoolkobo.com を Resend で検証したら double opt-in の確認メールを送る。今は連絡先の保存だけ。 -->
+  <form class="newsletter newsletter-form" action="/api/subscribe" method="post">
+    <p id={`${id}-status`} class="form-status" role="status" aria-live="polite"></p>
+    <div class="hp-field" aria-hidden="true">
+      <label for={`${id}-company`}>会社サイト</label>
+      <input id={`${id}-company`} name="company" type="text" tabindex="-1" autocomplete="off" />
+    </div>
     <label for={id}>メールアドレス</label>
-    <input id={id} name="email" type="email" autocomplete="email" placeholder="you@example.com" />
-    <button class="button" type="button">登録する（未接続）</button>
+    <input id={id} name="email" type="email" autocomplete="email" required maxlength="254" placeholder="you@example.com" />
+    <div class="check">
+      <input id={`${id}-consent`} name="consent" type="checkbox" value="yes" required />
+      <span>
+        <label for={`${id}-consent`}>新着メールの受信に同意します。</label>
+        取り扱いは<a href="/privacy/">プライバシーポリシー</a>に記載しています。
+      </span>
+    </div>
+    <button class="button" type="submit">登録する</button>
   </form>
 </section>
+
+<script>
+  document.querySelectorAll("form.newsletter-form").forEach((node) => {
+    const form = node as HTMLFormElement;
+    if (form.dataset.enhanced === "true") return;
+    form.dataset.enhanced = "true";
+    const status = form.querySelector(".form-status");
+    const button = form.querySelector("button");
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!(status instanceof HTMLElement) || !(button instanceof HTMLButtonElement)) return;
+      button.disabled = true;
+      status.textContent = "送信しています…";
+      status.dataset.state = "";
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { Accept: "application/json" },
+        });
+        const payload = (await response.json().catch(() => null)) as { message?: string; ok?: boolean } | null;
+        status.textContent = payload?.message ?? "送信できませんでした。時間をおいてもう一度お試しください。";
+        status.dataset.state = payload?.ok ? "ok" : "err";
+      } catch {
+        status.textContent = "通信できませんでした。時間をおいてもう一度お試しください。";
+        status.dataset.state = "err";
+      } finally {
+        button.disabled = false;
+      }
+    });
+  });
+</script>
