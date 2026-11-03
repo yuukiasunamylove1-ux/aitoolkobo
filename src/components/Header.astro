@@ -1,0 +1,28 @@
+---
+const path = Astro.url.pathname;
+const links = [
+  { href: "/categories/", label: "カテゴリ" },
+  { href: "/usecases/", label: "用途別" },
+  { href: "/new/", label: "新着" },
+  { href: "/scoring/", label: "評価基準" },
+];
+
+function current(href: string) {
+  if (href === "/") return path === "/" ? "page" : undefined;
+  return path === href || path.startsWith(href) ? "page" : undefined;
+}
+---
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="/" aria-current={current("/")}>
+      <span class="stamp" aria-hidden="true">工</span>
+      <span>AIツール工房<small>aitoolkobo</small></span>
+    </a>
+    <nav class="nav" aria-label="主要">
+      {links.map((link) => (
+        <a href={link.href} aria-current={current(link.href)}>{link.label}</a>
+      ))}
+    </nav>
+  </div>
+</header>

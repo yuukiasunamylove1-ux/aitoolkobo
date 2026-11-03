@@ -1,0 +1,52 @@
+{
+  "addedAt": "2026-10-30",
+  "name": "Dify",
+  "url": "https://dify.ai",
+  "category": "agent-builders",
+  "description": "エージェント、ワークフロー、RAG を画面で組む LLM アプリの開発基盤です。自分で置く版があります。",
+  "detail": "チャット、エージェント、ナレッジを一つの画面で作ります。公式ドキュメントは表示言語に日本語を含みます。Community 版はセルフホストでき、ライセンスは Apache 2.0 を基礎に追加条件がある、と解説されています。Cloud の Sandbox は無料枠です。Professional の月額は二次情報では $59 ですが、当サイトは価格点に使っていません。価格点は、自分で置く版に購読が必須でないことに基づきます。円建ては未確認です。",
+  "platforms": [
+    "ブラウザ",
+    "セルフホスト"
+  ],
+  "pricing": {
+    "tier": "free",
+    "currency": null,
+    "monthlyAmount": null,
+    "yenAmount": null,
+    "short": "自分で置く版あり",
+    "label": "Community 版を自分で置けます。Cloud Sandbox には無料枠があります。有料クラウドの月額は、二次情報の $59 を価格点に使っていません。ライセンスの追加条件は公式 LICENSE を確認してください。円建ては未確認です。",
+    "sourceUrl": "https://dify.ai/ja/pricing"
+  },
+  "japanese": {
+    "ui": "supported",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "公式ドキュメントに、表示言語として日本語（日本）を選ぶ手順があります。入出力は接続するモデル次第のため未確認です。"
+  },
+  "editorial": {
+    "features": {
+      "score": 5,
+      "note": "エージェント、ワークフロー、ナレッジ、モデル接続を一つの製品で扱えます。"
+    },
+    "usability": {
+      "score": 4,
+      "note": "クラウドなら画面から始められます。セルフホストは Docker などの準備が要ります。"
+    },
+    "updates": {
+      "score": 4,
+      "note": "2026年秋の公開資料が、直近1年以内の版番号に言及しています。更新回数は数えていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "料金（日本語）",
+      "url": "https://dify.ai/ja/pricing"
+    },
+    {
+      "label": "表示言語のドキュメント",
+      "url": "https://enterprise-docs.dify.ai/ja/3.3.x/use/management/personal-account-management"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

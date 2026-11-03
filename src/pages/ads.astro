@@ -1,0 +1,30 @@
+---
+import Base from "../layouts/Base.astro";
+import { absoluteUrl } from "../lib/labels";
+import { pageGraph } from "../lib/seo";
+
+const description = "AIツール工房の広告とアフィリエイトの表記です。現時点では広告枠もアフィリエイトリンクも置いていません。";
+const jsonLd = pageGraph({
+  site: Astro.site!.href,
+  url: absoluteUrl("/ads/", Astro.site!),
+  name: "広告・アフィリエイト表記",
+  description,
+});
+---
+
+<Base title="広告・アフィリエイト表記" description={description} jsonLd={jsonLd}>
+  <article class="page-intro">
+    <div class="wrap prose">
+      <h1>広告・アフィリエイト表記</h1>
+      <p>このページは、広告や紹介料を扱うようになったときのためのプレースホルダです。</p>
+      <ul>
+        <li>現時点で、広告枠は設置していません。</li>
+        <li>現時点で、アフィリエイトリンクは置いていません。ツールページのリンクは各公式URLです。</li>
+        <li>順位は<a href="/scoring/">評価基準</a>の式で決まり、紹介料では上下しません。</li>
+      </ul>
+      <p>
+        将来、紹介リンクを置く場合は、該当のリンクに「広告」または「アフィリエイト」と分かる表記を付け、このページに掲載条件を追記します。
+      </p>
+    </div>
+  </article>
+</Base>

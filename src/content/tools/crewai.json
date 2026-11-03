@@ -1,0 +1,47 @@
+{
+  "addedAt": "2026-10-31",
+  "name": "CrewAI",
+  "url": "https://www.crewai.com",
+  "category": "agent-frameworks",
+  "description": "役割を分けた複数エージェントを Python で書くフレームワークです。本体は MIT ライセンスです。",
+  "detail": "Crew と Flow でエージェントの共同作業を書けます。GitHub の README は MIT License と明記しています。ホスティング側の有料プランの現行月額は未確認です。価格点はフレームワークに購読が不要なことに基づきます。モデルの API 料金は別です。円建ては未確認です。",
+  "platforms": [
+    "ライブラリ"
+  ],
+  "pricing": {
+    "tier": "open-source",
+    "currency": null,
+    "monthlyAmount": null,
+    "yenAmount": null,
+    "short": "フレームワークは MIT",
+    "label": "GitHub の README が MIT License と記載しています。クラウド側の有料プランの月額は未確認です。価格点はフレームワークに購読が不要なことに基づきます。円建ては未確認です。",
+    "sourceUrl": "https://github.com/crewAIInc/crewAI"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 4,
+      "note": "複数エージェントの役割分担を書く API が中心です。画面のボットビルダーではありません。"
+    },
+    "usability": {
+      "score": 3,
+      "note": "Python が書ければ例から始められます。本番の監視は別の仕組みが要ります。"
+    },
+    "updates": {
+      "score": 4,
+      "note": "2026年秋の公開資料が、直近1年以内の版番号に言及しています。更新回数は数えていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "crewAIInc/crewAI",
+      "url": "https://github.com/crewAIInc/crewAI"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

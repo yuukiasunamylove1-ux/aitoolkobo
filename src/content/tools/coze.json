@@ -1,0 +1,47 @@
+{
+  "addedAt": "2026-11-03",
+  "name": "Coze",
+  "url": "https://www.coze.com",
+  "category": "agent-builders",
+  "description": "エージェントやボットを画面で組み立てるプラットフォームです。料金と日本語対応は未確認です。",
+  "detail": "プロンプト、プラグイン、公開までを画面でつなぐエージェントビルダーとして掲載しています。確認日に個人向けの月額と無料枠を確定していないため、価格点は付けていません。円建ても未確認です。",
+  "platforms": [
+    "ブラウザ"
+  ],
+  "pricing": {
+    "tier": "unknown",
+    "currency": null,
+    "monthlyAmount": null,
+    "yenAmount": null,
+    "short": "料金は未確認",
+    "label": "公式の月額、無料枠、円建ては未確認です。価格点は付けていません。",
+    "sourceUrl": "https://www.coze.com"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 4,
+      "note": "ボットとエージェントを画面で組む種類の製品です。コードのフレームワークではありません。"
+    },
+    "usability": {
+      "score": 4,
+      "note": "ブラウザでボットを公開する流れが中心です。日本語UIかどうかは未確認です。"
+    },
+    "updates": {
+      "score": null,
+      "note": "確認日時点で、直近の公式リリース日を特定できていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "Coze",
+      "url": "https://www.coze.com"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

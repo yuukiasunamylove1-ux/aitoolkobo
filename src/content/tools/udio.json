@@ -1,0 +1,47 @@
+{
+  "addedAt": "2026-10-28",
+  "name": "Udio",
+  "url": "https://www.udio.com",
+  "category": "game-music",
+  "description": "文章から音楽を生成するサービスです。料金と日本語対応は確認日時点で未確認です。",
+  "detail": "曲の候補を文章から作る音楽生成として掲載しています。公式の個人向け月額、無料枠の有無、円建ては、確認日に数値を確定できていません。商用利用の条件も、契約画面で確認してください。",
+  "platforms": [
+    "ブラウザ"
+  ],
+  "pricing": {
+    "tier": "unknown",
+    "currency": null,
+    "monthlyAmount": null,
+    "yenAmount": null,
+    "short": "料金は未確認",
+    "label": "公式の月額と無料枠の有無は未確認です。円建ても未確認です。価格点は付けていません。",
+    "sourceUrl": "https://www.udio.com"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 3,
+      "note": "音楽生成としては使えますが、ゲーム用のループ書き出しまで公式に揃っているかは未確認です。"
+    },
+    "usability": {
+      "score": 4,
+      "note": "ブラウザの生成サービスとして、文章から試聴する操作は短い想定です。料金画面の分かりやすさは未確認です。"
+    },
+    "updates": {
+      "score": null,
+      "note": "確認日時点で、直近の公式リリース日を特定できていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "Udio",
+      "url": "https://www.udio.com"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

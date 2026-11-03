@@ -1,0 +1,42 @@
+---
+import Base from "../layouts/Base.astro";
+import { absoluteUrl } from "../lib/labels";
+import { pageGraph } from "../lib/seo";
+
+const description = "AIツール工房のプライバシーポリシーです。静的サイトで、アクセス解析とニュースレターは未導入です。";
+const jsonLd = pageGraph({
+  site: Astro.site!.href,
+  url: absoluteUrl("/privacy/", Astro.site!),
+  name: "プライバシーポリシー",
+  description,
+});
+---
+
+<Base title="プライバシーポリシー" description={description} jsonLd={jsonLd}>
+  <article class="page-intro">
+    <div class="wrap prose">
+      <h1>プライバシーポリシー</h1>
+      <p>最終更新日: 2026年11月3日</p>
+      <p>
+        AIツール工房は静的なWebサイトです。サーバーに会員データベースはありません。このページは現時点の実装に合わせたプレースホルダで、解析や配信を足すときは更新します。
+      </p>
+      <h2>取得する情報</h2>
+      <ul>
+        <li>お問い合わせフォームとニュースレター欄は画面だけです。送信ボタンは送信用ではなく、入力内容は運営者へ届きません。</li>
+        <li>アクセス解析のタグは入れていません。</li>
+        <li>広告のトラッキングは入れていません。</li>
+      </ul>
+      <h2>外部への接続</h2>
+      <ul>
+        <li>本文のフォントは Google Fonts（Zen Kaku Gothic New、Shippori Mincho）を読み込みます。閲覧時に Google へ接続します。</li>
+        <li>各ツール名からは、その公式サイトへリンクします。移動先のプライバシーポリシーは、それぞれの提供者のものです。</li>
+      </ul>
+      <h2>ホスティング</h2>
+      <p>
+        サイトは Cloudflare Pages で配信する想定です。配信事業者が接続元のIPアドレスなどを処理する場合は、Cloudflare のポリシーに従います。
+      </p>
+      <h2>連絡</h2>
+      <p>このポリシーについての連絡先は、<a href="/contact/">お問い合わせ</a>の準備が終わるまで公開していません。</p>
+    </div>
+  </article>
+</Base>

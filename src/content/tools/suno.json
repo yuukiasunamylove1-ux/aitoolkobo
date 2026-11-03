@@ -1,0 +1,47 @@
+{
+  "addedAt": "2026-10-27",
+  "name": "Suno",
+  "url": "https://suno.com",
+  "category": "game-music",
+  "description": "文章から曲を生成するサービスで、ゲームのBGMの下書きを耳で比べるのに使えます。",
+  "detail": "公式料金ページに Pro $8 と Premier $24 の表示があります。確認日の取得では、それが月払いの定価か年額の月あたりかまで断定できなかったため、価格点には使っていません。無料で使えるモデルがあることはページの表記から扱います。円建ては未確認です。",
+  "platforms": [
+    "ブラウザ"
+  ],
+  "pricing": {
+    "tier": "freemium",
+    "currency": null,
+    "monthlyAmount": null,
+    "yenAmount": null,
+    "short": "月額の区別は未確認",
+    "label": "公式料金ページに Pro $8、Premier $24 の表示があります。月払い定価か年額換算かは断定していないため、価格点は未確認です。無料モデルの表記はあります。円建ては未確認です。",
+    "sourceUrl": "https://suno.com/pricing"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 4,
+      "note": "曲の生成と、延長やステム抽出などの編集が料金ページの機能表にあります。"
+    },
+    "usability": {
+      "score": 5,
+      "note": "文章を入れると曲が出るところまでが短く、音楽制作の前提知識はほぼ要りません。"
+    },
+    "updates": {
+      "score": 3,
+      "note": "公式の料金またはドキュメントが確認日時点で公開されています。リリース日そのものは追っていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "Suno pricing",
+      "url": "https://suno.com/pricing"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

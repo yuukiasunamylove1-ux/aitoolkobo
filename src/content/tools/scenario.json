@@ -1,0 +1,47 @@
+{
+  "addedAt": "2026-10-26",
+  "name": "Scenario",
+  "url": "https://www.scenario.com",
+  "category": "game-images",
+  "description": "ゲームの絵作りを想定した生成サービスで、カスタムモデルや商用ライセンスの説明があります。",
+  "detail": "画像に加え、料金ページは動画、3D、音声の出力にも触れています。公式料金は Starter が月$15（1,500クレジット）、Pro が月$45、Max が月$75。無料枠は50クレジットとあり、日次かどうかの表記はページ内で揺れがあるため、日次とは断定しません。価格点は Starter の月$15を使います。円建ては未確認です。",
+  "platforms": [
+    "ブラウザ"
+  ],
+  "pricing": {
+    "tier": "freemium",
+    "currency": "USD",
+    "monthlyAmount": 15,
+    "yenAmount": null,
+    "short": "Starter 月$15〜",
+    "label": "公式料金ページでは Starter 月$15、Pro 月$45、Max 月$75。無料枠は50クレジットで、日次と総量のどちらを指すかはページ内の表記が分かれるため断定しません。有料プランは商用利用を含む、と説明されています。円建ては未確認です。",
+    "sourceUrl": "https://www.scenario.com/pricing"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 5,
+      "note": "ゲーム素材の生成、カスタムモデル、書き出し形式まで料金ページが説明しています。"
+    },
+    "usability": {
+      "score": 4,
+      "note": "ブラウザで生成を始められます。クレジットと学習の概念は一度見る必要があります。"
+    },
+    "updates": {
+      "score": 3,
+      "note": "公式の料金またはドキュメントが確認日時点で公開されています。リリース日そのものは追っていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "Scenario pricing",
+      "url": "https://www.scenario.com/pricing"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

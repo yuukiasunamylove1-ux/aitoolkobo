@@ -1,0 +1,162 @@
+---
+import Base from "../layouts/Base.astro";
+import Newsletter from "../components/Newsletter.astro";
+import RankRow from "../components/RankRow.astro";
+import { THEMES, absoluteUrl } from "../lib/labels";
+import { categoriesByTheme, newestTools, rankedTools, usecases } from "../lib/queries";
+import { formatScore } from "../lib/score";
+import { SITE_DESCRIPTION, pageGraph } from "../lib/seo";
+import type { ThemeId } from "../lib/schema";
+
+const site = Astro.site!;
+const groups = await categoriesByTheme();
+const fresh = await newestTools(5);
+const cases = (await usecases()).slice(0, 3);
+const ranked = await rankedTools();
+const picks = (Object.keys(THEMES) as ThemeId[]).map((theme) => {
+  const best = ranked
+    .filter((row) => row.category.data.theme === theme)
+    .sort((a, b) => b.score.total - a.score.total)[0];
+  return { theme, best };
+});
+
+const faqs = [
+  {
+    q: "どんなツールを載せていますか？",
+    a: "日本語でアプリやゲームを作る人向けに、バイブコーディング、AIゲーム制作、AIエージェントの三つへ絞っています。汎用のAIニュースサイトではありません。",
+  },
+  {
+    q: "円の価格が未確認なのはなぜですか？",
+    a: "公式が円建てを出していない、または確認日に円の金額を特定できなかった場合は、推測の円換算をせず未確認と書きます。",
+  },
+  {
+    q: "スコアは誰が付けていますか？",
+    a: "機能・使いやすさ・更新頻度は編集部の定性評価です。日本語と価格は公開データから式で計算し、未確認の項目は配点から外します。式は評価基準ページにあります。",
+  },
+];
+
+const canonical = absoluteUrl("/", site);
+const jsonLd = [
+  pageGraph({
+    site: site.href,
+    url: canonical,
+    name: "AIツール工房",
+    description: SITE_DESCRIPTION,
+  }),
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: { "@type": "Answer", text: faq.a },
+    })),
+  },
+];
+---
+
+<Base title="AIツール工房 | 日本語で選ぶ、開発者向けAIツール" description={SITE_DESCRIPTION} jsonLd={jsonLd} homeTitle>
+  <section class="hero">
+    <div class="wrap">
+      <p class="kicker">日本語の開発者のためのディレクトリ</p>
+      <h1>つくる人のAIツールを、<br />隠さず比べる。</h1>
+      <p class="lede">
+        AIツール工房は、バイブコーディング、AIゲーム制作、AIエージェントに絞った一覧です。各ツールに日本語対応（UI・入力・出力）、確認できた料金、採点の内訳を載せます。分からない金額は、円に換算して埋めません。
+      </p>
+      <div class="actions">
+        <a class="button" href="/categories/">カテゴリを見る</a>
+        <a class="button secondary" href="/scoring/">評価基準を読む</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="themes">
+    <div class="wrap">
+      <h2 id="themes">三つの棚</h2>
+      <div class="grid-3">
+        {groups.map((group) => (
+          <a class={`card theme-card theme-${group.id}`} href={`/categories/#${group.id}`}>
+            <p class="kicker">{group.categories.length}カテゴリ</p>
+            <h3>{group.name}</h3>
+            <p>{group.lead}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="picks">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="picks">テーマごとの最高スコア</h2>
+        <a href="/scoring/">採点の仕方</a>
+      </div>
+      <p class="fine">
+        テーマの中での参考値です。仕事が違うカテゴリを、一つの優勝として扱っていません。未確認の項目は配点から外して再計算しています。
+      </p>
+      <div class="grid-3">
+        {picks.map(({ theme, best }) => (
+          <article class={`card theme-card theme-${theme}`}>
+            <p class="kicker">{THEMES[theme].name}</p>
+            {best ? (
+              <>
+                <h3><a href={`/tools/${best.tool.id}/`}>{best.tool.data.name}</a></h3>
+                <p>スコア <span class="score">{formatScore(best.score.total)}</span> · {best.category.data.name}</p>
+                <p>{best.tool.data.description}</p>
+              </>
+            ) : (
+              <p>このテーマのツールはまだありません。</p>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="usecase-heading">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="usecase-heading">用途別おすすめ</h2>
+        <a href="/usecases/">すべて見る</a>
+      </div>
+      <div class="grid-3">
+        {cases.map((item) => (
+          <article class="card">
+            <h3><a class="title" href={`/usecases/${item.id}/`}>{item.data.title}</a></h3>
+            <p>{item.data.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="new-heading">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="new-heading">新着AIツール</h2>
+        <a href="/new/">追加日順とRSS</a>
+      </div>
+      <p class="fine">日付はディレクトリへ追加した日です。製品の発売日ではありません。</p>
+      <div class="rank-list">
+        {fresh.map((row) => (
+          <RankRow row={row} marker={row.tool.data.addedAt.slice(5)} markerNote="追加" />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="faq-heading">
+    <div class="wrap grid-2">
+      <div>
+        <h2 id="faq-heading">はじめに</h2>
+        {faqs.map((faq) => (
+          <article>
+            <h3>{faq.q}</h3>
+            <p>{faq.a}</p>
+          </article>
+        ))}
+      </div>
+      <Newsletter />
+    </div>
+  </section>
+</Base>

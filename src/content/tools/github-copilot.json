@@ -1,0 +1,47 @@
+{
+  "addedAt": "2026-10-20",
+  "name": "GitHub Copilot",
+  "url": "https://github.com/features/copilot",
+  "category": "ai-code-editors",
+  "description": "今使っているエディタに、補完とチャットとエージェントを足す GitHub のコーディング支援です。",
+  "detail": "VS Code や JetBrains など、既存のエディタから使います。公式の個人向け料金は Free、Pro が月$10、Pro+ が月$39、Max が月$100です。組織向けの Business は月$19/ユーザーです。円建ては未確認です。",
+  "platforms": [
+    "エディタ拡張"
+  ],
+  "pricing": {
+    "tier": "freemium",
+    "currency": "USD",
+    "monthlyAmount": 10,
+    "yenAmount": null,
+    "short": "Pro 月$10〜",
+    "label": "公式プランページでは、個人の Pro が月$10、Pro+ が月$39、Max が月$100。Free もあります。価格点は個人の有料入口である Pro の月$10を使っています。円建ては未確認です。",
+    "sourceUrl": "https://github.com/features/copilot/plans"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 4,
+      "note": "補完とチャットに加え、クラウド側のエージェント機能も公式プランに含まれます。"
+    },
+    "usability": {
+      "score": 4,
+      "note": "普段のエディタを離れずに足せるので、乗り換えの説明は少なめです。"
+    },
+    "updates": {
+      "score": 3,
+      "note": "公式の料金またはドキュメントが確認日時点で公開されています。リリース日そのものは追っていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "Plans & pricing",
+      "url": "https://github.com/features/copilot/plans"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

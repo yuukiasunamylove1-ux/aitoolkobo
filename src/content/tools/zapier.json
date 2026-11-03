@@ -1,0 +1,47 @@
+{
+  "addedAt": "2026-11-01",
+  "name": "Zapier",
+  "url": "https://zapier.com",
+  "category": "automation",
+  "description": "多数の Web サービスを画面でつなぐ自動化です。AI のステップもフローに含められます。料金は未確認です。",
+  "detail": "コードを書かずに連携を作る自動化サービスとして掲載しています。確認日に公式料金表の月額と無料枠の数値を直接確定していないため、価格点は付けていません。円の切替があるかどうかも未確認です。",
+  "platforms": [
+    "ブラウザ"
+  ],
+  "pricing": {
+    "tier": "unknown",
+    "currency": null,
+    "monthlyAmount": null,
+    "yenAmount": null,
+    "short": "料金は未確認",
+    "label": "公式の月額、無料枠、円建ては未確認です。価格点は付けていません。",
+    "sourceUrl": "https://zapier.com/pricing"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 4,
+      "note": "連携の数と、その中に AI を挟めることがこのカテゴリでの役割です。"
+    },
+    "usability": {
+      "score": 5,
+      "note": "画面でトリガーとアクションを選ぶ操作が中心で、サーバーは要りません。"
+    },
+    "updates": {
+      "score": null,
+      "note": "確認日時点で、直近の公式リリース日を特定できていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "Zapier pricing",
+      "url": "https://zapier.com/pricing"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

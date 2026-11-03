@@ -1,0 +1,47 @@
+{
+  "addedAt": "2026-10-30",
+  "name": "LangGraph",
+  "url": "https://www.langchain.com/langgraph",
+  "category": "agent-frameworks",
+  "description": "状態を持つエージェントの流れをコードで書くフレームワークです。本番サーバの料金は別で未確認です。",
+  "detail": "グラフとしてエージェントの分岐や中断を書けます。フレームワーク本体は MIT、という2026年の解説が複数あります。一方、公式の本番サーバ langgraph-api は別ライセンスで商用キーが要る、という指摘があります。価格点はライブラリを購読なしで書けることに基づき、本番サーバの料金は未確認のまま外しています。円建ては未確認です。",
+  "platforms": [
+    "ライブラリ"
+  ],
+  "pricing": {
+    "tier": "free",
+    "currency": null,
+    "monthlyAmount": null,
+    "yenAmount": null,
+    "short": "ライブラリは購読なし",
+    "label": "ライブラリは購読なしで使えます（MIT という解説があります）。公式の本番サーバは別ライセンスという指摘があり、その料金は未確認です。価格点はライブラリに基づきます。円建ては未確認です。",
+    "sourceUrl": "https://www.langchain.com/langgraph"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 5,
+      "note": "分岐、中断、状態の保存をコードで表現でき、エージェントの制御がライブラリの仕事です。"
+    },
+    "usability": {
+      "score": 2,
+      "note": "Python と状態遷移の理解が要ります。画面だけでボットを公開する道具ではありません。"
+    },
+    "updates": {
+      "score": 4,
+      "note": "2026年秋の公開資料が、直近1年以内の版番号に言及しています。更新回数は数えていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "LangGraph",
+      "url": "https://www.langchain.com/langgraph"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

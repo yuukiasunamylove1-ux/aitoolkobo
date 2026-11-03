@@ -1,0 +1,47 @@
+{
+  "addedAt": "2026-11-02",
+  "name": "LM Studio",
+  "url": "https://lmstudio.ai",
+  "category": "local-models",
+  "description": "手元の PC でモデルを読み、チャットやローカル API として使うデスクトップアプリです。",
+  "detail": "GUI でモデルを選んでローカル実行できます。アプリのダウンロードは無料として公開されています。追加の有料プランの有無は未確認です。価格点は、アプリ本体に購読が必須でないことに基づきます。モデルのライセンスはモデルごとに違います。円建ては未確認です。",
+  "platforms": [
+    "デスクトップ"
+  ],
+  "pricing": {
+    "tier": "free",
+    "currency": null,
+    "monthlyAmount": null,
+    "yenAmount": null,
+    "short": "アプリは無料",
+    "label": "デスクトップアプリとして無料で公開されています。追加の有料プランは未確認です。価格点はアプリ本体に購読が必須でないことに基づきます。円建ては未確認です。",
+    "sourceUrl": "https://lmstudio.ai"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 3,
+      "note": "モデルの実行とローカルAPIが役割です。エージェントの編成機能は中心ではありません。"
+    },
+    "usability": {
+      "score": 5,
+      "note": "インストールしてモデルを選ぶ GUI で、コマンドを書かずにローカル実行を始められます。"
+    },
+    "updates": {
+      "score": null,
+      "note": "確認日時点で、直近の公式リリース日を特定できていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "LM Studio",
+      "url": "https://lmstudio.ai"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

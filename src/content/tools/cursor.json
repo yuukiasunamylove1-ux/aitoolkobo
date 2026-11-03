@@ -1,0 +1,47 @@
+{
+  "addedAt": "2026-10-20",
+  "name": "Cursor",
+  "url": "https://cursor.com",
+  "category": "ai-code-editors",
+  "description": "AIの補完、チャット、エージェント編集を一つのエディタにまとめたコードエディタです。",
+  "detail": "コードを書く場所と、ファイルをまたぐエージェントが同じアプリにあります。公式ドキュメントでは、新規向けのプランを Free、Plus（月$8）、Premium（月$30）、Super（月$100）、Ultra（月$200）と説明しています。既存の旧Pro（月$20）は継続契約向けです。円建ては未確認です。",
+  "platforms": [
+    "デスクトップ"
+  ],
+  "pricing": {
+    "tier": "freemium",
+    "currency": "USD",
+    "monthlyAmount": 8,
+    "yenAmount": null,
+    "short": "Plus 月$8〜",
+    "label": "公式ドキュメントの新規向け料金は Free $0、Plus 月$8、Premium 月$30、Super 月$100、Ultra 月$200（税別）。年払いは Plus が年$80。旧プランの Pro は月$20で、既存契約向けです。円建ては未確認です。",
+    "sourceUrl": "https://cursor.com/docs/models-and-pricing"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 5,
+      "note": "補完、チャット、エージェント編集をエディタ単体で扱えます。"
+    },
+    "usability": {
+      "score": 4,
+      "note": "開発者であれば、いつもの編集からエージェントへ移る操作は短いです。"
+    },
+    "updates": {
+      "score": 3,
+      "note": "公式の料金またはドキュメントが確認日時点で公開されています。リリース日そのものは追っていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "Models & Pricing",
+      "url": "https://cursor.com/docs/models-and-pricing"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

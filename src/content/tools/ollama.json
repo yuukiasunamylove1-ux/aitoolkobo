@@ -1,0 +1,52 @@
+{
+  "addedAt": "2026-11-01",
+  "name": "Ollama",
+  "url": "https://ollama.com",
+  "category": "local-models",
+  "description": "自分のマシンでモデルを動かす実行環境です。ライセンスは MIT で、購読はありません。",
+  "detail": "コマンドでモデルを取得し、ローカルで推論します。エージェントの API 先として使えます。GitHub の LICENSE は MIT です。モデル本体の配布条件はモデルごとに違います。価格点は Ollama 自体に購読がないことに基づきます。円建ての販売価格はありません。",
+  "platforms": [
+    "デスクトップ",
+    "CLI"
+  ],
+  "pricing": {
+    "tier": "open-source",
+    "currency": null,
+    "monthlyAmount": null,
+    "yenAmount": null,
+    "short": "MIT・購読なし",
+    "label": "ソフトウェアは MIT ライセンスで、購読はありません。利用するモデルのライセンスはモデルごとに確認してください。円建ての販売価格はありません。",
+    "sourceUrl": "https://github.com/ollama/ollama/blob/main/LICENSE"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 4,
+      "note": "ローカル推論の実行と API 互換の口が役割です。エージェントの画面や道具の実装は含みません。"
+    },
+    "usability": {
+      "score": 4,
+      "note": "インストールしてモデル名を指定すれば動き始めます。GPU の準備はマシン依存です。"
+    },
+    "updates": {
+      "score": null,
+      "note": "確認日時点で、直近の公式リリース日を特定できていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "Ollama",
+      "url": "https://ollama.com"
+    },
+    {
+      "label": "LICENSE",
+      "url": "https://github.com/ollama/ollama/blob/main/LICENSE"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

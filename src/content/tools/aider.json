@@ -1,0 +1,47 @@
+{
+  "addedAt": "2026-10-22",
+  "name": "Aider",
+  "url": "https://aider.chat",
+  "category": "ai-coding-agents",
+  "description": "ターミナルで動き、Git の差分として編集を残す AI ペアプログラミングです。ソフトの購読はありません。",
+  "detail": "チャットで指示すると、リポジトリへコミットできる差分を作ります。ソフト自体の月額はなく、モデルは利用者の API キーやローカルモデルを使います。価格点は購読が不要なことに基づきます。API 従量と円建ては別問題で、円建ては未確認です。",
+  "platforms": [
+    "CLI"
+  ],
+  "pricing": {
+    "tier": "free",
+    "currency": null,
+    "monthlyAmount": null,
+    "yenAmount": null,
+    "short": "ソフトは購読なし",
+    "label": "Aider 自体の購読プランはなく、モデル利用料は API 提供者へ別払いです。価格点はソフトのライセンス料がないことに基づきます。円建ては未確認です。",
+    "sourceUrl": "https://aider.chat"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 4,
+      "note": "Git に残る編集に絞ったエージェントです。GUIのアプリビルダー機能はありません。"
+    },
+    "usability": {
+      "score": 3,
+      "note": "ターミナルと Git に慣れている人向けです。画面操作だけで始める道具ではありません。"
+    },
+    "updates": {
+      "score": null,
+      "note": "確認日時点で、直近の公式リリース日を特定できていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "Aider",
+      "url": "https://aider.chat"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

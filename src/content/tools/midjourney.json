@@ -1,0 +1,47 @@
+{
+  "addedAt": "2026-10-25",
+  "name": "Midjourney",
+  "url": "https://www.midjourney.com",
+  "category": "game-images",
+  "description": "文章から絵を作る画像生成です。ゲームのコンセプトを探るときに候補を大量に出せます。",
+  "detail": "独自モデルで画像を生成します。二次情報には Basic 月$10、Standard 月$30、Pro 月$60、Mega 月$120 という整理があります。当サイトは公式料金表の数値を直接確定していないため、月額は価格点に使っていません。有料プランが中心であることは扱います。円建ては未確認です。",
+  "platforms": [
+    "ブラウザ"
+  ],
+  "pricing": {
+    "tier": "subscription",
+    "currency": null,
+    "monthlyAmount": null,
+    "yenAmount": null,
+    "short": "月額は未確認",
+    "label": "有料プラン制の画像生成です。比較記事上の月額（Basic $10 など）は、公式料金表を当サイトが直接確定していないため価格点に使いません。円建ては未確認です。",
+    "sourceUrl": "https://www.midjourney.com"
+  },
+  "japanese": {
+    "ui": "unknown",
+    "input": "unknown",
+    "output": "unknown",
+    "note": "UI・入力・出力ともに、確認日時点では公式の対応範囲を特定できていません。"
+  },
+  "editorial": {
+    "features": {
+      "score": 5,
+      "note": "絵の方向性を出す画像生成として、単体でコンセプト作業を進められます。"
+    },
+    "usability": {
+      "score": 4,
+      "note": "プロンプトを書けば絵が出ます。ゲーム素材として揃える後工程は別です。"
+    },
+    "updates": {
+      "score": 3,
+      "note": "公式の料金またはドキュメントが確認日時点で公開されています。リリース日そのものは追っていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "Midjourney",
+      "url": "https://www.midjourney.com"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}

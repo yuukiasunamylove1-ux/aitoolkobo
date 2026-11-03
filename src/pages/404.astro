@@ -1,0 +1,18 @@
+---
+import Base from "../layouts/Base.astro";
+
+const description = "ページが見つかりません。カテゴリ一覧から探せます。";
+---
+
+<Base title="ページが見つかりません" description={description}>
+  <section class="page-intro">
+    <div class="wrap">
+      <h1>ページが見つかりません</h1>
+      <p class="lede">アドレスが変わったか、まだ無いページです。</p>
+      <div class="actions">
+        <a class="button" href="/">ホームへ戻る</a>
+        <a class="button secondary" href="/categories/">カテゴリを見る</a>
+      </div>
+    </div>
+  </section>
+</Base>

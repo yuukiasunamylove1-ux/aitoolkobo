@@ -1,0 +1,37 @@
+---
+import Base from "../layouts/Base.astro";
+import { absoluteUrl } from "../lib/labels";
+import { pageGraph } from "../lib/seo";
+
+const description = "AIツール工房の運営方針です。編集部が公開データと定性評価でディレクトリを更新します。";
+const jsonLd = pageGraph({
+  site: Astro.site!.href,
+  url: absoluteUrl("/about/", Astro.site!),
+  name: "運営者情報",
+  description,
+});
+---
+
+<Base title="運営者情報" description={description} jsonLd={jsonLd}>
+  <article class="page-intro">
+    <div class="wrap prose">
+      <h1>運営者情報</h1>
+      <p>
+        AIツール工房（aitoolkobo）は、日本語でアプリやゲームを作る人向けのディレクトリです。個人開発者と小規模チームが、道具を短時間で比べられることを目的にしています。
+      </p>
+      <h2>編集方針</h2>
+      <ul>
+        <li>対象はバイブコーディング、AIゲーム制作、AIエージェントです。</li>
+        <li>料金は公式の表示を優先し、確認できない円価格は未確認のままにします。</li>
+        <li>日本語対応は UI・入力・出力に分け、確認できない段は未確認にします。</li>
+        <li>順位は<a href="/scoring/">評価基準</a>の式だけに従います。</li>
+        <li>ツールの追加日は、このディレクトリへ載せた日です。</li>
+      </ul>
+      <h2>運営</h2>
+      <p>
+        運営者の氏名・住所の公開は準備中です。連絡は<a href="/contact/">お問い合わせ</a>の案内に従ってください。現時点で送信フォームは配信先に接続していません。
+      </p>
+      <p class="fine">このページはプレースホルダです。特定商取引法に基づく表記が必要になった時点で、運営者名と連絡先を追記します。</p>
+    </div>
+  </article>
+</Base>

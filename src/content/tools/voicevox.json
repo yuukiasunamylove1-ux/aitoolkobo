@@ -1,0 +1,51 @@
+{
+  "addedAt": "2026-10-28",
+  "name": "VOICEVOX",
+  "url": "https://voicevox.hiroshiba.jp",
+  "category": "game-voice",
+  "description": "日本語の文章を読み上げる音声合成で、ソフトのライセンス料はかかりません。話者ごとの条件があります。",
+  "detail": "エディタで日本語のセリフを入力し、キャラクターの声で書き出します。公式の利用規約では、商用・非商用を問わず利用でき、作成した音声は各音声ライブラリの規約に従う、とあります。多くのライブラリはクレジット表記が必要です。円の販売価格はなく、ライセンス料なしとして扱います。",
+  "platforms": [
+    "デスクトップ"
+  ],
+  "pricing": {
+    "tier": "free",
+    "currency": null,
+    "monthlyAmount": null,
+    "yenAmount": null,
+    "short": "ライセンス料なし",
+    "label": "公式のソフトウェア利用規約では、商用・非商用を問わず利用できます。音声ライブラリごとにクレジットなどの条件があります。購読の月額はなく、円建ての販売価格もありません。",
+    "sourceUrl": "https://voicevox.hiroshiba.jp/term/"
+  },
+  "japanese": {
+    "ui": "supported",
+    "input": "supported",
+    "output": "supported",
+    "note": "日本語の読み上げが製品の目的で、公式サイトとエディタの案内が日本語です。"
+  },
+  "editorial": {
+    "features": {
+      "score": 4,
+      "note": "日本語ナレーションの生成と書き出しが中心です。多言語の声優スタジオ機能は範囲外です。"
+    },
+    "usability": {
+      "score": 4,
+      "note": "日本語の画面で文章を入れて再生できます。話者の規約確認は利用者の作業です。"
+    },
+    "updates": {
+      "score": null,
+      "note": "確認日時点で、直近の公式リリース日を特定できていません。"
+    }
+  },
+  "sources": [
+    {
+      "label": "VOICEVOX",
+      "url": "https://voicevox.hiroshiba.jp"
+    },
+    {
+      "label": "ソフトウェア利用規約",
+      "url": "https://voicevox.hiroshiba.jp/term/"
+    }
+  ],
+  "lastChecked": "2026-11-03"
+}
