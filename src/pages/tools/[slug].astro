@@ -105,10 +105,25 @@ const jsonLd = [
                     .map((check) => (
                       <>
                         {" · "}
-                        {check.field === "ui" ? "日本語UI" : check.field === "input" ? "日本語入力" : "日本語出力"}
-                        {check.value === "supported" ? "対応" : check.value === "partial" ? "一部" : check.value === "unsupported" ? "非対応" : ""}
+                        {check.field === "ui"
+                          ? "日本語UI"
+                          : check.field === "input"
+                            ? "日本語入力"
+                            : check.field === "output"
+                              ? "日本語出力"
+                              : check.field === "pricing"
+                                ? "料金"
+                                : "商用"}
+                        {check.value === "supported"
+                          ? "対応"
+                          : check.value === "partial"
+                            ? "一部"
+                            : check.value === "unsupported"
+                              ? "非対応"
+                              : ""}
                         （{check.method}
-                        {check.sourceUrl ? <a href={check.sourceUrl}>出典</a> : check.command}）
+                        {check.command ? `。指示「${check.command}」` : ""}
+                        {check.sourceUrl && <a href={check.sourceUrl}>出典</a>}）
                       </>
                     ))}
                 </p>
