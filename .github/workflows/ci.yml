@@ -17,6 +17,8 @@ jobs:
         run: npm ci
       - name: Validate content
         run: npm run validate
+      - name: Test newsletter signup
+        run: npm run test:subscribe
       - name: Build
         run: npm run build
         env:

@@ -335,6 +335,35 @@ th { color: var(--muted); font-weight: 500; font-size: 0.82rem; }
 
 .newsletter label { font-weight: 700; }
 
+.check {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+  font-size: 0.95rem;
+}
+
+.check input {
+  width: 1.15rem;
+  min-width: 1.15rem;
+  height: 1.15rem;
+  margin-top: 0.35rem;
+  padding: 0;
+}
+
+.form-status:empty { display: none; }
+
+.form-status[data-state="ok"] { color: var(--moss); font-weight: 700; }
+
+.form-status[data-state="err"] { color: var(--stamp-dark); font-weight: 700; }
+
+.hp-field {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 input, textarea {
   width: 100%;
   font: inherit;

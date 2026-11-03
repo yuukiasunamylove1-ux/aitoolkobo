@@ -37,6 +37,7 @@ npm run preview
 | --- | --- |
 | `npm run dev` | 開発サーバー |
 | `npm run validate` | ツール・カテゴリ・用途のスキーマと参照を検査 |
+| `npm run test:subscribe` | ニュースレター API の検証、重複、503、レート制限 |
 | `npm run build` | `dist/` へ静的ビルド |
 | `npm run preview` | `dist/` を配信 |
 | `npm run check:links` | ビルド後の内部リンクと、公式URLの 404 / 410 |
@@ -46,7 +47,7 @@ npm run preview
 
 ## Cloudflare Pages
 
-静的サイトです。アダプタも Workers も使いません。無料枠の Pages で配信できます。
+ページ自体は静的です。ニュースレターの受け口だけ、無料枠の Pages Functions（`functions/api/subscribe.ts`）です。有料の Workers プランや KV は使いません。Astro のアダプタも使いません。
 
 | 設定 | 値 |
 | --- | --- |
@@ -66,6 +67,25 @@ npm run preview
 
 コード内のURLは `astro.config.mjs` の `site` から出るので、ファイルを書き換えなくて済みます。
 
+### ニュースレター（Resend）
+
+登録フォームは `POST /api/subscribe` に送ります。Function が Resend の `POST https://api.resend.com/contacts` で連絡先を作り、`segments` にセグメント ID を渡します。すでに連絡先がある場合は、そのアドレスを同じセグメントへ追加します。
+
+確認メールと歓迎メールは送りません。
+
+TODO: `aitoolkobo.com` を Resend で検証したら、double opt-in の確認メールを送ります。`pages.dev` には検証済みの送信ドメインがないため、今は送りません。
+
+環境変数は二つです。値はリポジトリに入れません。
+
+| 変数 | 内容 |
+| --- | --- |
+| `RESEND_API_KEY` | Resend の API キー。Secret として暗号化して保存する |
+| `RESEND_SEGMENT_ID` | 追加先セグメントの ID。Secret として暗号化して保存する |
+
+設定場所は Cloudflare Pages のプロジェクト → **Settings** → **Variables and Secrets** です。Production（必要なら Preview も）に追加し、種類は **Encrypt**（Secret）にします。保存したあとのデプロイから有効です。静的ビルドはこの変数が無くても成功します。未設定のとき、登録 API は日本語の 503 を返します。
+
+同じ接続元からは 10 分間に 5 回までです。回数は Cloudflare の Cache API に短時間置くだけで、KV は使いません。人間には見えない項目（ハニーポット）が埋まっている送信は、保存せずに成功と同じ応答を返します。
+
 ## ディレクトリ
 
 ```
@@ -75,7 +95,8 @@ src/content/usecases/     用途別 Markdown
 src/lib/schema.ts         スキーマ（Zod）
 src/lib/score.ts          採点式と重み
 src/pages/                ページ、RSS、llms.txt、robots.txt
-public/                   favicon と OGP 画像
+functions/api/subscribe.ts ニュースレターの Pages Function
+public/                   favicon、OGP、`_routes.json`
 ```
 
 ## ツールを追加する
@@ -176,7 +197,7 @@ public/                   favicon と OGP 画像
 - `/llms.txt` 文章モデル向けの案内
 - `/about/` `/privacy/` `/contact/` `/ads/` 運営・法務のプレースホルダ
 
-お問い合わせとニュースレターのフォームは画面だけで、送信先は未接続です（TODO）。有料の配信サービスは使っていません。
+ニュースレターは Resend の連絡先に保存します。お問い合わせフォームは画面だけで、送信先は未接続です。
 
 ## CI
 

@@ -27,6 +27,13 @@ const home = htmlFiles.find((file) => file.endsWith("/index.html") && file.inclu
   ?? join(dist, "index.html");
 const homeHtml = readFileSync(home, "utf8");
 if (!homeHtml.includes('lang="ja"')) fail("html lang=\"ja\" がありません。");
+if (!homeHtml.includes('action="/api/subscribe"')) fail("購読フォームの送信先がありません。");
+if (!homeHtml.includes("新着メールの受信に同意します")) fail("購読の同意文がありません。");
+if (!homeHtml.includes('href="/privacy/"')) fail("同意文からプライバシーポリシーへリンクしていません。");
+if (homeHtml.includes("このフォームは画面だけで")) fail("未接続だった購読フォームの案内が残っています。");
+
+const privacyHtml = readFileSync(join(dist, "privacy/index.html"), "utf8");
+if (!privacyHtml.includes("Resend")) fail("プライバシーポリシーに Resend の記載がありません。");
 
 for (const required of ["robots.txt", "sitemap-index.xml", "llms.txt", "rss.xml", "og.png", "favicon.svg"]) {
   try {
