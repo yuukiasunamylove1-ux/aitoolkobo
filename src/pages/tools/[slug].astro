@@ -5,7 +5,7 @@ import Breadcrumb from "../../components/Breadcrumb.astro";
 import ScoreTable from "../../components/ScoreTable.astro";
 import ToolLogo from "../../components/ToolLogo.astro";
 import ToolRow from "../../components/ToolRow.astro";
-import { FX_NOTE, JA_MARK, JA_WORD, priceView } from "../../lib/display";
+import { FX_NOTE, JA_MARK, JA_WORD, priceView, testedValue } from "../../lib/display";
 import { TIER_LABEL, absoluteUrl, formatDate } from "../../lib/labels";
 import { toolsInCategory } from "../../lib/queries";
 import { breakdownFor } from "../../lib/score";
@@ -76,25 +76,43 @@ const jsonLd = [
             <p>{category.data.name} · {tool.data.platforms.join(" · ")}</p>
               <p class="note">
                 確認日 {formatDate(tool.data.lastChecked)}
-                {tool.data.checks.length === 0
-                  ? "。この確認では、公式に断定できる記載はありません。"
-                  : tool.data.checks.map((check) => (
+                {tool.data.checks.filter((check) => check.kind === "official").length === 0
+                  ? " · 公式の断定できる記載はありません。"
+                  : tool.data.checks
+                      .filter((check) => check.kind === "official" && check.sourceUrl)
+                      .map((check) => (
+                        <>
+                          {" · 公式 "}
+                          <a href={check.sourceUrl}>
+                            {check.field === "ui"
+                              ? "日本語UI"
+                              : check.field === "input"
+                                ? "日本語入力"
+                                : check.field === "output"
+                                  ? "日本語出力"
+                                  : check.field === "pricing"
+                                    ? "料金"
+                                    : "商用"}
+                          </a>
+                        </>
+                      ))}
+              </p>
+              {tool.data.checks.some((check) => check.kind === "tested") && (
+                <p class="note">
+                  実測
+                  {tool.data.checks
+                    .filter((check) => check.kind === "tested")
+                    .map((check) => (
                       <>
                         {" · "}
-                        <a href={check.sourceUrl}>
-                          {check.field === "ui"
-                            ? "日本語UI"
-                            : check.field === "input"
-                              ? "日本語入力"
-                              : check.field === "output"
-                                ? "日本語出力"
-                                : check.field === "pricing"
-                                  ? "料金"
-                                  : "商用"}
-                        </a>
+                        {check.field === "ui" ? "日本語UI" : check.field === "input" ? "日本語入力" : "日本語出力"}
+                        {check.value === "supported" ? "対応" : check.value === "partial" ? "一部" : check.value === "unsupported" ? "非対応" : ""}
+                        （{check.method}
+                        {check.sourceUrl ? <a href={check.sourceUrl}>出典</a> : check.command}）
                       </>
                     ))}
-              </p>
+                </p>
+              )}
           </div>
         </div>
         <a class="out" href={tool.data.url}>公式サイト ↗</a>
@@ -154,14 +172,31 @@ const jsonLd = [
             <dd title={price.title}>{price.yenText}</dd>
             <dt>日本語</dt>
             <dd>
+              <span class="evidence">公式</span>
               {levels.map((level) => {
                 const value = tool.data.japanese[level.key] as SupportLevel;
                 return (
-                  <abbr class:list={["mark", value]} title={`${level.label} ${JA_WORD[value]}`}>
-                    {level.label}{JA_MARK[value]}
+                  <abbr class:list={["mark", value]} title={`公式 ${level.label} ${JA_WORD[value]}`}>
+                    {level.label}
+                    {JA_MARK[value]}
                   </abbr>
                 );
               })}
+              {levels.some((level) => testedValue(tool.data.checks, level.key)) && (
+                <>
+                  <span class="evidence">実測</span>
+                  {levels.map((level) => {
+                    const value = testedValue(tool.data.checks, level.key);
+                    if (!value) return null;
+                    return (
+                      <abbr class:list={["mark", value]} title={`実測 ${level.label} ${JA_WORD[value]}`}>
+                        {level.label}
+                        {JA_MARK[value]}
+                      </abbr>
+                    );
+                  })}
+                </>
+              )}
             </dd>
             <dt>動作</dt>
             <dd>{tool.data.platforms.join(" / ")}</dd>

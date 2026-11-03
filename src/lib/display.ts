@@ -28,6 +28,23 @@ const JA_SHORT: Record<"ui" | "input" | "output", string> = {
   output: "出力",
 };
 
+export function testedValue(
+  checks: ToolData["checks"],
+  field: "ui" | "input" | "output",
+): SupportLevel | null {
+  const found = checks.find((check) => check.kind === "tested" && check.field === field && check.value);
+  return found?.value && found.value !== "unknown" ? found.value : null;
+}
+
+export function shownLevel(
+  official: SupportLevel,
+  tested: SupportLevel | null,
+): { level: SupportLevel; kind: "official" | "tested" } {
+  if (official !== "unknown") return { level: official, kind: "official" };
+  if (tested) return { level: tested, kind: "tested" };
+  return { level: "unknown", kind: "official" };
+}
+
 export function jaPhrase(japanese: ToolData["japanese"]): string {
   return (["ui", "input", "output"] as const)
     .map((key) => `${JA_SHORT[key]}${JA_MARK[japanese[key]]}（${JA_WORD[japanese[key]]}）`)

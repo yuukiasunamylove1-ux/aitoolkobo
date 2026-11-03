@@ -451,6 +451,13 @@ p { margin: 0 0 12px; }
 
 .spec-list dd .mark { margin-right: 4px; }
 
+.evidence {
+  display: inline-block;
+  margin-right: 4px;
+  color: var(--ink-3);
+  font-size: var(--fs-xs);
+}
+
 table.data {
   width: 100%;
   border-collapse: collapse;

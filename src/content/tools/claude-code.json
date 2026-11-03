@@ -54,7 +54,11 @@
   "checks": [
     {
       "field": "pricing",
+      "kind": "official",
       "sourceUrl": "https://claude.com/pricing",
+      "command": null,
+      "method": null,
+      "value": null,
       "checkedAt": "2026-11-04"
     }
   ]
