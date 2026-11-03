@@ -4,18 +4,18 @@
   "url": "https://www.langflow.org",
   "category": "agent-builders",
   "description": "エージェントと LLM のフローを画面でつなぐ、ソースが公開されたビジュアルビルダーです。",
-  "detail": "ノードをつないでフローを作ります。2026年秋の比較では MIT ライセンスで更新が続いている、とされています。クラウドの定価は同じ資料で未掲載です。価格点は、自分で動かす版に購読が必須でないことに基づきます。ライセンス条文はリポジトリで確認してください。円建ては未確認です。",
+  "detail": "画面でフローを組むビルダーとして掲載しています。2026-11-04の公式サイトでは、購読料金とライセンス条文を断定できるところまで確認できていません。",
   "platforms": [
     "ブラウザ",
     "セルフホスト"
   ],
   "pricing": {
-    "tier": "free",
+    "tier": "unknown",
     "currency": null,
     "monthlyAmount": null,
     "yenAmount": null,
-    "short": "自分で置く版あり",
-    "label": "自分で動かせる版があります。クラウドの月額は未確認です。価格点は購読が必須でないことに基づきます。ライセンスは比較記事が MIT としていますが、条文はリポジトリを見てください。円建ては未確認です。",
+    "short": "料金は未確認",
+    "label": "2026-11-04に公式サイトを確認しましたが、個人向けの定額を断定できる記載はありませんでした。円建ても未確認です。",
     "sourceUrl": "https://www.langflow.org"
   },
   "japanese": {
@@ -44,5 +44,8 @@
       "url": "https://www.langflow.org"
     }
   ],
-  "lastChecked": "2026-11-03"
+  "lastChecked": "2026-11-04",
+  "commercialUse": "unknown",
+  "commercialNote": "公式ページで商用条件を確認できていません。",
+  "checks": []
 }

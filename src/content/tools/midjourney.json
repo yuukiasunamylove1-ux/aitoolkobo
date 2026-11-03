@@ -3,19 +3,19 @@
   "name": "Midjourney",
   "url": "https://www.midjourney.com",
   "category": "game-images",
-  "description": "文章から絵を作る画像生成です。ゲームのコンセプトを探るときに候補を大量に出せます。",
-  "detail": "独自モデルで画像を生成します。二次情報には Basic 月$10、Standard 月$30、Pro 月$60、Mega 月$120 という整理があります。当サイトは公式料金表の数値を直接確定していないため、月額は価格点に使っていません。有料プランが中心であることは扱います。円建ては未確認です。",
+  "description": "文章から絵や動画を作る有料の画像生成です。公式プランは Basic 月$10からです。",
+  "detail": "公式のプラン比較では Basic 月$10、Standard 月$30、Pro 月$60、Mega 月$120です。年払いは20%引きです。無料プランの記載はありません。売上100万ドル超の会社は Pro か Mega が必要、と書かれています。円建ては未確認です。",
   "platforms": [
     "ブラウザ"
   ],
   "pricing": {
     "tier": "subscription",
-    "currency": null,
-    "monthlyAmount": null,
+    "currency": "USD",
+    "monthlyAmount": 10,
     "yenAmount": null,
-    "short": "月額は未確認",
-    "label": "有料プラン制の画像生成です。比較記事上の月額（Basic $10 など）は、公式料金表を当サイトが直接確定していないため価格点に使いません。円建ては未確認です。",
-    "sourceUrl": "https://www.midjourney.com"
+    "short": "Basic 月$10〜",
+    "label": "公式の月額は Basic $10、Standard $30、Pro $60、Mega $120。年払いは各 $96、$288、$576、$1,152。価格点は Basic の月$10です。円建ては未確認です。",
+    "sourceUrl": "https://docs.midjourney.com/hc/en-us/articles/27870484040333-Comparing-Midjourney-Plans"
   },
   "japanese": {
     "ui": "unknown",
@@ -43,5 +43,19 @@
       "url": "https://www.midjourney.com"
     }
   ],
-  "lastChecked": "2026-11-03"
+  "lastChecked": "2026-11-04",
+  "commercialUse": "restricted",
+  "commercialNote": "公式は、加入歴があれば画像と動画を広く使えるとし、年間総収入100万ドル超の会社は Pro か Mega が必要だと書いています。",
+  "checks": [
+    {
+      "field": "pricing",
+      "sourceUrl": "https://docs.midjourney.com/hc/en-us/articles/27870484040333-Comparing-Midjourney-Plans",
+      "checkedAt": "2026-11-04"
+    },
+    {
+      "field": "commercial",
+      "sourceUrl": "https://docs.midjourney.com/hc/en-us/articles/27870484040333-Comparing-Midjourney-Plans",
+      "checkedAt": "2026-11-04"
+    }
+  ]
 }

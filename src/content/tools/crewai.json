@@ -4,17 +4,17 @@
   "url": "https://www.crewai.com",
   "category": "agent-frameworks",
   "description": "役割を分けた複数エージェントを Python で書くフレームワークです。本体は MIT ライセンスです。",
-  "detail": "Crew と Flow でエージェントの共同作業を書けます。GitHub の README は MIT License と明記しています。ホスティング側の有料プランの現行月額は未確認です。価格点はフレームワークに購読が不要なことに基づきます。モデルの API 料金は別です。円建ては未確認です。",
+  "detail": "役割を分けたエージェントを書くフレームワークとして掲載しています。2026-11-04の公式リポジトリ取得では、ライセンス条文と料金を断定できる本文を確認できていません。",
   "platforms": [
     "ライブラリ"
   ],
   "pricing": {
-    "tier": "open-source",
+    "tier": "unknown",
     "currency": null,
     "monthlyAmount": null,
     "yenAmount": null,
-    "short": "フレームワークは MIT",
-    "label": "GitHub の README が MIT License と記載しています。クラウド側の有料プランの月額は未確認です。価格点はフレームワークに購読が不要なことに基づきます。円建ては未確認です。",
+    "short": "料金は未確認",
+    "label": "2026-11-04に公式サイトを確認しましたが、個人向けの定額を断定できる記載はありませんでした。円建ても未確認です。",
     "sourceUrl": "https://github.com/crewAIInc/crewAI"
   },
   "japanese": {
@@ -43,5 +43,8 @@
       "url": "https://github.com/crewAIInc/crewAI"
     }
   ],
-  "lastChecked": "2026-11-03"
+  "lastChecked": "2026-11-04",
+  "commercialUse": "unknown",
+  "commercialNote": "公式ページで商用条件を確認できていません。",
+  "checks": []
 }

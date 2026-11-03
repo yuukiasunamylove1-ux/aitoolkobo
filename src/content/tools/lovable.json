@@ -14,7 +14,7 @@
     "monthlyAmount": 25,
     "yenAmount": null,
     "short": "Pro 月$25〜",
-    "label": "公式ドキュメントの Pro は、月100クレジットが月$25（年払いは年$250）。Free は1日5ビルドクレジットで月30まで、など。価格点は月$25の入口を使います。円建ては未確認です。",
+    "label": "公式ドキュメントでは Free があり、Pro は月100クレジットが月$25からです。作ったコードと生成物の権利は利用者にあり、基盤モデルの第三者権利は別、と料金FAQにあります。円建ては未確認です。",
     "sourceUrl": "https://docs.lovable.dev/introduction/subscription-plans"
   },
   "japanese": {
@@ -43,5 +43,19 @@
       "url": "https://docs.lovable.dev/introduction/subscription-plans"
     }
   ],
-  "lastChecked": "2026-11-03"
+  "lastChecked": "2026-11-04",
+  "commercialUse": "restricted",
+  "commercialNote": "公式FAQは、作ったコードとAI出力の権利は利用者にあるとし、基盤モデルの第三者権利は別だと書いています。",
+  "checks": [
+    {
+      "field": "pricing",
+      "sourceUrl": "https://docs.lovable.dev/introduction/subscription-plans",
+      "checkedAt": "2026-11-04"
+    },
+    {
+      "field": "commercial",
+      "sourceUrl": "https://lovable.dev/pricing",
+      "checkedAt": "2026-11-04"
+    }
+  ]
 }

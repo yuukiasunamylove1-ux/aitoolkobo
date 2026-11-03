@@ -14,7 +14,7 @@
     "monthlyAmount": null,
     "yenAmount": null,
     "short": "料金は未確認",
-    "label": "公式の月額、無料枠、円建ては未確認です。価格点は付けていません。",
+    "label": "2026-11-04に公式サイトを確認しましたが、個人向けの定額を断定できる記載はありませんでした。円建ても未確認です。",
     "sourceUrl": "https://www.coze.com"
   },
   "japanese": {
@@ -43,5 +43,8 @@
       "url": "https://www.coze.com"
     }
   ],
-  "lastChecked": "2026-11-03"
+  "lastChecked": "2026-11-04",
+  "commercialUse": "unknown",
+  "commercialNote": "公式ページで商用条件を確認できていません。",
+  "checks": []
 }

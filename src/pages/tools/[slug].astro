@@ -73,7 +73,28 @@ const jsonLd = [
           <ToolLogo slug={tool.id} name={tool.data.name} size={48} />
           <div>
             <h1>{tool.data.name}</h1>
-            <p>{category.data.name} · {tool.data.platforms.join(" · ")} · 確認日 {formatDate(tool.data.lastChecked)}</p>
+            <p>{category.data.name} · {tool.data.platforms.join(" · ")}</p>
+              <p class="note">
+                確認日 {formatDate(tool.data.lastChecked)}
+                {tool.data.checks.length === 0
+                  ? "。この確認では、公式に断定できる記載はありません。"
+                  : tool.data.checks.map((check) => (
+                      <>
+                        {" · "}
+                        <a href={check.sourceUrl}>
+                          {check.field === "ui"
+                            ? "日本語UI"
+                            : check.field === "input"
+                              ? "日本語入力"
+                              : check.field === "output"
+                                ? "日本語出力"
+                                : check.field === "pricing"
+                                  ? "料金"
+                                  : "商用"}
+                        </a>
+                      </>
+                    ))}
+              </p>
           </div>
         </div>
         <a class="out" href={tool.data.url}>公式サイト ↗</a>
@@ -145,7 +166,17 @@ const jsonLd = [
             <dt>動作</dt>
             <dd>{tool.data.platforms.join(" / ")}</dd>
             <dt>OSS</dt>
-            <dd>{tool.data.pricing.tier === "open-source" ? "○" : "×"}</dd>
+            <dd>{tool.data.pricing.tier === "open-source" ? "○" : tool.data.pricing.tier === "unknown" ? "—" : "×"}</dd>
+            <dt>商用</dt>
+            <dd title={tool.data.commercialNote}>
+              {tool.data.commercialUse === "allowed"
+                ? "可"
+                : tool.data.commercialUse === "restricted"
+                  ? "条件付き"
+                  : tool.data.commercialUse === "not-allowed"
+                    ? "不可"
+                    : "—"}
+            </dd>
           </dl>
           <p class="note">{tool.data.japanese.note}</p>
         </aside>

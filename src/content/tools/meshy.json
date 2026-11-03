@@ -14,7 +14,7 @@
     "monthlyAmount": 20,
     "yenAmount": null,
     "short": "Pro 月$20〜",
-    "label": "公式料金ページでは Free が月100クレジット、Pro が月$20で月1,000クレジット。より上の段もあります。価格点は Pro の月$20を使います。円建ては未確認です。",
+    "label": "公式料金は Free が月100クレジット、Pro が $20で月1,000クレジットです。価格点は Pro の $20です。円建ては未確認です。",
     "sourceUrl": "https://www.meshy.ai/pricing"
   },
   "japanese": {
@@ -43,5 +43,19 @@
       "url": "https://www.meshy.ai/pricing"
     }
   ],
-  "lastChecked": "2026-11-03"
+  "lastChecked": "2026-11-04",
+  "commercialUse": "restricted",
+  "commercialNote": "公式FAQは、有料プランの生成物は利用者の権利、無料プランは CC BY 4.0（クレジット表記付きで商用可）だと書いています。",
+  "checks": [
+    {
+      "field": "pricing",
+      "sourceUrl": "https://www.meshy.ai/pricing",
+      "checkedAt": "2026-11-04"
+    },
+    {
+      "field": "commercial",
+      "sourceUrl": "https://www.meshy.ai/pricing",
+      "checkedAt": "2026-11-04"
+    }
+  ]
 }

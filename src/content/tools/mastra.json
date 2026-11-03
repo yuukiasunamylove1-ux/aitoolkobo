@@ -3,19 +3,19 @@
   "name": "Mastra",
   "url": "https://mastra.ai",
   "category": "agent-frameworks",
-  "description": "TypeScript でエージェントとワークフローを書くフレームワークです。クラウドの月額は未確認です。",
-  "detail": "エージェント、ワークフロー、メモリを TypeScript のアプリに組み込みます。2026年の解説ではコアが Apache-2.0 で、enterprise 向けディレクトリは別ライセンス、とされています。条文とクラウド料金は当サイトでは未確認です。価格点は、コアを購読必須とせずに書き始められることに基づきます。円建ては未確認です。",
+  "description": "TypeScript でエージェントを書くフレームワークです。公式FAQはコアを Apache 2.0 としています。",
+  "detail": "公式FAQは、コアを Apache 2.0 のオープンソースとし、Enterprise 機能は別ライセンス、開始時点では席や利用量の階層がないと書いています。クラウドの月額表は同じページにありません。円建ては未確認です。",
   "platforms": [
     "ライブラリ"
   ],
   "pricing": {
-    "tier": "free",
+    "tier": "open-source",
     "currency": null,
     "monthlyAmount": null,
     "yenAmount": null,
-    "short": "コアは購読なし",
-    "label": "TypeScript のフレームワークとして書き始められます。クラウドの月額と、enterprise ディレクトリの条件は未確認です。価格点はコアに購読が必須でないことに基づきます。円建ては未確認です。",
-    "sourceUrl": "https://mastra.ai"
+    "short": "コアは Apache-2.0",
+    "label": "公式FAQはコアを Apache 2.0、Enterprise 機能を別ライセンスとし、開始時に席や利用量の階層はないと書いています。円建ての販売価格はありません。",
+    "sourceUrl": "https://mastra.ai/"
   },
   "japanese": {
     "ui": "unknown",
@@ -43,5 +43,19 @@
       "url": "https://mastra.ai"
     }
   ],
-  "lastChecked": "2026-11-03"
+  "lastChecked": "2026-11-04",
+  "commercialUse": "allowed",
+  "commercialNote": "公式FAQはコアを Apache 2.0 とし、Enterprise 機能だけ別ライセンスだと書いています。",
+  "checks": [
+    {
+      "field": "pricing",
+      "sourceUrl": "https://mastra.ai/",
+      "checkedAt": "2026-11-04"
+    },
+    {
+      "field": "commercial",
+      "sourceUrl": "https://mastra.ai/",
+      "checkedAt": "2026-11-04"
+    }
+  ]
 }

@@ -3,18 +3,18 @@
   "name": "Zapier",
   "url": "https://zapier.com",
   "category": "automation",
-  "description": "多数の Web サービスを画面でつなぐ自動化です。AI のステップもフローに含められます。料金は未確認です。",
-  "detail": "コードを書かずに連携を作る自動化サービスとして掲載しています。確認日に公式料金表の月額と無料枠の数値を直接確定していないため、価格点は付けていません。円の切替があるかどうかも未確認です。",
+  "description": "Webサービスをつなぐ自動化です。公式の Free は月100タスク、Pro の月払いは $29.99 からです。",
+  "detail": "公式料金は Free が月100タスク、Professional の月払いが750タスクで月$29.99（年払い表示は月$19.99）です。価格点は月払いの $29.99 を使います。円建ては未確認です。",
   "platforms": [
     "ブラウザ"
   ],
   "pricing": {
-    "tier": "unknown",
-    "currency": null,
-    "monthlyAmount": null,
+    "tier": "freemium",
+    "currency": "USD",
+    "monthlyAmount": 29.99,
     "yenAmount": null,
-    "short": "料金は未確認",
-    "label": "公式の月額、無料枠、円建ては未確認です。価格点は付けていません。",
+    "short": "Pro 月$29.99〜",
+    "label": "公式の月払い Pro は750タスクで月$29.99。同じ段の年払い表示は月$19.99です。Free は月100タスク。価格点は月払いの $29.99です。円建ては未確認です。",
     "sourceUrl": "https://zapier.com/pricing"
   },
   "japanese": {
@@ -43,5 +43,14 @@
       "url": "https://zapier.com/pricing"
     }
   ],
-  "lastChecked": "2026-11-03"
+  "lastChecked": "2026-11-04",
+  "commercialUse": "unknown",
+  "commercialNote": "公式ページで商用条件を確認できていません。",
+  "checks": [
+    {
+      "field": "pricing",
+      "sourceUrl": "https://zapier.com/pricing",
+      "checkedAt": "2026-11-04"
+    }
+  ]
 }

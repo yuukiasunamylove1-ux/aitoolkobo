@@ -4,18 +4,18 @@
   "url": "https://aider.chat",
   "category": "ai-coding-agents",
   "description": "ターミナルで動き、Git の差分として編集を残す AI ペアプログラミングです。ソフトの購読はありません。",
-  "detail": "チャットで指示すると、リポジトリへコミットできる差分を作ります。ソフト自体の月額はなく、モデルは利用者の API キーやローカルモデルを使います。価格点は購読が不要なことに基づきます。API 従量と円建ては別問題で、円建ては未確認です。",
+  "detail": "ターミナルでリポジトリを編集するペアプログラミングとして掲載しています。2026-11-04の公式サイトでは、購読料金の記載を確認できませんでした。",
   "platforms": [
     "CLI"
   ],
   "pricing": {
-    "tier": "free",
+    "tier": "unknown",
     "currency": null,
     "monthlyAmount": null,
     "yenAmount": null,
-    "short": "ソフトは購読なし",
-    "label": "Aider 自体の購読プランはなく、モデル利用料は API 提供者へ別払いです。価格点はソフトのライセンス料がないことに基づきます。円建ては未確認です。",
-    "sourceUrl": "https://aider.chat"
+    "short": "料金は未確認",
+    "label": "2026-11-04に公式サイトを確認しましたが、個人向けの定額を断定できる記載はありませんでした。円建ても未確認です。",
+    "sourceUrl": "https://aider.chat/"
   },
   "japanese": {
     "ui": "unknown",
@@ -43,5 +43,8 @@
       "url": "https://aider.chat"
     }
   ],
-  "lastChecked": "2026-11-03"
+  "lastChecked": "2026-11-04",
+  "commercialUse": "unknown",
+  "commercialNote": "公式ページで商用条件を確認できていません。",
+  "checks": []
 }

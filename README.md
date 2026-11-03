@@ -134,6 +134,9 @@ public/                   favicon、OGP、`_routes.json`
 | `editorial.features` / `usability` / `updates` | `score` は 1〜5 または `null`。`note` は理由。基準はサイトの評価基準ページと同じ |
 | `addedAt` | このディレクトリへ追加した日（`YYYY-MM-DD`）。製品の発売日ではない |
 | `lastChecked` | 料金と日本語対応を確認した日 |
+| `commercialUse` | `allowed` / `restricted` / `not-allowed` / `unknown`。公式に商用条件が無いときは `unknown` |
+| `commercialNote` | その判断の一文 |
+| `checks` | 未確認以外にした項目（`ui` / `input` / `output` / `pricing` / `commercial`）ごとの `sourceUrl` と `checkedAt`。未確認の項目には付けない |
 | `sources` | 参照リンクの配列 |
 
 `free` と `open-source` と `unknown` では `monthlyAmount` を `null` にしてください。価格点は tier から付きます。`open-source` は、リポジトリが寛容なライセンスだと確認できたときだけ使います。

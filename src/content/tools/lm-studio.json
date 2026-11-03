@@ -4,18 +4,18 @@
   "url": "https://lmstudio.ai",
   "category": "local-models",
   "description": "手元の PC でモデルを読み、チャットやローカル API として使うデスクトップアプリです。",
-  "detail": "GUI でモデルを選んでローカル実行できます。アプリのダウンロードは無料として公開されています。追加の有料プランの有無は未確認です。価格点は、アプリ本体に購読が必須でないことに基づきます。モデルのライセンスはモデルごとに違います。円建ては未確認です。",
+  "detail": "手元のPCでモデルを動かすデスクトップアプリとして掲載しています。2026-11-04の公式サイトでは、ダウンロード案内はあり、購読料金の記載は確認できていません。",
   "platforms": [
     "デスクトップ"
   ],
   "pricing": {
-    "tier": "free",
+    "tier": "unknown",
     "currency": null,
     "monthlyAmount": null,
     "yenAmount": null,
-    "short": "アプリは無料",
-    "label": "デスクトップアプリとして無料で公開されています。追加の有料プランは未確認です。価格点はアプリ本体に購読が必須でないことに基づきます。円建ては未確認です。",
-    "sourceUrl": "https://lmstudio.ai"
+    "short": "料金は未確認",
+    "label": "2026-11-04に公式サイトを確認しましたが、個人向けの定額を断定できる記載はありませんでした。円建ても未確認です。",
+    "sourceUrl": "https://lmstudio.ai/"
   },
   "japanese": {
     "ui": "unknown",
@@ -43,5 +43,8 @@
       "url": "https://lmstudio.ai"
     }
   ],
-  "lastChecked": "2026-11-03"
+  "lastChecked": "2026-11-04",
+  "commercialUse": "unknown",
+  "commercialNote": "公式ページで商用条件を確認できていません。",
+  "checks": []
 }

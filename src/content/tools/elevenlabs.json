@@ -3,19 +3,19 @@
   "name": "ElevenLabs",
   "url": "https://elevenlabs.io",
   "category": "game-voice",
-  "description": "文章から声を合成するサービスです。料金と、日本語の入出力の品質は未確認です。",
-  "detail": "ナレーションやキャラクターボイスの候補を作る音声合成として掲載しています。確認日に公式料金表の月額と無料枠を確定していないため、価格点は付けていません。日本語音声の品質も未確認です。円建ては未確認です。",
+  "description": "文章から声や効果音を作るサービスです。公式の有料入口は Starter の月$6です。",
+  "detail": "公式料金は Free が $0（月1万クレジット）、Starter が月$6（初月$1）、Creator が月$22、Pro が月$99です。Starter に Commercial License とあります。日本語音声かどうかは、言語数の記載だけでは断定していません。円建ては未確認です。",
   "platforms": [
     "ブラウザ"
   ],
   "pricing": {
-    "tier": "unknown",
-    "currency": null,
-    "monthlyAmount": null,
+    "tier": "freemium",
+    "currency": "USD",
+    "monthlyAmount": 6,
     "yenAmount": null,
-    "short": "料金は未確認",
-    "label": "公式の月額、無料枠、円建ては未確認です。価格点は付けていません。",
-    "sourceUrl": "https://elevenlabs.io"
+    "short": "Starter 月$6〜",
+    "label": "公式の月額は Free $0、Starter $6、Creator $22、Pro $99、Scale $299、Business $990です。価格点は Starter の月$6です。円建ては未確認です。",
+    "sourceUrl": "https://elevenlabs.io/pricing"
   },
   "japanese": {
     "ui": "unknown",
@@ -43,5 +43,19 @@
       "url": "https://elevenlabs.io"
     }
   ],
-  "lastChecked": "2026-11-03"
+  "lastChecked": "2026-11-04",
+  "commercialUse": "restricted",
+  "commercialNote": "公式のプラン比較では、Commercial License は Starter 以降にあり、Free の欄には見当たりません。",
+  "checks": [
+    {
+      "field": "pricing",
+      "sourceUrl": "https://elevenlabs.io/pricing",
+      "checkedAt": "2026-11-04"
+    },
+    {
+      "field": "commercial",
+      "sourceUrl": "https://elevenlabs.io/pricing",
+      "checkedAt": "2026-11-04"
+    }
+  ]
 }
