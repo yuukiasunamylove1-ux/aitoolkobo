@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
-import ToolRow from "../components/ToolRow.astro";
+import Shell from "../components/Shell.astro";
+import ToolItem from "../components/ToolItem.astro";
 import { absoluteUrl } from "../lib/labels";
 import { rankedTools } from "../lib/queries";
 import { pageGraph } from "../lib/seo";
@@ -17,16 +18,14 @@ const jsonLd = pageGraph({
 ---
 
 <Base title="検索" description={description} jsonLd={jsonLd}>
-  <div class="page">
-    <div class="wrap">
-      <h1>検索</h1>
-      <p class="note" data-search-count>掲載 {tools.length}件</p>
-      <noscript><p class="note">絞り込みにはJavaScriptを使います。オフのときは全件を表示します。</p></noscript>
-      <ol class="tool-list" data-search-list>
-        {tools.map((row) => <ToolRow row={row} showCategory />)}
-      </ol>
-    </div>
-  </div>
+  <Shell mode="plain">
+    <h1>検索</h1>
+    <p class="disclaimer" data-search-count>掲載 {tools.length}ツール</p>
+    <noscript><p class="disclaimer">絞り込みにはJavaScriptを使います。オフのときは全件を表示します。</p></noscript>
+    <ol class="tool-list" data-search-list>
+      {tools.map((row) => <ToolItem row={row} showCategory />)}
+    </ol>
+  </Shell>
 </Base>
 
 <script>

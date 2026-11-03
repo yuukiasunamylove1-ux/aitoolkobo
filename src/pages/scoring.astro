@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import Shell from "../components/Shell.astro";
 import { absoluteUrl } from "../lib/labels";
 import {
   CRITERIA,
@@ -62,8 +63,8 @@ const weightSum = Object.values(WEIGHTS).reduce((sum, value) => sum + value, 0);
 ---
 
 <Base title="評価基準" description={description} jsonLd={jsonLd}>
-  <article class="page">
-    <div class="wrap prose measure">
+  <Shell mode="plain">
+    <article class="prose">
       <h1>評価基準</h1>
       <p class="lede">
         カテゴリ内の順位は、次の式だけで決まります。編集部の感想を、式と別に加算することはありません。
@@ -148,7 +149,7 @@ const weightSum = Object.values(WEIGHTS).reduce((sum, value) => sum + value, 0);
         </tbody>
       </table>
       <p class="fine">
-        入力や出力が、利用者が選ぶモデル次第のビルダーは、品質を推定せず未確認にします。未確認が一つでもあれば、この表は使いません。一覧では未確認を — と書きます。
+        入力や出力が、利用者が選ぶモデル次第のビルダーは、品質を推定せず未確認にします。未確認が一つでもあれば、この表は使いません。一覧では未確認の項目を出さず、詳細ページで「未確認」と書きます。
       </p>
 
       <h2>価格</h2>
@@ -208,6 +209,6 @@ const weightSum = Object.values(WEIGHTS).reduce((sum, value) => sum + value, 0);
           <p>{faq.a}</p>
         </section>
       ))}
-    </div>
-  </article>
+    </article>
+  </Shell>
 </Base>

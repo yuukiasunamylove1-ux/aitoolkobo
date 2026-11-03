@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import Shell from "../components/Shell.astro";
 import { FX_NOTE } from "../lib/display";
 import { absoluteUrl } from "../lib/labels";
 import { pageGraph } from "../lib/seo";
@@ -11,8 +12,8 @@ const faqs = [
     a: "日本語でアプリやゲームを作る人向けに、バイブコーディング、AIゲーム制作、AIエージェントの三つへ絞っています。",
   },
   {
-    q: "一覧の — は何ですか？",
-    a: "未確認です。日本語対応や料金を確認できていない項目は、推測で埋めずに — と書きます。",
+    q: "一覧に日本語の印がないツールは？",
+    a: "未確認の項目は一覧に出していません。詳細ページの表で、日本語UI・入力・出力を「対応／一部対応／非対応／未確認」と書きます。",
   },
   {
     q: "円の「約」は公式価格ですか？",
@@ -43,8 +44,8 @@ const jsonLd = [
 ---
 
 <Base title="運営者情報" description={description} jsonLd={jsonLd}>
-  <article class="page">
-    <div class="wrap prose measure">
+  <Shell mode="plain">
+    <article class="prose">
       <h1>運営者情報</h1>
       <p>
         AIツール工房（aitoolkobo）は、日本語でアプリやゲームを作る人向けのディレクトリです。個人開発者と小規模チームが、道具を短時間で比べられることを目的にしています。
@@ -52,8 +53,8 @@ const jsonLd = [
       <h2>編集方針</h2>
       <ul>
         <li>対象はバイブコーディング、AIゲーム制作、AIエージェントです。</li>
-        <li>公式の円建てが確認できない料金は — と書きます。米ドルの月額が分かるときだけ、表示用の概算円を併記します。</li>
-        <li>日本語対応は UI・入力・出力に分け、確認できない段は —（未確認）にします。</li>
+        <li>公式の円建てが確認できない料金は、詳細ページで未確認と書きます。米ドルの月額が分かるときだけ、表示用の概算円を併記します。</li>
+        <li>日本語対応は UI・入力・出力に分け、確認できない段は未確認にします。一覧には、確認できた項目だけを出します。</li>
         <li>順位は<a href="/scoring/">評価基準</a>の式だけに従います。</li>
         <li>ツールの追加日は、このディレクトリへ載せた日です。</li>
       </ul>
@@ -68,6 +69,6 @@ const jsonLd = [
       <p>
         運営者の氏名・住所の公開は準備中です。連絡は<a href="/contact/">お問い合わせ</a>の案内に従ってください。お問い合わせフォームは、まだ送信先に接続していません。
       </p>
-    </div>
-  </article>
+    </article>
+  </Shell>
 </Base>

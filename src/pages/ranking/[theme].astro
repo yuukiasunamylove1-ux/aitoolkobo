@@ -1,0 +1,80 @@
+---
+import Base from "../../layouts/Base.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
+import Shell from "../../components/Shell.astro";
+import ToolItem from "../../components/ToolItem.astro";
+import ToolLine from "../../components/ToolLine.astro";
+import { THEMES, absoluteUrl, formatJaDate, latestDate } from "../../lib/labels";
+import { rankedTools } from "../../lib/queries";
+import { pageGraph } from "../../lib/seo";
+import type { ThemeId } from "../../lib/schema";
+
+export function getStaticPaths() {
+  return (Object.keys(THEMES) as ThemeId[]).map((theme) => ({ params: { theme } }));
+}
+
+const theme = Astro.params.theme as ThemeId;
+const info = THEMES[theme];
+const ranked = await rankedTools();
+const rows = ranked.filter((row) => row.category.data.theme === theme);
+const asOf = latestDate(rows.map((row) => row.tool.data.lastChecked));
+const title = `${info.name}のランキング（1位〜${rows.length}位）`;
+const description = `${info.name}の総合点ランキングです。${info.lead}アクセス数ではなく、公開した総合点の順です。`;
+const site = Astro.site!;
+const url = absoluteUrl(`/ranking/${theme}/`, site);
+const tabs = [
+  { href: "/ranking/", label: "総合", current: false },
+  ...(Object.keys(THEMES) as ThemeId[]).map((id) => ({
+    href: `/ranking/${id}/`,
+    label: THEMES[id].name,
+    current: id === theme,
+  })),
+];
+const jsonLd = [
+  pageGraph({ site: site.href, url, name: title, description, type: "CollectionPage" }),
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: title,
+    itemListOrder: "https://schema.org/ItemListOrderDescending",
+    numberOfItems: rows.length,
+    itemListElement: rows.map((row, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: row.tool.data.name,
+      url: absoluteUrl(`/tools/${row.tool.id}/`, site),
+    })),
+  },
+];
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <Shell mode="plain">
+    <Breadcrumb
+      items={[
+        { name: "トップ", href: "/" },
+        { name: "ランキング", href: "/ranking/" },
+        { name: info.name, href: `/ranking/${theme}/` },
+      ]}
+    />
+    <div class="page-kicker">
+      <h1>{info.name}のランキング<span class="nowrap">（1位〜{rows.length}位）</span></h1>
+      {asOf && <strong>{formatJaDate(asOf)} 時点</strong>}
+    </div>
+    <p class="lede">{info.lead}</p>
+    <nav class="box-tabs" aria-label="ランキングの範囲">
+      {tabs.map((tab) => (
+        <a href={tab.href} aria-current={tab.current ? "page" : undefined}>{tab.label}</a>
+      ))}
+    </nav>
+    <ol class="tool-list">
+      {rows.slice(0, 3).map((row, index) => <ToolItem row={row} rank={index + 1} showCategory />)}
+    </ol>
+    {rows.length > 3 && (
+      <ol class="line-list">
+        {rows.slice(3).map((row, index) => <ToolLine row={row} rank={index + 4} dense />)}
+      </ol>
+    )}
+    <p class="disclaimer">※順位は公開した総合点です。アクセス数ではありません。<a href="/scoring/">評価基準 ›</a></p>
+  </Shell>
+</Base>

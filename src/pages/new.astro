@@ -1,13 +1,23 @@
 ---
 import Base from "../layouts/Base.astro";
-import ToolRow from "../components/ToolRow.astro";
-import { absoluteUrl, formatDate } from "../lib/labels";
+import Shell from "../components/Shell.astro";
+import ToolLogo from "../components/ToolLogo.astro";
+import { absoluteUrl, formatJaDate, formatJaMonthDay } from "../lib/labels";
 import { newestTools } from "../lib/queries";
+import { formatScore } from "../lib/score";
 import { pageGraph } from "../lib/seo";
+import { THEMES } from "../lib/labels";
 
 const description = "ディレクトリへ新しく追加したAIツールです。日付は製品の発売日ではなく、このサイトへの追加日です。";
 const site = Astro.site!;
 const tools = await newestTools();
+const groups: { date: string; rows: typeof tools }[] = [];
+for (const row of tools) {
+  const date = row.tool.data.addedAt;
+  const last = groups.at(-1);
+  if (last && last.date === date) last.rows.push(row);
+  else groups.push({ date, rows: [row] });
+}
 const jsonLd = [
   pageGraph({
     site: site.href,
@@ -32,15 +42,32 @@ const jsonLd = [
 ---
 
 <Base title="新着AIツール" description={description} jsonLd={jsonLd}>
-  <div class="page">
-    <div class="wrap">
-      <h1>新着</h1>
-      <p class="lede">{description} <a href="/rss.xml">RSS</a></p>
-      <ol class="tool-list">
-        {tools.map((row) => (
-          <ToolRow row={row} showCategory blurb={formatDate(row.tool.data.addedAt)} />
-        ))}
-      </ol>
+  <Shell mode="plain">
+    <div class="section-head">
+      <h1 id="new-page">新着・更新情報</h1>
+      <a class="more" href="/rss.xml">RSS ›</a>
     </div>
-  </div>
+    <p class="disclaimer">※日付はこのサイトへ掲載した日です。製品の発売日ではありません。</p>
+    {groups.map((group) => (
+      <section>
+        <h2 class="news-day">{formatJaMonthDay(group.date)}</h2>
+        {group.rows.map((row) => (
+          <article class="news-item">
+            <div>
+              <p class="news-kicker">
+                <span class="news-date">{formatJaDate(row.tool.data.addedAt)}</span>
+                {" "}
+                <span class="badge-cat">{THEMES[row.category.data.theme].name}</span>
+              </p>
+              <a class="news-title" href={`/tools/${row.tool.id}/`}>「{row.tool.data.name}」を掲載しました</a>
+              <p class="news-meta">{row.category.data.name}｜総合 {formatScore(row.score.total)}点</p>
+            </div>
+            <a class="logo-frame" href={`/tools/${row.tool.id}/`} tabindex="-1" aria-hidden="true">
+              <ToolLogo slug={row.tool.id} name={row.tool.data.name} size={48} />
+            </a>
+          </article>
+        ))}
+      </section>
+    ))}
+  </Shell>
 </Base>

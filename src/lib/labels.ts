@@ -35,6 +35,58 @@ export function formatDate(iso: string): string {
   return `${year}年${Number(month)}月${Number(day)}日`;
 }
 
+const weekdayFormat = new Intl.DateTimeFormat("ja-JP", { weekday: "short", timeZone: "UTC" });
+
+function weekdayOf(iso: string): string {
+  const [year, month, day] = iso.split("-").map(Number);
+  return weekdayFormat.format(new Date(Date.UTC(year, month - 1, day)));
+}
+
+/** 2026/11/04(水) */
+export function formatJaDate(iso: string): string {
+  const [year, month, day] = iso.split("-");
+  return `${year}/${month}/${day}(${weekdayOf(iso)})`;
+}
+
+/** 2026年11月4日(水) */
+export function formatJaDateLong(iso: string): string {
+  const [year, month, day] = iso.split("-");
+  return `${year}年${Number(month)}月${Number(day)}日(${weekdayOf(iso)})`;
+}
+
+/** 11月4日(水) */
+export function formatJaMonthDay(iso: string): string {
+  const [, month, day] = iso.split("-");
+  return `${Number(month)}月${Number(day)}日(${weekdayOf(iso)})`;
+}
+
+export function latestDate(dates: string[]): string {
+  return dates.reduce((latest, date) => (date > latest ? date : latest), dates[0] ?? "");
+}
+
+export function sourceLinkText(label: string): string {
+  if (/[ぁ-んァ-ン一-龯]/.test(label)) return label;
+  const lower = label.toLowerCase();
+  let kind = "参照ページ";
+  if (/pric|plan|subscription/.test(lower)) kind = "料金ページ";
+  else if (/term|license/.test(lower)) kind = "利用条件";
+  else if (/doc/.test(lower)) kind = "ドキュメント";
+  else if (label.includes("/")) kind = "リポジトリ";
+  return `${kind}（${label}）`;
+}
+
+export function siteHost(url: string): string {
+  return new URL(url).host.replace(/^www\./, "");
+}
+
+export const CHECK_FIELD_LABEL = {
+  ui: "日本語UI",
+  input: "日本語入力",
+  output: "日本語出力",
+  pricing: "料金",
+  commercial: "商用",
+} as const;
+
 export function absoluteUrl(pathname: string, site: URL): string {
   return new URL(pathname, site).href;
 }

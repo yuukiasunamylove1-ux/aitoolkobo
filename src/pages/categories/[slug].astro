@@ -2,9 +2,9 @@
 import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import Breadcrumb from "../../components/Breadcrumb.astro";
-import ToolRow from "../../components/ToolRow.astro";
-import { FX_NOTE } from "../../lib/display";
-import { absoluteUrl } from "../../lib/labels";
+import Shell from "../../components/Shell.astro";
+import ToolItem from "../../components/ToolItem.astro";
+import { THEMES, absoluteUrl, formatJaDate, latestDate } from "../../lib/labels";
 import { toolsInCategory } from "../../lib/queries";
 import { pageGraph } from "../../lib/seo";
 
@@ -19,9 +19,11 @@ const category = categories.find((item) => item.id === slug);
 if (!category) throw new Error(`unknown category ${slug}`);
 
 const rows = await toolsInCategory(category.id);
+const asOf = latestDate(rows.map((row) => row.tool.data.lastChecked));
 const description = `${category.data.name}のランキング。${category.data.description}`;
 const site = Astro.site!;
 const url = absoluteUrl(`/categories/${category.id}/`, site);
+const themeName = THEMES[category.data.theme].name;
 
 const jsonLd = [
   pageGraph({ site: site.href, url, name: category.data.name, description, type: "CollectionPage" }),
@@ -42,76 +44,65 @@ const jsonLd = [
 ---
 
 <Base title={category.data.name} description={description} jsonLd={jsonLd}>
-  <div class="page">
-    <div class="wrap" data-catalog>
-      <Breadcrumb
-        items={[
-          { name: "ホーム", href: "/" },
-          { name: "カテゴリ", href: "/categories/" },
-          { name: category.data.name, href: `/categories/${category.id}/` },
-        ]}
-      />
-      <h1>{category.data.name} <span class="note">({rows.length}件)</span></h1>
-      <p class="lede">{category.data.description}</p>
-      <details class="filters" open>
-        <summary>絞り込みと並び替え</summary>
-        <div class="filters-row">
-          <span>並び替え</span>
-          <select data-sort aria-label="並び替え">
-            <option value="score">スコア</option>
-            <option value="price">料金</option>
-            <option value="new">新着</option>
-          </select>
-          <label><input type="checkbox" data-filter="free" /> 無料枠</label>
-          <label><input type="checkbox" data-filter="ja" /> 日本語UI</label>
-          <label><input type="checkbox" data-filter="self" /> セルフホスト</label>
-          <label><input type="checkbox" data-filter="oss" /> OSS</label>
-        </div>
-      </details>
-      <noscript><p class="note">絞り込みと並び替えの切り替えにはJavaScriptを使います。オフのときはスコア順の全件です。</p></noscript>
+  <Shell mode="category" themeId={category.data.theme}>
+    <Breadcrumb
+      items={[
+        { name: "トップ", href: "/" },
+        { name: themeName, href: `/ranking/${category.data.theme}/` },
+        { name: category.data.name, href: `/categories/${category.id}/` },
+      ]}
+    />
+    <p><span class="badge-cat">{themeName}</span></p>
+    <h1>{category.data.name}のおすすめ・ランキング</h1>
+    <p class="lede">{category.data.description}</p>
+    <p class="page-kicker"><span></span><strong>掲載 {rows.length}ツール｜{asOf ? `${formatJaDate(asOf)} 時点` : ""}</strong></p>
+    <div data-catalog>
+      <div class="box-tabs" role="tablist" aria-label="並び替え">
+        <button type="button" data-sort="score" aria-selected="true">総合点順</button>
+        <button type="button" data-sort="price" aria-selected="false">料金の安い順</button>
+        <button type="button" data-sort="new" aria-selected="false">新着順</button>
+      </div>
+      <noscript><p class="disclaimer">並び替えにはJavaScriptを使います。オフのときは総合点順です。</p></noscript>
       <ol class="tool-list" data-tool-list>
-        {rows.map((row, index) => <ToolRow row={row} rank={index + 1} loose />)}
+        {rows.map((row, index) => <ToolItem row={row} rank={index + 1} />)}
       </ol>
-      <p class="legend">
-        順位は<a href="/scoring/">公開した式</a>です。確認できない項目は配点から外します。{FX_NOTE} 日本語の — は未確認です。
-      </p>
     </div>
-  </div>
+    <p class="disclaimer">※総合点は機能・日本語対応・価格・使いやすさ・更新頻度から算出。<a href="/scoring/">評価基準 ›</a></p>
+  </Shell>
 </Base>
 
 <script>
   const root = document.querySelector("[data-catalog]");
   if (root instanceof HTMLElement) {
     const list = root.querySelector("[data-tool-list]");
-    const sort = root.querySelector<HTMLSelectElement>("[data-sort]");
-    const filters = [...root.querySelectorAll<HTMLInputElement>("[data-filter]")];
-    const apply = () => {
-      if (!(list instanceof HTMLElement) || !sort) return;
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>("[data-sort]")];
+    const apply = (mode: string) => {
+      if (!(list instanceof HTMLElement)) return;
       const rows = [...list.querySelectorAll<HTMLElement>("[data-tool]")];
-      const active = filters.filter((input) => input.checked).map((input) => input.dataset.filter ?? "");
-      for (const row of rows) {
-        row.hidden = active.some((key) => row.dataset[key] !== "1");
-      }
-      const visible = rows.filter((row) => !row.hidden);
-      visible.sort((a, b) => {
-        if (sort.value === "price") {
+      rows.sort((a, b) => {
+        if (mode === "price") {
           const ap = a.dataset.price === "" ? Number.POSITIVE_INFINITY : Number(a.dataset.price);
           const bp = b.dataset.price === "" ? Number.POSITIVE_INFINITY : Number(b.dataset.price);
           return ap - bp;
         }
-        if (sort.value === "new") return (b.dataset.added ?? "").localeCompare(a.dataset.added ?? "");
+        if (mode === "new") return (b.dataset.added ?? "").localeCompare(a.dataset.added ?? "");
         return Number(b.dataset.score) - Number(a.dataset.score);
       });
-      for (const row of visible) list.append(row);
-      visible.forEach((row, index) => {
+      for (const row of rows) list.append(row);
+      rows.forEach((row, index) => {
         const rank = row.querySelector(".rank");
-        if (rank) {
-          rank.textContent = String(index + 1);
-          rank.classList.toggle("first", index === 0);
+        if (rank instanceof HTMLElement) {
+          const place = index + 1;
+          rank.textContent = String(place);
+          rank.dataset.place = place <= 3 ? String(place) : "rest";
         }
       });
     };
-    sort?.addEventListener("change", apply);
-    for (const input of filters) input.addEventListener("change", apply);
+    for (const tab of tabs) {
+      tab.addEventListener("click", () => {
+        for (const other of tabs) other.setAttribute("aria-selected", other === tab ? "true" : "false");
+        apply(tab.dataset.sort ?? "score");
+      });
+    }
   }
 </script>

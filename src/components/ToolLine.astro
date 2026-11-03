@@ -1,0 +1,20 @@
+---
+import ToolLogo from "./ToolLogo.astro";
+import { formatScore } from "../lib/score";
+import type { RankedTool } from "../lib/queries";
+
+interface Props {
+  row: RankedTool;
+  rank: number;
+  dense?: boolean;
+}
+const { row, rank, dense = false } = Astro.props;
+const place = rank <= 3 ? String(rank) : "rest";
+---
+
+<li class:list={["tool-line", { dense }]}>
+  <span class="rank" data-place={place}>{rank}</span>
+  <ToolLogo slug={row.tool.id} name={row.tool.data.name} size={24} />
+  <a class="line-name" href={`/tools/${row.tool.id}/`}>{row.tool.data.name}</a>
+  <span class="line-meta">{row.category.data.name}｜{formatScore(row.score.total)}点</span>
+</li>

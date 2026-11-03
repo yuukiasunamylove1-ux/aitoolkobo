@@ -6,7 +6,7 @@ export const FX = {
   USD: 150,
 } as const;
 
-export const FX_NOTE = `円の「約」は 1 USD = ¥${FX.USD}（${FX.asOf}）の概算です。公式の円建てではありません。`;
+export const FX_NOTE = `※円の目安は1ドル＝${FX.USD}円（${FX.asOf.replaceAll("-", "/")}）で換算しています。公式の円建てではありません。`;
 
 export const JA_MARK: Record<SupportLevel, string> = {
   supported: "○",

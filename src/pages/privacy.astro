@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import Shell from "../components/Shell.astro";
 import { absoluteUrl } from "../lib/labels";
 import { pageGraph } from "../lib/seo";
 
@@ -13,8 +14,8 @@ const jsonLd = pageGraph({
 ---
 
 <Base title="プライバシーポリシー" description={description} jsonLd={jsonLd}>
-  <article class="page">
-    <div class="wrap prose">
+  <Shell mode="plain">
+    <article class="prose">
       <h1>プライバシーポリシー</h1>
       <p>最終更新日: 2026年11月3日</p>
       <p>
@@ -35,7 +36,7 @@ const jsonLd = pageGraph({
       </ul>
       <h2>外部への接続</h2>
       <ul>
-        <li>本文のフォント（IBM Plex Sans JP、IBM Plex Mono）はサイト自身から配信します。閲覧時にフォント配信事業者へは接続しません。</li>
+        <li>本文のフォント（Noto Sans JP）はサイト自身から配信します。閲覧時にフォント配信事業者へは接続しません。</li>
         <li>各ツール名からは、その公式サイトへリンクします。移動先のプライバシーポリシーは、それぞれの提供者のものです。</li>
         <li>ニュースレターの登録先は Resend（resend.com）です。保存後の取り扱いは Resend のポリシーにも従います。</li>
       </ul>
@@ -45,6 +46,6 @@ const jsonLd = pageGraph({
       </p>
       <h2>連絡</h2>
       <p>このポリシーについての連絡先は、<a href="/contact/">お問い合わせ</a>の準備が終わるまで公開していません。</p>
-    </div>
-  </article>
+    </article>
+  </Shell>
 </Base>

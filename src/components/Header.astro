@@ -1,55 +1,48 @@
 ---
-import { categoriesByTheme } from "../lib/queries";
+import { formatJaDateLong, latestDate } from "../lib/labels";
+import { rankedTools } from "../lib/queries";
 
 const path = Astro.url.pathname;
 const q = Astro.url.searchParams.get("q") ?? "";
-const groups = await categoriesByTheme();
-
-function current(href: string) {
-  if (href === "/") return path === "/" ? "page" : undefined;
-  return path === href || path.startsWith(href) ? "page" : undefined;
-}
+const ranked = await rankedTools();
+const updated = latestDate(ranked.map((row) => row.tool.data.lastChecked));
 
 const links = [
-  { href: "/usecases/", label: "用途別" },
-  { href: "/new/", label: "新着" },
-  { href: "/scoring/", label: "評価基準" },
+  { href: "/", label: "トップ", current: path === "/" },
+  { href: "/ranking/vibe/", label: "バイブコーディング", current: path.startsWith("/ranking/vibe") },
+  { href: "/ranking/game/", label: "AIゲーム制作", current: path.startsWith("/ranking/game") },
+  { href: "/ranking/agent/", label: "AIエージェント", current: path.startsWith("/ranking/agent") },
+  { href: "/ranking/", label: "ランキング", current: path === "/ranking/" },
+  { href: "/new/", label: "新着", current: path.startsWith("/new") },
+  { href: "/usecases/", label: "用途別ガイド", current: path.startsWith("/usecases") },
+  { href: "/scoring/", label: "評価基準", current: path.startsWith("/scoring") },
 ];
 ---
 
+<div class="brand-rule"></div>
 <header class="site-header">
-  <div class="bar">
-    <a class="brand" href="/" aria-current={current("/")}>
-      <img src="/favicon.svg" width="20" height="20" alt="" />
-      AIツール工房
+  <div class="wrap head-main">
+    <a class="brand" href="/">
+      <img src="/favicon.svg" width="32" height="32" alt="" />
+      <span>
+        <span class="brand-name">AIツール工房</span>
+        <span class="brand-sub">AIツールの比較・ランキング</span>
+      </span>
     </a>
-    <nav class="nav" aria-label="主要">
-      <details class="cat-menu">
-        <summary>カテゴリ</summary>
-        <div class="cat-panel">
-          {groups.map((group) => (
-            <section>
-              <h2>{group.name}</h2>
-              {group.categories.map(({ category }) => (
-                <a href={`/categories/${category.id}/`}>{category.data.name}</a>
-              ))}
-            </section>
-          ))}
-        </div>
-      </details>
-      {links.map((link) => (
-        <a href={link.href} aria-current={current(link.href)}>{link.label}</a>
-      ))}
-    </nav>
     <form class="search" action="/search/" method="get" role="search">
-      <label class="visually-hidden" for="site-search">ツールを検索</label>
-      <input id="site-search" name="q" type="search" placeholder="ツールを検索" value={q} />
+      <label class="visually-hidden" for="site-search">ツール名で検索</label>
+      <input id="site-search" name="q" type="search" placeholder="ツール名で検索" value={q} />
+      <button type="submit">検索</button>
     </form>
   </div>
-  <nav class="subnav" aria-label="テーマ">
-    {groups.map((group) => {
-      const count = group.categories.reduce((sum, item) => sum + item.count, 0);
-      return <a href={`/categories/#${group.id}`}>{group.name} ({count})</a>;
-    })}
-  </nav>
+  <div class="catband">
+    <nav class="wrap catband-inner" aria-label="主要">
+      {links.map((link) => (
+        <a href={link.href} aria-current={link.current ? "page" : undefined}>{link.label}</a>
+      ))}
+    </nav>
+  </div>
+  <div class="updateband">
+    <p class="wrap">AIツール工房 {formatJaDateLong(updated)} 更新｜掲載 {ranked.length}ツール</p>
+  </div>
 </header>

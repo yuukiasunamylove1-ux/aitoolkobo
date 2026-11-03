@@ -1,5 +1,6 @@
 ---
 import Base from "../../layouts/Base.astro";
+import Shell from "../../components/Shell.astro";
 import { absoluteUrl } from "../../lib/labels";
 import { categoriesByTheme } from "../../lib/queries";
 import { pageGraph } from "../../lib/seo";
@@ -16,23 +17,24 @@ const jsonLd = pageGraph({
 ---
 
 <Base title="カテゴリ" description={description} jsonLd={jsonLd}>
-  <div class="page">
-    <div class="wrap">
-      <h1>カテゴリ</h1>
-      {groups.map((group) => (
-        <section id={group.id} aria-labelledby={`theme-${group.id}`}>
-          <h2 id={`theme-${group.id}`}>{group.name}</h2>
-          <ul class="guide-list">
-            {group.categories.map(({ category, count, top }) => (
-              <li>
-                <a href={`/categories/${category.id}/`}>{category.data.name}</a>
-                <span class="note"> {count}件{top ? ` · 1位 ${top.tool.data.name}` : ""}</span>
-                <p class="note">{category.data.description}</p>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))}
-    </div>
-  </div>
+  <Shell mode="plain">
+    <h1>カテゴリ</h1>
+    <p class="lede">{description}</p>
+    {groups.map((group) => (
+      <section id={group.id}>
+        <h2>{group.name}</h2>
+        <p class="lede">{group.lead}</p>
+        <ul class="cat-box">
+          {group.categories.map(({ category, count, top }) => (
+            <li>
+              <a href={`/categories/${category.id}/`}>
+                {category.data.name} <span>{count}</span>
+              </a>
+              <p class="disclaimer">{category.data.description}{top ? ` 1位は「${top.tool.data.name}」。` : ""}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </Shell>
 </Base>

@@ -1,0 +1,23 @@
+---
+import Sidebar from "./Sidebar.astro";
+import type { ThemeId } from "../lib/schema";
+
+interface Props {
+  mode?: "home" | "category" | "tool" | "plain";
+  themeId?: ThemeId;
+  categoryId?: string;
+  categoryName?: string;
+}
+const props = Astro.props;
+---
+
+<div class="page">
+  <div class="wrap">
+    <div class="layout">
+      <div class="paper">
+        <slot />
+      </div>
+      <Sidebar {...props} />
+    </div>
+  </div>
+</div>
