@@ -1,0 +1,89 @@
+---
+import Newsletter from "./Newsletter.astro";
+import ToolLine from "./ToolLine.astro";
+import { THEMES } from "../lib/labels";
+import { categoriesByTheme, rankedTools, toolsInCategory } from "../lib/queries";
+import type { ThemeId } from "../lib/schema";
+
+interface Props {
+  mode?: "home" | "category" | "tool" | "plain";
+  themeId?: ThemeId;
+  categoryId?: string;
+  categoryName?: string;
+}
+const { mode = "plain", themeId, categoryId, categoryName } = Astro.props;
+const ranked = await rankedTools();
+const groups = await categoriesByTheme();
+const theme = themeId ? groups.find((group) => group.id === themeId) : undefined;
+const categoryRows = categoryId ? await toolsInCategory(categoryId) : [];
+---
+
+<aside class="sidebar">
+  {mode === "tool" && categoryRows.length > 0 && (
+    <section>
+      <h2 class="side-head"><span class="side-mark" aria-hidden="true"></span>{categoryName}のランキング</h2>
+      <ol class="line-list">
+        {categoryRows.map((row, index) => <ToolLine row={row} rank={index + 1} />)}
+      </ol>
+    </section>
+  )}
+  {mode === "category" && theme && (
+    <section>
+      <h2 class="side-head"><span class="side-mark" aria-hidden="true"></span>同じジャンル</h2>
+      <ul class="cat-box">
+        {theme.categories.map(({ category, count }) => (
+          <li>
+            <a href={`/categories/${category.id}/`}>
+              {category.data.name} <span>{count}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+  <section>
+    <h2 class="side-head"><span class="side-mark" aria-hidden="true"></span>総合点ランキング</h2>
+    <ol class="line-list">
+      {ranked.slice(0, 10).map((row, index) => <ToolLine row={row} rank={index + 1} />)}
+    </ol>
+    <a class="more" href="/ranking/">総合ランキングをもっと見る ›</a>
+  </section>
+  {mode !== "category" && (
+    <section>
+      <h2 class="side-head"><span class="side-mark" aria-hidden="true"></span>カテゴリから探す</h2>
+      {groups.map((group) => (
+        <div>
+          <h3 class="side-label">{group.name}</h3>
+          <ul class="cat-box">
+            {group.categories.map(({ category, count }) => (
+              <li>
+                <a href={`/categories/${category.id}/`}>
+                  {category.data.name} <span>{count}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </section>
+  )}
+  {(mode === "home" || mode === "category" || mode === "plain") && (
+    <section>
+      <h2 class="side-head"><span class="side-mark" aria-hidden="true"></span>このサイトについて</h2>
+      <p class="about-blurb">
+        日本語でアプリやゲームを作る人向けに、バイブコーディング、AIゲーム制作、AIエージェントのツールを比べています。順位は公開した総合点で、アクセス数ではありません。
+      </p>
+      <ul class="side-links">
+        <li><a href="/scoring/">評価基準</a></li>
+        <li><a href="/about/">運営者情報</a></li>
+      </ul>
+    </section>
+  )}
+  {mode === "home" && <Newsletter />}
+  <section>
+    <h2 class="side-head"><span class="side-mark" aria-hidden="true"></span>フォロー</h2>
+    <ul class="side-links">
+      <li><a href="/rss.xml">RSS（新着）</a></li>
+    </ul>
+  </section>
+</aside>

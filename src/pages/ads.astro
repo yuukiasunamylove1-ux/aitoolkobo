@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import Shell from "../components/Shell.astro";
 import { absoluteUrl } from "../lib/labels";
 import { pageGraph } from "../lib/seo";
 
@@ -13,8 +14,8 @@ const jsonLd = pageGraph({
 ---
 
 <Base title="広告・アフィリエイト表記" description={description} jsonLd={jsonLd}>
-  <article class="page">
-    <div class="wrap prose">
+  <Shell mode="plain">
+    <article class="prose">
       <h1>広告・アフィリエイト表記</h1>
       <p>このページは、広告や紹介料を扱うようになったときのためのプレースホルダです。</p>
       <ul>
@@ -25,6 +26,6 @@ const jsonLd = pageGraph({
       <p>
         将来、紹介リンクを置く場合は、該当のリンクに「広告」または「アフィリエイト」と分かる表記を付け、このページに掲載条件を追記します。
       </p>
-    </div>
-  </article>
+    </article>
+  </Shell>
 </Base>

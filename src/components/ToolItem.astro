@@ -1,0 +1,78 @@
+---
+import ToolLogo from "./ToolLogo.astro";
+import { priceView, rowMeta, testedValue } from "../lib/display";
+import { formatJaDate } from "../lib/labels";
+import { formatScore } from "../lib/score";
+import type { RankedTool } from "../lib/queries";
+
+interface Props {
+  row: RankedTool;
+  rank?: number;
+  summary?: string;
+  showCategory?: boolean;
+  posted?: boolean;
+}
+const { row, rank, summary, showCategory = false, posted = false } = Astro.props;
+const { tool, category, score } = row;
+const price = priceView(tool.data.pricing);
+const meta = rowMeta(tool.data);
+const officialUi = tool.data.japanese.ui;
+const testedUi = testedValue(tool.data.checks, "ui");
+const jaTag =
+  officialUi === "supported"
+    ? "日本語UI"
+    : officialUi === "partial"
+      ? "日本語UI一部"
+      : testedUi === "supported"
+        ? "日本語UI・実測"
+        : testedUi === "partial"
+          ? "日本語UI一部・実測"
+          : null;
+const amountLabel = price.text.replace(/^無料枠 \/ /, "");
+const priceTag =
+  price.text === "—" || price.text === "無料" || price.text === "無料枠" || amountLabel === "—"
+    ? null
+    : `${amountLabel}/月`;
+const metaParts = [
+  showCategory ? category.data.name : null,
+  tool.data.platforms.join("・"),
+  posted ? `${formatJaDate(tool.data.addedAt)} 掲載` : `確認 ${formatJaDate(tool.data.lastChecked)}`,
+].filter(Boolean);
+const place = rank != null && rank <= 3 ? String(rank) : "rest";
+---
+
+<li
+  class="tool-item"
+  data-tool
+  data-name={tool.data.name}
+  data-text={`${tool.data.description} ${category.data.name} ${summary ?? ""}`}
+  data-free={meta.free ? "1" : "0"}
+  data-ja={meta.ja ? "1" : "0"}
+  data-self={meta.self ? "1" : "0"}
+  data-oss={meta.oss ? "1" : "0"}
+  data-price={meta.price ?? ""}
+  data-added={meta.added}
+  data-score={score.total}
+>
+  <a class="logo-box" href={`/tools/${tool.id}/`} tabindex="-1" aria-hidden="true">
+    <ToolLogo slug={tool.id} name={tool.data.name} size={48} />
+  </a>
+  <div>
+    <div class="tool-titleline">
+      {rank != null && <span class="rank" data-place={place}>{rank}</span>}
+      <a class="tool-name" href={`/tools/${tool.id}/`}>{tool.data.name}</a>
+      <span class="tool-score">総合 <strong>{formatScore(score.total)}</strong>点</span>
+    </div>
+    <p class="tool-meta">{metaParts.join(" ｜ ")}</p>
+    <p class="tool-desc">{summary ?? tool.data.description}</p>
+    <p class="tool-tags">
+      {meta.free && <span class="tag free">{tool.data.pricing.tier === "freemium" ? "無料枠あり" : "無料"}</span>}
+      {jaTag && <span class="tag ja">{jaTag}</span>}
+      {meta.oss && <span class="tag oss">OSS</span>}
+      {meta.self && <span class="tag plain">セルフホスト</span>}
+      {priceTag && tool.data.pricing.tier !== "free" && tool.data.pricing.tier !== "open-source" && (
+        <span class="tag price" title={price.title}>{priceTag}</span>
+      )}
+    </p>
+  </div>
+</li>

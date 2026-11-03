@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import Shell from "../components/Shell.astro";
 import { absoluteUrl } from "../lib/labels";
 import { pageGraph } from "../lib/seo";
 
@@ -13,10 +14,10 @@ const jsonLd = pageGraph({
 ---
 
 <Base title="お問い合わせ" description={description} jsonLd={jsonLd}>
-  <section class="page">
-    <div class="wrap measure">
+  <Shell mode="plain">
+    <section>
       <h1>お問い合わせ</h1>
-      <p class="quiet">
+      <p class="lede">
         このフォームはまだ送信先に接続していません。入力してもメールは残りません。
       </p>
       <form class="newsletter" action="" method="post">
@@ -29,6 +30,6 @@ const jsonLd = pageGraph({
         <button class="button" type="button">送信する（未接続）</button>
       </form>
       <p class="fine">ツールの料金や仕様の訂正は、データファイルの更新で反映します。手順は README にあります。</p>
-    </div>
-  </section>
+    </section>
+  </Shell>
 </Base>

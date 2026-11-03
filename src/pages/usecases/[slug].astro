@@ -2,10 +2,11 @@
 import { getCollection, getEntry, render } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import Breadcrumb from "../../components/Breadcrumb.astro";
-import ToolRow from "../../components/ToolRow.astro";
+import Shell from "../../components/Shell.astro";
+import ToolItem from "../../components/ToolItem.astro";
 import { priceView } from "../../lib/display";
-import { absoluteUrl } from "../../lib/labels";
-import { rankedTools } from "../../lib/queries";
+import { THEMES, absoluteUrl, formatJaDate, latestDate } from "../../lib/labels";
+import { rankedTools, usecases } from "../../lib/queries";
 import { pageGraph } from "../../lib/seo";
 
 export async function getStaticPaths() {
@@ -20,12 +21,14 @@ const { Content } = await render(entry);
 const site = Astro.site!;
 const url = absoluteUrl(`/usecases/${entry.id}/`, site);
 const catalog = await rankedTools();
+const others = (await usecases()).filter((item) => item.id !== entry.id);
 
 const tools = entry.data.tools.map((item) => {
   const row = catalog.find((candidate) => candidate.tool.id === item.slug);
   if (!row) throw new Error(`usecase ${entry.id} missing tool ${item.slug}`);
   return { ...item, row };
 });
+const asOf = latestDate(tools.map((item) => item.row.tool.data.lastChecked));
 
 const jsonLd = [
   pageGraph({
@@ -51,29 +54,31 @@ const jsonLd = [
 ---
 
 <Base title={entry.data.title} description={entry.data.description} jsonLd={jsonLd}>
-  <article class="page">
-    <div class="wrap">
-      <div class="measure">
-        <Breadcrumb
-          items={[
-            { name: "ホーム", href: "/" },
-            { name: "用途別", href: "/usecases/" },
-            { name: entry.data.title, href: `/usecases/${entry.id}/` },
-          ]}
-        />
-        <h1>{entry.data.title}</h1>
-        <p class="lede">{entry.data.description}</p>
-        <p class="note">更新の基準日は各ツールの確認日です。この並びはスコア順ではありません。</p>
-        <h2>結論</h2>
-      </div>
+  <Shell mode="plain">
+    <article class="guide prose">
+      <Breadcrumb
+        items={[
+          { name: "トップ", href: "/" },
+          { name: "用途別ガイド", href: "/usecases/" },
+          { name: entry.data.title, href: `/usecases/${entry.id}/` },
+        ]}
+      />
+      <h1>{entry.data.title}</h1>
+      <p class="lede">{entry.data.description}</p>
+      <p class="tool-meta">
+        <span class="badge-cat">{THEMES[entry.data.theme].name}</span>
+        {asOf && <> 掲載ツールの確認 {formatJaDate(asOf)}｜AIツール工房編集部</>}
+      </p>
+      <h2>まずはこの{tools.length}つ</h2>
       <ol class="tool-list">
         {tools.map((item, index) => (
-          <ToolRow row={item.row} rank={index + 1} blurb={item.reason} showCategory />
+          <ToolItem row={item.row} rank={index + 1} summary={item.reason} showCategory />
         ))}
       </ol>
+      <p class="disclaimer">※この並びは総合点順ではありません。用途への向きで編集部が並べています。</p>
       <h2>選び方</h2>
+      <div class="table-scroll">
         <table class="data">
-          <caption>この用途での位置づけ</caption>
           <thead>
             <tr>
               <th>順</th>
@@ -93,9 +98,14 @@ const jsonLd = [
             ))}
           </tbody>
         </table>
-        <div class="measure">
-        <Content />
-        </div>
-    </div>
-  </article>
+      </div>
+      <Content />
+      <h2>関連ガイド</h2>
+      <ul class="related">
+        {others.map((item) => (
+          <li><a href={`/usecases/${item.id}/`}>{item.data.title}</a></li>
+        ))}
+      </ul>
+    </article>
+  </Shell>
 </Base>

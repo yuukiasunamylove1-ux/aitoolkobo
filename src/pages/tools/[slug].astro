@@ -3,12 +3,21 @@ import { getCollection, getEntry } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import Breadcrumb from "../../components/Breadcrumb.astro";
 import ScoreTable from "../../components/ScoreTable.astro";
+import Shell from "../../components/Shell.astro";
+import ToolItem from "../../components/ToolItem.astro";
 import ToolLogo from "../../components/ToolLogo.astro";
-import ToolRow from "../../components/ToolRow.astro";
-import { FX_NOTE, JA_MARK, JA_WORD, priceView, testedValue } from "../../lib/display";
-import { TIER_LABEL, absoluteUrl, formatDate } from "../../lib/labels";
+import { priceView, testedValue } from "../../lib/display";
+import {
+  CHECK_FIELD_LABEL,
+  SUPPORT_LABEL,
+  TIER_LABEL,
+  absoluteUrl,
+  formatJaDate,
+  siteHost,
+  sourceLinkText,
+} from "../../lib/labels";
 import { toolsInCategory } from "../../lib/queries";
-import { breakdownFor } from "../../lib/score";
+import { breakdownFor, formatScore } from "../../lib/score";
 import { pageGraph } from "../../lib/seo";
 import type { SupportLevel } from "../../lib/schema";
 
@@ -27,12 +36,28 @@ const score = breakdownFor(tool.data);
 const price = priceView(tool.data.pricing);
 const site = Astro.site!;
 const url = absoluteUrl(`/tools/${tool.id}/`, site);
-const peers = (await toolsInCategory(category.id)).filter((row) => row.tool.id !== tool.id).slice(0, 5);
+const members = await toolsInCategory(category.id);
+const place = members.findIndex((row) => row.tool.id === tool.id) + 1;
+const peers = members.filter((row) => row.tool.id !== tool.id).slice(0, 5);
 const levels = [
-  { key: "ui" as const, label: "UI" },
-  { key: "input" as const, label: "入力" },
-  { key: "output" as const, label: "出力" },
+  { key: "ui" as const, label: "日本語UI" },
+  { key: "input" as const, label: "日本語入力" },
+  { key: "output" as const, label: "日本語出力" },
 ];
+const tested = tool.data.checks.filter((check) => check.kind === "tested");
+const yen = price.yenText === "—" ? "未確認" : price.yenText;
+const monthly =
+  tool.data.pricing.monthlyAmount != null && tool.data.pricing.currency
+    ? `${tool.data.pricing.currency === "USD" ? "$" : tool.data.pricing.currency === "EUR" ? "€" : "¥"}${tool.data.pricing.monthlyAmount}`
+    : "未確認";
+const jaTag =
+  tool.data.japanese.ui === "supported"
+    ? "日本語UI"
+    : testedValue(tool.data.checks, "ui") === "supported"
+      ? "日本語UI・実測"
+      : testedValue(tool.data.checks, "ui") === "partial"
+        ? "日本語UI一部・実測"
+        : null;
 
 const software: Record<string, unknown> = {
   "@context": "https://schema.org",
@@ -56,190 +81,169 @@ const jsonLd = [
   pageGraph({ site: site.href, url, name: tool.data.name, description: tool.data.description }),
   software,
 ];
+
+function supportWord(value: SupportLevel | null | undefined) {
+  if (!value) return "";
+  return SUPPORT_LABEL[value];
+}
 ---
 
 <Base title={tool.data.name} description={tool.data.description} jsonLd={jsonLd}>
-  <article class="page">
-    <div class="wrap">
+  <Shell mode="tool" categoryId={category.id} categoryName={category.data.name}>
+    <article>
       <Breadcrumb
         items={[
-          { name: "ホーム", href: "/" },
+          { name: "トップ", href: "/" },
           { name: category.data.name, href: `/categories/${category.id}/` },
           { name: tool.data.name, href: `/tools/${tool.id}/` },
         ]}
       />
-      <header class="tool-head">
-        <div class="tool-id">
+      <h1>{tool.data.name}</h1>
+      <div class="identity">
+        <div class="logo-box">
           <ToolLogo slug={tool.id} name={tool.data.name} size={48} />
-          <div>
-            <h1>{tool.data.name}</h1>
-            <p>{category.data.name} · {tool.data.platforms.join(" · ")}</p>
-              <p class="note">
-                確認日 {formatDate(tool.data.lastChecked)}
-                {tool.data.checks.filter((check) => check.kind === "official").length === 0
-                  ? " · 公式の断定できる記載はありません。"
-                  : tool.data.checks
-                      .filter((check) => check.kind === "official" && check.sourceUrl)
-                      .map((check) => (
-                        <>
-                          {" · 公式 "}
-                          <a href={check.sourceUrl}>
-                            {check.field === "ui"
-                              ? "日本語UI"
-                              : check.field === "input"
-                                ? "日本語入力"
-                                : check.field === "output"
-                                  ? "日本語出力"
-                                  : check.field === "pricing"
-                                    ? "料金"
-                                    : "商用"}
-                          </a>
-                        </>
-                      ))}
-              </p>
-              {tool.data.checks.some((check) => check.kind === "tested") && (
-                <p class="note">
-                  実測
-                  {tool.data.checks
-                    .filter((check) => check.kind === "tested")
-                    .map((check) => (
-                      <>
-                        {" · "}
-                        {check.field === "ui"
-                          ? "日本語UI"
-                          : check.field === "input"
-                            ? "日本語入力"
-                            : check.field === "output"
-                              ? "日本語出力"
-                              : check.field === "pricing"
-                                ? "料金"
-                                : "商用"}
-                        {check.value === "supported"
-                          ? "対応"
-                          : check.value === "partial"
-                            ? "一部"
-                            : check.value === "unsupported"
-                              ? "非対応"
-                              : ""}
-                        （{check.method}
-                        {check.command ? `。指示「${check.command}」` : ""}
-                        {check.sourceUrl && <a href={check.sourceUrl}>出典</a>}）
-                      </>
-                    ))}
-                </p>
-              )}
-          </div>
         </div>
-        <a class="out" href={tool.data.url}>公式サイト ↗</a>
-      </header>
-
-      <div class="tool-layout">
         <div>
-          <p>{tool.data.detail}</p>
-          <ScoreTable score={score} />
-
-          <table class="data">
-            <caption>料金</caption>
-            <thead>
-              <tr>
-                <th>区分</th>
-                <th>月額</th>
-                <th>円の目安</th>
-                <th>備考</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{TIER_LABEL[tool.data.pricing.tier]}</td>
-                <td class="num">
-                  {tool.data.pricing.monthlyAmount != null && tool.data.pricing.currency
-                    ? `${tool.data.pricing.currency === "USD" ? "$" : tool.data.pricing.currency === "EUR" ? "€" : "¥"}${tool.data.pricing.monthlyAmount}`
-                    : "—"}
-                </td>
-                <td class="num" title={price.title}>{price.yenText}</td>
-                <td>{tool.data.pricing.short}</td>
-              </tr>
-            </tbody>
-          </table>
-          <p class="note">{FX_NOTE} 出典: <a href={tool.data.pricing.sourceUrl}>料金の参照元</a></p>
-
-          <h2>編集部メモ</h2>
-          <ul>
-            <li>機能：{tool.data.editorial.features.note}</li>
-            <li>使いやすさ：{tool.data.editorial.usability.note}</li>
-            <li>更新頻度：{tool.data.editorial.updates.note}</li>
-          </ul>
-          <h2>参照</h2>
-          <ul>
-            {tool.data.sources.map((source) => (
-              <li><a href={source.url}>{source.label}</a>（確認日 {formatDate(tool.data.lastChecked)}）</li>
-            ))}
-          </ul>
+          <p class="tool-meta">{category.data.name}｜{tool.data.platforms.join("・")}</p>
+          <p class="tool-meta">確認日 {formatJaDate(tool.data.lastChecked)}</p>
+          <p class="tool-tags">
+            {(tool.data.pricing.tier === "free" || tool.data.pricing.tier === "open-source") && <span class="tag free">無料</span>}
+            {tool.data.pricing.tier === "freemium" && <span class="tag free">無料枠あり</span>}
+            {jaTag && <span class="tag ja">{jaTag}</span>}
+            {tool.data.pricing.tier === "open-source" && <span class="tag oss">OSS</span>}
+          </p>
+          <p class="score-line">総合 {formatScore(score.total)}点（{category.data.name} {members.length}ツール中 {place}位）</p>
         </div>
-        <aside class="spec">
-          <h2>要点</h2>
-          <dl class="spec-list">
-            <dt>スコア</dt>
-            <dd>{score.total.toFixed(1)} / 100</dd>
-            <dt>料金</dt>
-            <dd title={price.title}>{price.text}</dd>
-            <dt>円換算</dt>
-            <dd title={price.title}>{price.yenText}</dd>
-            <dt>日本語</dt>
-            <dd>
-              <span class="evidence">公式</span>
-              {levels.map((level) => {
-                const value = tool.data.japanese[level.key] as SupportLevel;
-                return (
-                  <abbr class:list={["mark", value]} title={`公式 ${level.label} ${JA_WORD[value]}`}>
-                    {level.label}
-                    {JA_MARK[value]}
-                  </abbr>
-                );
-              })}
-              {levels.some((level) => testedValue(tool.data.checks, level.key)) && (
-                <>
-                  <span class="evidence">実測</span>
-                  {levels.map((level) => {
-                    const value = testedValue(tool.data.checks, level.key);
-                    if (!value) return null;
-                    return (
-                      <abbr class:list={["mark", value]} title={`実測 ${level.label} ${JA_WORD[value]}`}>
-                        {level.label}
-                        {JA_MARK[value]}
-                      </abbr>
-                    );
-                  })}
-                </>
-              )}
-            </dd>
-            <dt>動作</dt>
-            <dd>{tool.data.platforms.join(" / ")}</dd>
-            <dt>OSS</dt>
-            <dd>{tool.data.pricing.tier === "open-source" ? "○" : tool.data.pricing.tier === "unknown" ? "—" : "×"}</dd>
-            <dt>商用</dt>
-            <dd title={tool.data.commercialNote}>
+        <a class="official" href={tool.data.url}>公式サイトへ ↗<small>{siteHost(tool.data.url)}</small></a>
+      </div>
+      <p>{tool.data.detail}</p>
+
+      <h2>基本情報</h2>
+      <table class="spec-table">
+        <tbody>
+          <tr>
+            <th scope="row">料金</th>
+            <td>{price.text === "—" ? "未確認" : price.text}</td>
+          </tr>
+          <tr>
+            <th scope="row">円の目安</th>
+            <td>{yen}</td>
+          </tr>
+          {levels.map((level) => (
+            <tr>
+              <th scope="row">{level.label}</th>
+              <td>公式は{supportWord(tool.data.japanese[level.key])}</td>
+            </tr>
+          ))}
+          {levels.map((level) => {
+            const value = testedValue(tool.data.checks, level.key);
+            if (!value) return null;
+            return (
+              <tr>
+                <th scope="row">{level.label}（実測）</th>
+                <td>{supportWord(value)}</td>
+              </tr>
+            );
+          })}
+          <tr>
+            <th scope="row">動作環境</th>
+            <td>{tool.data.platforms.join("、")}</td>
+          </tr>
+          <tr>
+            <th scope="row">OSS</th>
+            <td>{tool.data.pricing.tier === "open-source" ? "はい" : tool.data.pricing.tier === "unknown" ? "未確認" : "いいえ"}</td>
+          </tr>
+          <tr>
+            <th scope="row">商用利用</th>
+            <td>
               {tool.data.commercialUse === "allowed"
                 ? "可"
                 : tool.data.commercialUse === "restricted"
                   ? "条件付き"
                   : tool.data.commercialUse === "not-allowed"
                     ? "不可"
-                    : "—"}
-            </dd>
-          </dl>
-          <p class="note">{tool.data.japanese.note}</p>
-        </aside>
+                    : "未確認"}
+              。{tool.data.commercialNote}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>「{tool.data.name}」の料金プラン</h2>
+      <div class="table-scroll">
+        <table class="data">
+          <thead>
+            <tr>
+              <th>プラン</th>
+              <th>月額</th>
+              <th>円の目安</th>
+              <th>備考</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{TIER_LABEL[tool.data.pricing.tier]}</td>
+              <td class="num">{monthly}</td>
+              <td class="num">{yen}</td>
+              <td>{tool.data.pricing.short}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+      <p class="disclaimer">{tool.data.pricing.label}</p>
+      <p class="disclaimer">※円の目安は1ドル＝150円（2026/11/03）で換算しています。公式の円建てではありません。</p>
+
+      <h2>評価の内訳</h2>
+      <ScoreTable score={score} />
+
+      <h2>編集部メモ</h2>
+      <ul>
+        <li>機能：{tool.data.editorial.features.note}</li>
+        <li>使いやすさ：{tool.data.editorial.usability.note}</li>
+        <li>更新頻度：{tool.data.editorial.updates.note}</li>
+      </ul>
+
+      <h2>出典</h2>
+      <ul>
+        {tool.data.sources.map((source) => (
+          <li>
+            <a href={source.url}>{sourceLinkText(source.label)}</a>
+            （確認日 {formatJaDate(tool.data.lastChecked)}）
+          </li>
+        ))}
+        {!tool.data.sources.some((source) => source.url === tool.data.pricing.sourceUrl) && (
+          <li>
+            <a href={tool.data.pricing.sourceUrl}>料金の参照元</a>
+            （確認日 {formatJaDate(tool.data.lastChecked)}）
+          </li>
+        )}
+      </ul>
+
+      {tested.length > 0 && (
+        <>
+          <h2>手元での確認</h2>
+          <ul>
+            {tested.map((check) => (
+              <li>
+                {CHECK_FIELD_LABEL[check.field]}
+                {check.value ? `は${supportWord(check.value)}` : ""}
+                。{formatJaDate(check.checkedAt)}。{check.method}
+                {check.command ? `。指示「${check.command}」` : ""}
+                {check.sourceUrl && <>。<a href={check.sourceUrl}>出典</a></>}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
 
       {peers.length > 0 && (
-        <section>
-          <h2>同じカテゴリ</h2>
+        <>
+          <h2>同じカテゴリのツール</h2>
           <ol class="tool-list">
-            {peers.map((row, index) => <ToolRow row={row} rank={index + 1} />)}
+            {peers.map((row) => <ToolItem row={row} showCategory />)}
           </ol>
-        </section>
+        </>
       )}
-    </div>
-  </article>
+    </article>
+  </Shell>
 </Base>

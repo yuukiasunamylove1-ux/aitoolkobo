@@ -1,8 +1,8 @@
 ---
 import Base from "../layouts/Base.astro";
-import Newsletter from "../components/Newsletter.astro";
-import ToolRow from "../components/ToolRow.astro";
-import { FX_NOTE } from "../lib/display";
+import Sidebar from "../components/Sidebar.astro";
+import ToolItem from "../components/ToolItem.astro";
+import ToolLogo from "../components/ToolLogo.astro";
 import { THEMES, absoluteUrl } from "../lib/labels";
 import { newestTools, rankedTools, usecases } from "../lib/queries";
 import { SITE_DESCRIPTION, pageGraph } from "../lib/seo";
@@ -10,16 +10,15 @@ import type { ThemeId } from "../lib/schema";
 
 const site = Astro.site!;
 const ranked = await rankedTools();
-const fresh = await newestTools(10);
+const fresh = await newestTools(8);
 const cases = await usecases();
 const themes = Object.keys(THEMES) as ThemeId[];
 const byTheme = themes.map((theme) => ({
   id: theme,
   name: THEMES[theme].name,
-  rows: ranked.filter((row) => row.category.data.theme === theme).slice(0, 10),
+  rows: ranked.filter((row) => row.category.data.theme === theme).slice(0, 5),
 }));
-const updated = ranked.map((row) => row.tool.data.lastChecked).sort().at(-1) ?? "";
-const description = "日本語で作る人のためのAIツール台帳。バイブコーディング、AIゲーム制作、AIエージェントを、スコアと料金で比べます。";
+const description = "AIツールの比較・ランキング。バイブコーディング、AIゲーム制作、AIエージェントを、公開した総合点と料金で比べます。";
 const jsonLd = pageGraph({
   site: site.href,
   url: absoluteUrl("/", site),
@@ -29,70 +28,75 @@ const jsonLd = pageGraph({
 ---
 
 <Base title="AIツール工房" description={description} jsonLd={jsonLd} homeTitle>
+  <h1 class="visually-hidden">AIツール工房</h1>
   <div class="page">
     <div class="wrap">
-      <h1>日本語で作る人のためのAIツール台帳</h1>
-      <p class="countline">掲載 {ranked.length}件 · 最終確認 {updated}</p>
-
-      <div class="tabs" data-rank-tabs>
-        <div class="tablist" role="tablist" aria-label="今週のランキング">
-          {byTheme.map((theme, index) => (
-            <button
-              type="button"
-              role="tab"
-              id={`tab-${theme.id}`}
-              aria-controls={`panel-${theme.id}`}
-              aria-selected={index === 0 ? "true" : "false"}
-            >
-              {theme.name}
-            </button>
-          ))}
-        </div>
-        {byTheme.map((theme) => (
-          <div role="tabpanel" id={`panel-${theme.id}`} aria-labelledby={`tab-${theme.id}`}>
-            <h2 class="panel-title">{theme.name}</h2>
-            <ol class="tool-list">
-              {theme.rows.map((row, index) => (
-                <ToolRow row={row} rank={index + 1} showCategory />
-              ))}
-            </ol>
-          </div>
-        ))}
-      </div>
-      <p class="legend">{FX_NOTE} 日本語の — は未確認です。</p>
-
-      <div class="home-grid">
-        <section aria-labelledby="new-heading">
-          <div class="head-row">
-            <h2 id="new-heading">新着</h2>
-            <a href="/new/">すべて見る →</a>
-          </div>
-          <ol class="tool-list">
-            {fresh.map((row) => <ToolRow row={row} showCategory blurb={`${row.tool.data.addedAt} 追加`} />)}
-          </ol>
-        </section>
+      <div class="layout">
         <div>
-          <section aria-labelledby="usecase-heading">
-            <div class="head-row">
-              <h2 id="usecase-heading">用途別</h2>
-              <a href="/usecases/">すべて見る →</a>
+          <section class="panel" data-rank-tabs>
+            <div class="section-head">
+              <h2>ジャンル別ランキング</h2>
             </div>
-            <ol class="guide-list">
-              {cases.map((item, index) => (
-                <li>
-                  <a href={`/usecases/${item.id}/`}>{index + 1}. {item.data.title}</a>
-                </li>
+            <div class="box-tabs" role="tablist" aria-label="ジャンル">
+              {byTheme.map((theme, index) => (
+                <button
+                  type="button"
+                  role="tab"
+                  id={`tab-${theme.id}`}
+                  aria-controls={`panel-${theme.id}`}
+                  aria-selected={index === 0 ? "true" : "false"}
+                >
+                  {theme.name}
+                </button>
               ))}
+            </div>
+            {byTheme.map((theme) => (
+              <div role="tabpanel" id={`panel-${theme.id}`} aria-labelledby={`tab-${theme.id}`}>
+                <h3 class="visually-hidden">{theme.name}</h3>
+                <ol class="tool-list">
+                  {theme.rows.map((row, index) => (
+                    <ToolItem row={row} rank={index + 1} showCategory />
+                  ))}
+                </ol>
+                <p><a class="more" href={`/ranking/${theme.id}/`}>{theme.name}のランキングをもっと見る ›</a></p>
+              </div>
+            ))}
+          </section>
+
+          <section class="panel" aria-labelledby="new-heading">
+            <div class="section-head">
+              <h2 id="new-heading">新着・更新したツール</h2>
+              <a class="more" href="/new/">もっと見る ›</a>
+            </div>
+            <ol class="tool-list">
+              {fresh.map((row) => <ToolItem row={row} showCategory posted />)}
             </ol>
           </section>
-          <section>
-            <h2>評価基準</h2>
-            <p class="note">機能、日本語、価格、使いやすさ、更新頻度の重みつきです。確認できない項目は配点から外します。</p>
-            <p><a href="/scoring/">算出方法 →</a></p>
+
+          <section class="panel" aria-labelledby="usecase-heading">
+            <div class="section-head">
+              <h2 id="usecase-heading">用途別ガイド</h2>
+              <a class="more" href="/usecases/">もっと見る ›</a>
+            </div>
+            <div class="guide-grid">
+              {cases.map((item) => (
+                <a class="guide-card" href={`/usecases/${item.id}/`}>
+                  <span class="logo-stack">
+                    {item.data.tools.slice(0, 3).map((tool) => {
+                      const row = ranked.find((candidate) => candidate.tool.id === tool.slug);
+                      return row ? <ToolLogo slug={row.tool.id} name={row.tool.data.name} size={32} /> : null;
+                    })}
+                  </span>
+                  <span>
+                    <strong>「{item.data.title}」</strong>
+                    <p>{item.data.description}</p>
+                  </span>
+                </a>
+              ))}
+            </div>
           </section>
-          <Newsletter />
-          <p class="note"><a href="/rss.xml">RSSでも購読できます。</a></p>
         </div>
+        <Sidebar mode="home" />
       </div>
     </div>
   </div>
@@ -108,7 +112,6 @@ const jsonLd = pageGraph({
         tab.setAttribute("aria-selected", tab.getAttribute("aria-controls") === id ? "true" : "false");
       }
       for (const panel of panels) panel.hidden = panel.id !== id;
-      root.classList.add("ready");
     };
     const first = panels[0]?.id;
     if (first) select(first);

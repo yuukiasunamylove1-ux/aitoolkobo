@@ -1,12 +1,15 @@
 ---
 import Base from "../../layouts/Base.astro";
+import Shell from "../../components/Shell.astro";
+import ToolLogo from "../../components/ToolLogo.astro";
 import { absoluteUrl } from "../../lib/labels";
-import { usecases } from "../../lib/queries";
+import { rankedTools, usecases } from "../../lib/queries";
 import { pageGraph } from "../../lib/seo";
 
 const description = "やりたいことからツールを選ぶページです。並びはスコア順ではなく、用途への適合として編集部が並べています。";
 const site = Astro.site!;
 const items = await usecases();
+const ranked = await rankedTools();
 const jsonLd = pageGraph({
   site: site.href,
   url: absoluteUrl("/usecases/", site),
@@ -16,18 +19,26 @@ const jsonLd = pageGraph({
 ---
 
 <Base title="用途別おすすめ" description={description} jsonLd={jsonLd}>
-  <div class="page">
-    <div class="wrap measure">
-      <h1>用途別</h1>
-      <p class="lede">{description}</p>
-      <ol class="guide-list">
-        {items.map((item, index) => (
-          <li>
-            <a href={`/usecases/${item.id}/`}>{index + 1}. {item.data.title}</a>
-            <p class="note">{item.data.description}</p>
-          </li>
-        ))}
-      </ol>
+  <Shell mode="plain">
+    <div class="section-head">
+      <h1>用途別ガイド</h1>
     </div>
-  </div>
+    <p class="lede">{description}</p>
+    <div class="guide-grid">
+      {items.map((item) => (
+        <a class="guide-card" href={`/usecases/${item.id}/`}>
+          <span class="logo-stack">
+            {item.data.tools.slice(0, 3).map((tool) => {
+              const row = ranked.find((candidate) => candidate.tool.id === tool.slug);
+              return row ? <ToolLogo slug={row.tool.id} name={row.tool.data.name} size={32} /> : null;
+            })}
+          </span>
+          <span>
+            <strong>「{item.data.title}」</strong>
+            <p>{item.data.description}</p>
+          </span>
+        </a>
+      ))}
+    </div>
+  </Shell>
 </Base>
