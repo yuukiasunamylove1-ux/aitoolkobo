@@ -1,0 +1,47 @@
+---
+import Base from "../layouts/Base.astro";
+import ToolRow from "../components/ToolRow.astro";
+import { absoluteUrl } from "../lib/labels";
+import { rankedTools } from "../lib/queries";
+import { pageGraph } from "../lib/seo";
+
+const description = "掲載ツールを名前と説明から探します。";
+const site = Astro.site!;
+const tools = await rankedTools();
+const jsonLd = pageGraph({
+  site: site.href,
+  url: absoluteUrl("/search/", site),
+  name: "検索",
+  description,
+});
+---
+
+<Base title="検索" description={description} jsonLd={jsonLd}>
+  <div class="page">
+    <div class="wrap">
+      <h1>検索</h1>
+      <p class="note" data-search-count>掲載 {tools.length}件</p>
+      <noscript><p class="note">絞り込みにはJavaScriptを使います。オフのときは全件を表示します。</p></noscript>
+      <ol class="tool-list" data-search-list>
+        {tools.map((row) => <ToolRow row={row} showCategory />)}
+      </ol>
+    </div>
+  </div>
+</Base>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const query = (params.get("q") ?? "").trim().toLowerCase();
+  const list = document.querySelector("[data-search-list]");
+  const count = document.querySelector("[data-search-count]");
+  if (list instanceof HTMLElement && query) {
+    let shown = 0;
+    for (const row of list.querySelectorAll<HTMLElement>("[data-tool]")) {
+      const hay = `${row.dataset.name ?? ""} ${row.dataset.text ?? ""}`.toLowerCase();
+      const match = hay.includes(query);
+      row.hidden = !match;
+      if (match) shown += 1;
+    }
+    if (count) count.textContent = `「${params.get("q")?.trim() ?? ""}」 ${shown}件`;
+  }
+</script>

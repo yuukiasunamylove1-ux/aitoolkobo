@@ -2,7 +2,10 @@
 import { getCollection, getEntry, render } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import Breadcrumb from "../../components/Breadcrumb.astro";
-import { THEMES, absoluteUrl } from "../../lib/labels";
+import ToolRow from "../../components/ToolRow.astro";
+import { priceView } from "../../lib/display";
+import { absoluteUrl } from "../../lib/labels";
+import { rankedTools } from "../../lib/queries";
 import { pageGraph } from "../../lib/seo";
 
 export async function getStaticPaths() {
@@ -14,17 +17,15 @@ const { slug } = Astro.params;
 const entry = await getEntry("usecases", slug);
 if (!entry) throw new Error(`unknown usecase ${slug}`);
 const { Content } = await render(entry);
-const theme = THEMES[entry.data.theme];
 const site = Astro.site!;
 const url = absoluteUrl(`/usecases/${entry.id}/`, site);
+const catalog = await rankedTools();
 
-const tools = await Promise.all(
-  entry.data.tools.map(async (item) => {
-    const tool = await getEntry("tools", item.slug);
-    if (!tool) throw new Error(`usecase ${entry.id} missing tool ${item.slug}`);
-    return { ...item, tool };
-  }),
-);
+const tools = entry.data.tools.map((item) => {
+  const row = catalog.find((candidate) => candidate.tool.id === item.slug);
+  if (!row) throw new Error(`usecase ${entry.id} missing tool ${item.slug}`);
+  return { ...item, row };
+});
 
 const jsonLd = [
   pageGraph({
@@ -42,37 +43,59 @@ const jsonLd = [
     itemListElement: tools.map((item, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      name: item.tool.data.name,
-      url: absoluteUrl(`/tools/${item.tool.id}/`, site),
+      name: item.row.tool.data.name,
+      url: absoluteUrl(`/tools/${item.row.tool.id}/`, site),
     })),
   },
 ];
 ---
 
 <Base title={entry.data.title} description={entry.data.description} jsonLd={jsonLd}>
-  <article class="page-intro">
-    <div class="wrap prose">
-      <Breadcrumb
-        items={[
-          { name: "ホーム", href: "/" },
-          { name: "用途別おすすめ", href: "/usecases/" },
-          { name: entry.data.title, href: `/usecases/${entry.id}/` },
-        ]}
-      />
-      <p class="kicker">{theme.name}</p>
-      <h1>{entry.data.title}</h1>
-      <p class="lede">{entry.data.description}</p>
-      <p class="fine">この並びはスコア順ではありません。点数の内訳は各ツールページにあります。</p>
-      <ol class="rank-list">
+  <article class="page">
+    <div class="wrap">
+      <div class="measure">
+        <Breadcrumb
+          items={[
+            { name: "ホーム", href: "/" },
+            { name: "用途別", href: "/usecases/" },
+            { name: entry.data.title, href: `/usecases/${entry.id}/` },
+          ]}
+        />
+        <h1>{entry.data.title}</h1>
+        <p class="lede">{entry.data.description}</p>
+        <p class="note">更新の基準日は各ツールの確認日です。この並びはスコア順ではありません。</p>
+        <h2>結論</h2>
+      </div>
+      <ol class="tool-list">
         {tools.map((item, index) => (
-          <li class="card">
-            <p class="kicker">{index + 1}</p>
-            <h2><a href={`/tools/${item.tool.id}/`}>{item.tool.data.name}</a></h2>
-            <p>{item.reason}</p>
-          </li>
+          <ToolRow row={item.row} rank={index + 1} blurb={item.reason} showCategory />
         ))}
       </ol>
-      <Content />
+      <h2>選び方</h2>
+        <table class="data">
+          <caption>この用途での位置づけ</caption>
+          <thead>
+            <tr>
+              <th>順</th>
+              <th>ツール</th>
+              <th>理由</th>
+              <th>料金</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tools.map((item, index) => (
+              <tr>
+                <td class="num">{index + 1}</td>
+                <td><a href={`/tools/${item.row.tool.id}/`}>{item.row.tool.data.name}</a></td>
+                <td>{item.reason}</td>
+                <td class="num" title={priceView(item.row.tool.data.pricing).title}>{priceView(item.row.tool.data.pricing).text}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div class="measure">
+        <Content />
+        </div>
     </div>
   </article>
 </Base>

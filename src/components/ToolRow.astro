@@ -1,0 +1,65 @@
+---
+import ToolLogo from "./ToolLogo.astro";
+import { jaPhrase, JA_MARK, JA_WORD, priceView, rowMeta } from "../lib/display";
+import { formatScore } from "../lib/score";
+import type { RankedTool } from "../lib/queries";
+import type { SupportLevel } from "../lib/schema";
+
+interface Props {
+  row: RankedTool;
+  rank?: number;
+  blurb?: string;
+  showCategory?: boolean;
+  loose?: boolean;
+}
+const { row, rank, blurb, showCategory = false, loose = false } = Astro.props;
+const { tool, category, score } = row;
+const price = priceView(tool.data.pricing);
+const meta = rowMeta(tool.data);
+const marks = (["ui", "input", "output"] as const).map((key) => ({
+  key,
+  level: tool.data.japanese[key] as SupportLevel,
+}));
+---
+
+<li
+  class:list={["tool-row", { loose, "no-rank": rank == null }]}
+  data-tool
+  data-name={tool.data.name}
+  data-text={`${tool.data.description} ${category.data.name} ${blurb ?? ""}`}
+  data-free={meta.free ? "1" : "0"}
+  data-ja={meta.ja ? "1" : "0"}
+  data-self={meta.self ? "1" : "0"}
+  data-oss={meta.oss ? "1" : "0"}
+  data-price={meta.price ?? ""}
+  data-added={meta.added}
+  data-score={score.total}
+>
+  {rank != null && <span class:list={["rank", { first: rank === 1 }]}>{rank}</span>}
+  <div class="name-cell">
+    <ToolLogo slug={tool.id} name={tool.data.name} size={32} />
+    <div class="text">
+      <a class="tool-link" href={`/tools/${tool.id}/`}>{tool.data.name}</a>
+      {showCategory && <span class="cat-label">{category.data.name}</span>}
+      <p class="blurb">{blurb ?? tool.data.description}</p>
+      {loose && (meta.oss || meta.self) && (
+        <p>
+          {meta.oss && <span class="tag">OSS</span>}
+          {meta.self && <span class="tag">セルフホスト</span>}
+        </p>
+      )}
+    </div>
+  </div>
+  <span class="price-cell" title={price.title}>{price.text}</span>
+  <span class="ja-cell" title={jaPhrase(tool.data.japanese)}>
+    {marks.map((mark) => (
+      <abbr class:list={["mark", mark.level]} title={`${mark.key === "ui" ? "UI" : mark.key === "input" ? "入力" : "出力"} ${JA_WORD[mark.level]}`}>
+        {mark.key === "ui" ? "UI" : mark.key === "input" ? "入" : "出"}{JA_MARK[mark.level]}
+      </abbr>
+    ))}
+  </span>
+  <span class="score-cell" aria-label={`スコア ${formatScore(score.total)}（100点満点）`}>
+    <span class="score-num">{formatScore(score.total)}</span>
+    <span class="score-bar" style={`--p:${score.total}%`} aria-hidden="true"></span>
+  </span>
+</li>
