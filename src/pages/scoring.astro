@@ -32,11 +32,11 @@ const faqs = [
   },
   {
     q: "円建てが無くても価格点は付きますか？",
-    a: "公式の月額（米ドルまたはユーロ）が確認できれば、その通貨の帯で価格点を付けます。円への換算はしません。月額自体が未確認なら価格点も未確認です。",
+    a: "価格点は公式の月額（米ドルまたはユーロ）の帯で付け、円へは換算しません。一覧の「約¥」は表示用の概算で、点数には使いません。月額自体が未確認なら価格点も未確認です。",
   },
   {
     q: "同じカテゴリ以外と比べますか？",
-    a: "ランキングはカテゴリの中だけです。トップページのテーマ別スコアは、その棚の中の最高点を示す参考値です。",
+    a: "ランキングはカテゴリの中だけです。ホームのタブは、そのテーマの中でのスコア順です。",
   },
 ];
 
@@ -62,8 +62,8 @@ const weightSum = Object.values(WEIGHTS).reduce((sum, value) => sum + value, 0);
 ---
 
 <Base title="評価基準" description={description} jsonLd={jsonLd}>
-  <article class="page-intro">
-    <div class="wrap prose">
+  <article class="page">
+    <div class="wrap prose measure">
       <h1>評価基準</h1>
       <p class="lede">
         カテゴリ内の順位は、次の式だけで決まります。編集部の感想を、式と別に加算することはありません。
@@ -73,7 +73,7 @@ const weightSum = Object.values(WEIGHTS).reduce((sum, value) => sum + value, 0);
       <p>
         各項目は5点満点です。確認できた項目だけを使い、重みを合計100%に割り戻します。
       </p>
-      <p class="panel card">
+      <p>
         得点 = Σ（素点 ÷ 5 × 有効な重み%）<br />
         有効な重み% = その項目の設定重み ÷ 確認できた項目の重み合計 × 100
       </p>
@@ -148,7 +148,7 @@ const weightSum = Object.values(WEIGHTS).reduce((sum, value) => sum + value, 0);
         </tbody>
       </table>
       <p class="fine">
-        入力や出力が、利用者が選ぶモデル次第のビルダーは、品質を推定せず未確認にします。未確認が一つでもあれば、この表は使いません。
+        入力や出力が、利用者が選ぶモデル次第のビルダーは、品質を推定せず未確認にします。未確認が一つでもあれば、この表は使いません。一覧では未確認を — と書きます。
       </p>
 
       <h2>価格</h2>

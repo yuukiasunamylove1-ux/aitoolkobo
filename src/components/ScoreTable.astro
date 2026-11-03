@@ -8,13 +8,13 @@ const { score } = Astro.props;
 const format = (value: number) => value.toFixed(1);
 ---
 
-<div class="panel card">
-  <h2>スコア {formatScore(score.total)}</h2>
+<div>
   <p class="fine">
-    100点満点。未確認の項目（合計 {score.excludedWeight}%）は外し、残りの重みを100%に割り戻しています。式は<a href="/scoring/">評価基準</a>と同じです。寄与の表示は小数第1位で、合計は丸める前の値です。
+    100点満点。確認できない項目（合計 {score.excludedWeight}%）は外し、残りの重みを100%に割り戻しています。表の — は未確認です。式は<a href="/scoring/">評価基準</a>と同じです。
   </p>
   <div class="table-scroll">
-  <table>
+  <table class="data">
+    <caption>スコア内訳 {formatScore(score.total)}</caption>
     <thead>
       <tr>
         <th>項目</th>
@@ -28,10 +28,10 @@ const format = (value: number) => value.toFixed(1);
       {score.rows.map((row) => (
         <tr>
           <th scope="row">{row.label}</th>
-          <td class="nums">{row.raw == null ? "未確認" : `${row.raw} / 5`}</td>
-          <td class="nums">{row.weight}%</td>
-          <td class="nums">{row.included ? `${format(row.effectiveWeight)}%` : "—"}</td>
-          <td class="nums">{row.included ? format(row.contribution) : "—"}</td>
+          <td class="num" title={row.raw == null ? "未確認" : undefined}>{row.raw == null ? "—" : `${row.raw} / 5`}</td>
+          <td class="num">{row.weight}%</td>
+          <td class="num">{row.included ? `${format(row.effectiveWeight)}%` : "—"}</td>
+          <td class="num">{row.included ? format(row.contribution) : "—"}</td>
         </tr>
       ))}
     </tbody>

@@ -3,7 +3,11 @@ import { getCollection, getEntry } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import Breadcrumb from "../../components/Breadcrumb.astro";
 import ScoreTable from "../../components/ScoreTable.astro";
-import { SUPPORT_LABEL, TIER_LABEL, THEMES, absoluteUrl, formatDate } from "../../lib/labels";
+import ToolLogo from "../../components/ToolLogo.astro";
+import ToolRow from "../../components/ToolRow.astro";
+import { FX_NOTE, JA_MARK, JA_WORD, priceView } from "../../lib/display";
+import { TIER_LABEL, absoluteUrl, formatDate } from "../../lib/labels";
+import { toolsInCategory } from "../../lib/queries";
 import { breakdownFor } from "../../lib/score";
 import { pageGraph } from "../../lib/seo";
 import type { SupportLevel } from "../../lib/schema";
@@ -20,10 +24,15 @@ const category = await getEntry("categories", tool.data.category);
 if (!category) throw new Error(`unknown category ${tool.data.category}`);
 
 const score = breakdownFor(tool.data);
-const theme = THEMES[category.data.theme];
+const price = priceView(tool.data.pricing);
 const site = Astro.site!;
 const url = absoluteUrl(`/tools/${tool.id}/`, site);
-const yen = tool.data.pricing.yenAmount;
+const peers = (await toolsInCategory(category.id)).filter((row) => row.tool.id !== tool.id).slice(0, 5);
+const levels = [
+  { key: "ui" as const, label: "UI" },
+  { key: "input" as const, label: "入力" },
+  { key: "output" as const, label: "出力" },
+];
 
 const software: Record<string, unknown> = {
   "@context": "https://schema.org",
@@ -43,12 +52,6 @@ if (tool.data.pricing.monthlyAmount != null && tool.data.pricing.currency) {
   };
 }
 
-const levels: { key: "ui" | "input" | "output"; label: string }[] = [
-  { key: "ui", label: "UI" },
-  { key: "input", label: "日本語入力" },
-  { key: "output", label: "日本語出力" },
-];
-
 const jsonLd = [
   pageGraph({ site: site.href, url, name: tool.data.name, description: tool.data.description }),
   software,
@@ -56,71 +59,106 @@ const jsonLd = [
 ---
 
 <Base title={tool.data.name} description={tool.data.description} jsonLd={jsonLd}>
-  <article class="page-intro">
+  <article class="page">
     <div class="wrap">
       <Breadcrumb
         items={[
           { name: "ホーム", href: "/" },
-          { name: "カテゴリ", href: "/categories/" },
           { name: category.data.name, href: `/categories/${category.id}/` },
           { name: tool.data.name, href: `/tools/${tool.id}/` },
         ]}
       />
-      <p class="kicker">{theme.name} / {category.data.name}</p>
-      <h1>{tool.data.name}</h1>
-      <p class="lede">{tool.data.detail}</p>
-      <ul class="meta">
-        {tool.data.platforms.map((platform) => <li>{platform}</li>)}
-        <li>追加日 {formatDate(tool.data.addedAt)}</li>
-        <li>確認日 {formatDate(tool.data.lastChecked)}</li>
-      </ul>
-      <p><a href={tool.data.url}>公式サイト</a></p>
+      <header class="tool-head">
+        <div class="tool-id">
+          <ToolLogo slug={tool.id} name={tool.data.name} size={48} />
+          <div>
+            <h1>{tool.data.name}</h1>
+            <p>{category.data.name} · {tool.data.platforms.join(" · ")} · 確認日 {formatDate(tool.data.lastChecked)}</p>
+          </div>
+        </div>
+        <a class="out" href={tool.data.url}>公式サイト ↗</a>
+      </header>
 
-      <div class="split">
-        <ScoreTable score={score} />
-        <div class="stack">
-          <section class="panel card">
-            <h2>料金</h2>
-            <p><span class="pill">{TIER_LABEL[tool.data.pricing.tier]}</span></p>
-            <p>{tool.data.pricing.label}</p>
-            <p>
-              <strong>円建て：</strong>
-              {yen == null ? "未確認" : `¥${yen.toLocaleString("ja-JP")}`}
-            </p>
-            <p class="fine"><a href={tool.data.pricing.sourceUrl}>料金の参照元</a></p>
-          </section>
-          <section class="panel card">
-            <h2>日本語対応</h2>
-            <dl class="support-grid">
+      <div class="tool-layout">
+        <div>
+          <p>{tool.data.detail}</p>
+          <ScoreTable score={score} />
+
+          <table class="data">
+            <caption>料金</caption>
+            <thead>
+              <tr>
+                <th>区分</th>
+                <th>月額</th>
+                <th>円の目安</th>
+                <th>備考</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{TIER_LABEL[tool.data.pricing.tier]}</td>
+                <td class="num">
+                  {tool.data.pricing.monthlyAmount != null && tool.data.pricing.currency
+                    ? `${tool.data.pricing.currency === "USD" ? "$" : tool.data.pricing.currency === "EUR" ? "€" : "¥"}${tool.data.pricing.monthlyAmount}`
+                    : "—"}
+                </td>
+                <td class="num" title={price.title}>{price.yenText}</td>
+                <td>{tool.data.pricing.short}</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="note">{FX_NOTE} 出典: <a href={tool.data.pricing.sourceUrl}>料金の参照元</a></p>
+
+          <h2>編集部メモ</h2>
+          <ul>
+            <li>機能：{tool.data.editorial.features.note}</li>
+            <li>使いやすさ：{tool.data.editorial.usability.note}</li>
+            <li>更新頻度：{tool.data.editorial.updates.note}</li>
+          </ul>
+          <h2>参照</h2>
+          <ul>
+            {tool.data.sources.map((source) => (
+              <li><a href={source.url}>{source.label}</a>（確認日 {formatDate(tool.data.lastChecked)}）</li>
+            ))}
+          </ul>
+        </div>
+        <aside class="spec">
+          <h2>要点</h2>
+          <dl class="spec-list">
+            <dt>スコア</dt>
+            <dd>{score.total.toFixed(1)} / 100</dd>
+            <dt>料金</dt>
+            <dd title={price.title}>{price.text}</dd>
+            <dt>円換算</dt>
+            <dd title={price.title}>{price.yenText}</dd>
+            <dt>日本語</dt>
+            <dd>
               {levels.map((level) => {
                 const value = tool.data.japanese[level.key] as SupportLevel;
                 return (
-                  <div>
-                    <dt>{level.label}</dt>
-                    <dd><span class={`pill ${value}`}>{SUPPORT_LABEL[value]}</span></dd>
-                  </div>
+                  <abbr class:list={["mark", value]} title={`${level.label} ${JA_WORD[value]}`}>
+                    {level.label}{JA_MARK[value]}
+                  </abbr>
                 );
               })}
-            </dl>
-            <p class="fine">{tool.data.japanese.note}</p>
-          </section>
-        </div>
+            </dd>
+            <dt>動作</dt>
+            <dd>{tool.data.platforms.join(" / ")}</dd>
+            <dt>OSS</dt>
+            <dd>{tool.data.pricing.tier === "open-source" ? "○" : "×"}</dd>
+          </dl>
+          <p class="note">{tool.data.japanese.note}</p>
+        </aside>
       </div>
 
-      <section class="section">
-        <h2>編集部メモ</h2>
-        <ul>
-          <li>機能：{tool.data.editorial.features.note}</li>
-          <li>使いやすさ：{tool.data.editorial.usability.note}</li>
-          <li>更新頻度：{tool.data.editorial.updates.note}</li>
-        </ul>
-        <h2>参照</h2>
-        <ul>
-          {tool.data.sources.map((source) => (
-            <li><a href={source.url}>{source.label}</a></li>
-          ))}
-        </ul>
-      </section>
+      {peers.length > 0 && (
+        <section>
+          <h2>同じカテゴリ</h2>
+          <ol class="tool-list">
+            {peers.map((row, index) => <ToolRow row={row} rank={index + 1} />)}
+          </ol>
+        </section>
+      )}
     </div>
   </article>
 </Base>

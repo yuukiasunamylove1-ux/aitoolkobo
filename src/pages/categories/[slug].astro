@@ -2,8 +2,9 @@
 import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import Breadcrumb from "../../components/Breadcrumb.astro";
-import RankRow from "../../components/RankRow.astro";
-import { THEMES, absoluteUrl } from "../../lib/labels";
+import ToolRow from "../../components/ToolRow.astro";
+import { FX_NOTE } from "../../lib/display";
+import { absoluteUrl } from "../../lib/labels";
 import { toolsInCategory } from "../../lib/queries";
 import { pageGraph } from "../../lib/seo";
 
@@ -18,7 +19,6 @@ const category = categories.find((item) => item.id === slug);
 if (!category) throw new Error(`unknown category ${slug}`);
 
 const rows = await toolsInCategory(category.id);
-const theme = THEMES[category.data.theme];
 const description = `${category.data.name}のランキング。${category.data.description}`;
 const site = Astro.site!;
 const url = absoluteUrl(`/categories/${category.id}/`, site);
@@ -42,8 +42,8 @@ const jsonLd = [
 ---
 
 <Base title={category.data.name} description={description} jsonLd={jsonLd}>
-  <section class="page-intro">
-    <div class="wrap">
+  <div class="page">
+    <div class="wrap" data-catalog>
       <Breadcrumb
         items={[
           { name: "ホーム", href: "/" },
@@ -51,15 +51,67 @@ const jsonLd = [
           { name: category.data.name, href: `/categories/${category.id}/` },
         ]}
       />
-      <p class="kicker">{theme.name}</p>
-      <h1>{category.data.name}</h1>
+      <h1>{category.data.name} <span class="note">({rows.length}件)</span></h1>
       <p class="lede">{category.data.description}</p>
-      <p class="callout">
-        順位は公開した式の得点です。日本語対応や月額を確認できない項目は配点から外し、残りの重みで100点に割り戻します。仕事の違うカテゴリとは比べていません。
+      <details class="filters" open>
+        <summary>絞り込みと並び替え</summary>
+        <div class="filters-row">
+          <span>並び替え</span>
+          <select data-sort aria-label="並び替え">
+            <option value="score">スコア</option>
+            <option value="price">料金</option>
+            <option value="new">新着</option>
+          </select>
+          <label><input type="checkbox" data-filter="free" /> 無料枠</label>
+          <label><input type="checkbox" data-filter="ja" /> 日本語UI</label>
+          <label><input type="checkbox" data-filter="self" /> セルフホスト</label>
+          <label><input type="checkbox" data-filter="oss" /> OSS</label>
+        </div>
+      </details>
+      <noscript><p class="note">絞り込みと並び替えの切り替えにはJavaScriptを使います。オフのときはスコア順の全件です。</p></noscript>
+      <ol class="tool-list" data-tool-list>
+        {rows.map((row, index) => <ToolRow row={row} rank={index + 1} loose />)}
+      </ol>
+      <p class="legend">
+        順位は<a href="/scoring/">公開した式</a>です。確認できない項目は配点から外します。{FX_NOTE} 日本語の — は未確認です。
       </p>
-      <div class="rank-list">
-        {rows.map((row, index) => <RankRow row={row} rank={index + 1} />)}
-      </div>
     </div>
-  </section>
+  </div>
 </Base>
+
+<script>
+  const root = document.querySelector("[data-catalog]");
+  if (root instanceof HTMLElement) {
+    const list = root.querySelector("[data-tool-list]");
+    const sort = root.querySelector<HTMLSelectElement>("[data-sort]");
+    const filters = [...root.querySelectorAll<HTMLInputElement>("[data-filter]")];
+    const apply = () => {
+      if (!(list instanceof HTMLElement) || !sort) return;
+      const rows = [...list.querySelectorAll<HTMLElement>("[data-tool]")];
+      const active = filters.filter((input) => input.checked).map((input) => input.dataset.filter ?? "");
+      for (const row of rows) {
+        row.hidden = active.some((key) => row.dataset[key] !== "1");
+      }
+      const visible = rows.filter((row) => !row.hidden);
+      visible.sort((a, b) => {
+        if (sort.value === "price") {
+          const ap = a.dataset.price === "" ? Number.POSITIVE_INFINITY : Number(a.dataset.price);
+          const bp = b.dataset.price === "" ? Number.POSITIVE_INFINITY : Number(b.dataset.price);
+          return ap - bp;
+        }
+        if (sort.value === "new") return (b.dataset.added ?? "").localeCompare(a.dataset.added ?? "");
+        return Number(b.dataset.score) - Number(a.dataset.score);
+      });
+      for (const row of visible) list.append(row);
+      visible.forEach((row, index) => {
+        const rank = row.querySelector(".rank");
+        if (rank) {
+          rank.textContent = String(index + 1);
+          rank.classList.toggle("first", index === 0);
+        }
+      });
+    };
+    sort?.addEventListener("change", apply);
+    for (const input of filters) input.addEventListener("change", apply);
+  }
+</script>
