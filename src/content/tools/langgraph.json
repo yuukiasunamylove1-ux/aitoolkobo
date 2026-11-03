@@ -4,17 +4,17 @@
   "url": "https://www.langchain.com/langgraph",
   "category": "agent-frameworks",
   "description": "状態を持つエージェントの流れをコードで書くフレームワークです。本番サーバの料金は別で未確認です。",
-  "detail": "グラフとしてエージェントの分岐や中断を書けます。フレームワーク本体は MIT、という2026年の解説が複数あります。一方、公式の本番サーバ langgraph-api は別ライセンスで商用キーが要る、という指摘があります。価格点はライブラリを購読なしで書けることに基づき、本番サーバの料金は未確認のまま外しています。円建ては未確認です。",
+  "detail": "状態を持つエージェントの流れを書くフレームワークとして掲載しています。2026-11-04の公式サイトでは、ライセンス料の有無を断定できる記載を確認できていません。",
   "platforms": [
     "ライブラリ"
   ],
   "pricing": {
-    "tier": "free",
+    "tier": "unknown",
     "currency": null,
     "monthlyAmount": null,
     "yenAmount": null,
-    "short": "ライブラリは購読なし",
-    "label": "ライブラリは購読なしで使えます（MIT という解説があります）。公式の本番サーバは別ライセンスという指摘があり、その料金は未確認です。価格点はライブラリに基づきます。円建ては未確認です。",
+    "short": "料金は未確認",
+    "label": "2026-11-04に公式サイトを確認しましたが、個人向けの定額を断定できる記載はありませんでした。円建ても未確認です。",
     "sourceUrl": "https://www.langchain.com/langgraph"
   },
   "japanese": {
@@ -43,5 +43,8 @@
       "url": "https://www.langchain.com/langgraph"
     }
   ],
-  "lastChecked": "2026-11-03"
+  "lastChecked": "2026-11-04",
+  "commercialUse": "unknown",
+  "commercialNote": "公式ページで商用条件を確認できていません。",
+  "checks": []
 }

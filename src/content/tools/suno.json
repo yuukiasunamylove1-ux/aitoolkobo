@@ -43,5 +43,14 @@
       "url": "https://suno.com/pricing"
     }
   ],
-  "lastChecked": "2026-11-03"
+  "lastChecked": "2026-11-04",
+  "commercialUse": "unknown",
+  "commercialNote": "公式ページで商用条件を確認できていません。",
+  "checks": [
+    {
+      "field": "pricing",
+      "sourceUrl": "https://suno.com/pricing",
+      "checkedAt": "2026-11-04"
+    }
+  ]
 }

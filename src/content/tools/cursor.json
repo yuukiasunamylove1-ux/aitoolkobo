@@ -14,7 +14,7 @@
     "monthlyAmount": 8,
     "yenAmount": null,
     "short": "Plus 月$8〜",
-    "label": "公式ドキュメントの新規向け料金は Free $0、Plus 月$8、Premium 月$30、Super 月$100、Ultra 月$200（税別）。年払いは Plus が年$80。旧プランの Pro は月$20で、既存契約向けです。円建ては未確認です。",
+    "label": "公式ドキュメントの新規向け料金は Free $0、Plus 月$8、Premium 月$30、Super 月$100、Ultra 月$200（税別）。年払いは Plus が年$80。円建ては未確認です。",
     "sourceUrl": "https://cursor.com/docs/models-and-pricing"
   },
   "japanese": {
@@ -43,5 +43,14 @@
       "url": "https://cursor.com/docs/models-and-pricing"
     }
   ],
-  "lastChecked": "2026-11-03"
+  "lastChecked": "2026-11-04",
+  "commercialUse": "unknown",
+  "commercialNote": "公式ページで商用条件を確認できていません。",
+  "checks": [
+    {
+      "field": "pricing",
+      "sourceUrl": "https://cursor.com/docs/models-and-pricing",
+      "checkedAt": "2026-11-04"
+    }
+  ]
 }

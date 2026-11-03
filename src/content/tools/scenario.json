@@ -14,7 +14,7 @@
     "monthlyAmount": 15,
     "yenAmount": null,
     "short": "Starter 月$15〜",
-    "label": "公式料金ページでは Starter 月$15、Pro 月$45、Max 月$75。無料枠は50クレジットで、日次と総量のどちらを指すかはページ内の表記が分かれるため断定しません。有料プランは商用利用を含む、と説明されています。円建ては未確認です。",
+    "label": "公式の月額は Starter $15、Pro $45、Max $75。無料枠は50クレジットとあり、日次かどうかはページ内の表記が分かれます。価格点は Starter の月$15です。円建ては未確認です。",
     "sourceUrl": "https://www.scenario.com/pricing"
   },
   "japanese": {
@@ -43,5 +43,19 @@
       "url": "https://www.scenario.com/pricing"
     }
   ],
-  "lastChecked": "2026-11-03"
+  "lastChecked": "2026-11-04",
+  "commercialUse": "restricted",
+  "commercialNote": "公式FAQは、有料プランの生成物は商用でき、無料プランは個人と評価用途だけだと書いています。",
+  "checks": [
+    {
+      "field": "pricing",
+      "sourceUrl": "https://www.scenario.com/pricing",
+      "checkedAt": "2026-11-04"
+    },
+    {
+      "field": "commercial",
+      "sourceUrl": "https://www.scenario.com/pricing",
+      "checkedAt": "2026-11-04"
+    }
+  ]
 }

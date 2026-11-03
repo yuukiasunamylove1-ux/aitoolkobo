@@ -14,8 +14,8 @@
     "monthlyAmount": 12,
     "yenAmount": null,
     "short": "Essential 月$12〜",
-    "label": "Leonardo の比較記事では、無料枠のあと Essential が月額請求で $12、年額請求なら月あたり $10。Premium は月$30、Ultimate は月$60。価格点は月$12を使います。円建ては未確認です。",
-    "sourceUrl": "https://leonardo.ai/news/midjourney-vs-leonardo-ai"
+    "label": "公式料金は Free が $0（ファストトークン1日150）、Essential が月$12、Premium が月$30、Ultimate が月$60（税別）です。価格点は Essential の月$12です。円建ては未確認です。",
+    "sourceUrl": "https://leonardo.ai/pricing"
   },
   "japanese": {
     "ui": "unknown",
@@ -43,5 +43,19 @@
       "url": "https://leonardo.ai/news/midjourney-vs-leonardo-ai"
     }
   ],
-  "lastChecked": "2026-11-03"
+  "lastChecked": "2026-11-04",
+  "commercialUse": "restricted",
+  "commercialNote": "公式FAQは商用利用を認めています。有料は生成画像の権利を利用者に残し、無料は非独占の無償ライセンスです。",
+  "checks": [
+    {
+      "field": "pricing",
+      "sourceUrl": "https://leonardo.ai/pricing",
+      "checkedAt": "2026-11-04"
+    },
+    {
+      "field": "commercial",
+      "sourceUrl": "https://leonardo.ai/pricing",
+      "checkedAt": "2026-11-04"
+    }
+  ]
 }

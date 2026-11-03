@@ -15,7 +15,7 @@
     "monthlyAmount": 20,
     "yenAmount": null,
     "short": "Pro 月$20〜",
-    "label": "Claude Code は Pro（月$20）、Max（月$100）、Ultra（月$200）に含まれ、Free には含まれません。年払いの Pro は年$200です。価格点は月払いの Pro を使います。API利用は別料金です。円建ては未確認です。",
+    "label": "公式料金では Claude Code は Pro（月$20）、Max（月$100）、Ultra（月$200）に含まれ、Free にはありません。年払いの Pro は年$200です。価格点は月払い Pro の $20です。円建ては未確認です。",
     "sourceUrl": "https://claude.com/pricing"
   },
   "japanese": {
@@ -48,5 +48,14 @@
       "url": "https://claude.com/pricing"
     }
   ],
-  "lastChecked": "2026-11-03"
+  "lastChecked": "2026-11-04",
+  "commercialUse": "unknown",
+  "commercialNote": "公式ページで商用条件を確認できていません。",
+  "checks": [
+    {
+      "field": "pricing",
+      "sourceUrl": "https://claude.com/pricing",
+      "checkedAt": "2026-11-04"
+    }
+  ]
 }

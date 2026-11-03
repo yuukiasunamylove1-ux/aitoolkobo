@@ -21,7 +21,7 @@
     "ui": "supported",
     "input": "supported",
     "output": "supported",
-    "note": "日本語の読み上げが製品の目的で、公式サイトとエディタの案内が日本語です。"
+    "note": "公式サイトは日本語で、無料のテキスト読み上げ・歌声合成ソフトウェアと案内しています。"
   },
   "editorial": {
     "features": {
@@ -47,5 +47,34 @@
       "url": "https://voicevox.hiroshiba.jp/term/"
     }
   ],
-  "lastChecked": "2026-11-03"
+  "lastChecked": "2026-11-04",
+  "commercialUse": "restricted",
+  "commercialNote": "公式の利用規約は商用・非商用を問わず使えるとし、音声ライブラリごとの規約に従うよう書いています。",
+  "checks": [
+    {
+      "field": "ui",
+      "sourceUrl": "https://voicevox.hiroshiba.jp/",
+      "checkedAt": "2026-11-04"
+    },
+    {
+      "field": "input",
+      "sourceUrl": "https://voicevox.hiroshiba.jp/",
+      "checkedAt": "2026-11-04"
+    },
+    {
+      "field": "output",
+      "sourceUrl": "https://voicevox.hiroshiba.jp/",
+      "checkedAt": "2026-11-04"
+    },
+    {
+      "field": "pricing",
+      "sourceUrl": "https://voicevox.hiroshiba.jp/",
+      "checkedAt": "2026-11-04"
+    },
+    {
+      "field": "commercial",
+      "sourceUrl": "https://voicevox.hiroshiba.jp/term/",
+      "checkedAt": "2026-11-04"
+    }
+  ]
 }

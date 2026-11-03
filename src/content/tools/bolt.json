@@ -14,7 +14,7 @@
     "monthlyAmount": 25,
     "yenAmount": null,
     "short": "Pro 月$25〜",
-    "label": "公式料金ページでは Free が $0（月100万トークン、1日30万まで）、Pro が月$25から（月1000万トークン）。Teams は月$30/メンバー。価格点は Pro の月$25を使います。円建ては未確認です。",
+    "label": "公式料金は Free が $0（月100万トークン、1日30万まで）、Pro が月$25、Teams が月$30です。円建ては未確認です。",
     "sourceUrl": "https://bolt.new/pricing"
   },
   "japanese": {
@@ -43,5 +43,14 @@
       "url": "https://bolt.new/pricing"
     }
   ],
-  "lastChecked": "2026-11-03"
+  "lastChecked": "2026-11-04",
+  "commercialUse": "unknown",
+  "commercialNote": "公式ページで商用条件を確認できていません。",
+  "checks": [
+    {
+      "field": "pricing",
+      "sourceUrl": "https://bolt.new/pricing",
+      "checkedAt": "2026-11-04"
+    }
+  ]
 }

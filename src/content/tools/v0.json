@@ -14,7 +14,7 @@
     "monthlyAmount": 30,
     "yenAmount": null,
     "short": "Plus 月$30〜",
-    "label": "公式料金ページでは Free が月$0（1日7メッセージ）、Plus がユーザーあたり月$30、Business がユーザーあたり月$100。価格点は Plus の月$30を使います。円建ては未確認です。",
+    "label": "公式料金は Free が $0（1日7メッセージ）、Plus がユーザーあたり月$30、Business がユーザーあたり月$100です。表示はUSDで、円建ては未確認です。",
     "sourceUrl": "https://v0.app/pricing"
   },
   "japanese": {
@@ -43,5 +43,14 @@
       "url": "https://v0.app/pricing"
     }
   ],
-  "lastChecked": "2026-11-03"
+  "lastChecked": "2026-11-04",
+  "commercialUse": "unknown",
+  "commercialNote": "公式ページで商用条件を確認できていません。",
+  "checks": [
+    {
+      "field": "pricing",
+      "sourceUrl": "https://v0.app/pricing",
+      "checkedAt": "2026-11-04"
+    }
+  ]
 }

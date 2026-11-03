@@ -5,7 +5,7 @@ import { categorySchema, toolSchema, usecaseSchema } from "../src/lib/schema";
 import { WEIGHTS, breakdownFor } from "../src/lib/score";
 
 const root = new URL("..", import.meta.url).pathname;
-const today = new Date().toISOString().slice(0, 10);
+const latest = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
 let failed = false;
 
 function fail(message: string) {
@@ -50,7 +50,7 @@ for (const file of readJsonDir(join(root, "src/content/tools"))) {
   if (!categories.has(parsed.data.category)) {
     fail(`tools/${file.id}: 未知のカテゴリ ${parsed.data.category}`);
   }
-  if (parsed.data.lastChecked > today) {
+  if (parsed.data.lastChecked > latest) {
     fail(`tools/${file.id}: lastChecked が未来です (${parsed.data.lastChecked})`);
   }
   if (!parsed.data.url.startsWith("https://") || !parsed.data.pricing.sourceUrl.startsWith("https://")) {

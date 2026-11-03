@@ -3,18 +3,18 @@
   "name": "Replit",
   "url": "https://replit.com",
   "category": "ai-app-builders",
-  "description": "ブラウザの開発環境に Agent が付いた、アプリを作って公開するまでの一体型のサービスです。",
-  "detail": "Starter は無料です。公式料金では Core が月$20（年払いは月あたり$18）、Pro が月$100（年払いは月あたり$90）です。Agent の高機能モードはクレジットを消費します。価格点は月払い Core の $20 を使います。円建ては未確認です。",
+  "description": "ブラウザの開発環境と Agent です。公式料金ページには月$20と月$100の表示があります。",
+  "detail": "2026-11-04の公式料金ページには、月$20（年払いだと月あたり$18）と月$100（年払いだと月あたり$90）の表示があります。無料プランの有無とプラン名は、そのページの取得範囲では断定していません。円建ては未確認です。",
   "platforms": [
     "ブラウザ"
   ],
   "pricing": {
-    "tier": "freemium",
+    "tier": "subscription",
     "currency": "USD",
     "monthlyAmount": 20,
     "yenAmount": null,
-    "short": "Core 月$20〜",
-    "label": "公式料金ページでは Core が月$20、年払いだと月あたり$18。Pro は月$100、年払いだと月あたり$90。Starter は無料です。価格点は月払い Core の $20 を使います。円建ては未確認です。",
+    "short": "月$20〜",
+    "label": "公式料金ページは月$20（年払い表示は月あたり$18）と月$100（年払い表示は月あたり$90）を示します。プラン名と無料枠の有無は同じ取得では断定していません。価格点は月$20です。円建ては未確認です。",
     "sourceUrl": "https://replit.com/pricing"
   },
   "japanese": {
@@ -43,5 +43,14 @@
       "url": "https://replit.com/pricing"
     }
   ],
-  "lastChecked": "2026-11-03"
+  "lastChecked": "2026-11-04",
+  "commercialUse": "unknown",
+  "commercialNote": "公式ページで商用条件を確認できていません。",
+  "checks": [
+    {
+      "field": "pricing",
+      "sourceUrl": "https://replit.com/pricing",
+      "checkedAt": "2026-11-04"
+    }
+  ]
 }

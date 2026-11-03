@@ -3,19 +3,19 @@
   "name": "Zed",
   "url": "https://zed.dev",
   "category": "ai-code-editors",
-  "description": "動作の軽さを売りにしたコードエディタで、エディタ本体は無料、ソースも公開されています。",
-  "detail": "複数人での編集や AI アシスタント機能を備えたエディタです。本体を使うための購読は確認範囲では見当たりません。組み込み AI の有料プランの金額は未確認なので、価格点は「エディタ本体にライセンス料がない」ことに基づきます。円建ては未確認です。",
+  "description": "コードエディタです。Personal は無料、ホスト型AIの Pro は月$10からと公式料金にあります。",
+  "detail": "公式料金では Personal が $0、Pro が月$10（含まれるトークンは$5、超過は従量）、Business が席あたり月$30です。料金ページは Zed をオープンソースとも書いています。円建ては未確認です。",
   "platforms": [
     "デスクトップ"
   ],
   "pricing": {
-    "tier": "free",
-    "currency": null,
-    "monthlyAmount": null,
+    "tier": "freemium",
+    "currency": "USD",
+    "monthlyAmount": 10,
     "yenAmount": null,
-    "short": "エディタは無料",
-    "label": "エディタ本体は無料で、ソースが公開されています。ホスト型AIの月額は未確認です。価格点は本体のライセンス料がないことに基づき、AIの従量は含みません。円建ては未確認です。",
-    "sourceUrl": "https://zed.dev"
+    "short": "Pro 月$10〜",
+    "label": "公式料金は Personal が $0、Pro が月$10、Business が席あたり月$30。Pro は $5 分のトークンを含み、超過は従量です。円建ては未確認です。",
+    "sourceUrl": "https://zed.dev/pricing"
   },
   "japanese": {
     "ui": "unknown",
@@ -43,5 +43,14 @@
       "url": "https://zed.dev"
     }
   ],
-  "lastChecked": "2026-11-03"
+  "lastChecked": "2026-11-04",
+  "commercialUse": "unknown",
+  "commercialNote": "公式ページで商用条件を確認できていません。",
+  "checks": [
+    {
+      "field": "pricing",
+      "sourceUrl": "https://zed.dev/pricing",
+      "checkedAt": "2026-11-04"
+    }
+  ]
 }
